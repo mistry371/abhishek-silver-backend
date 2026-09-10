@@ -49,9 +49,15 @@ function mapError(error: SupabaseLikeError, context: string): AppError {
     case "over_sms_send_rate_limit":
     case "over_email_send_rate_limit":
       return new AppError("rate_limited");
+    case "email_not_confirmed":
+      return unauthorized("Please confirm your email address, then sign in.");
     default:
       if (error.status === 429) return new AppError("rate_limited");
-      logger.error({ code: error.code, status: error.status, context }, "Supabase auth request failed");
+      logger.error({ code: error.code, status: error.status, message: error.message, context }, "Supabase auth request failed");
+      if (error.status === 401 || error.status === 403) {
+        // Supabase rejected the project key itself (not the user's password).
+        return new AppError("server_error", "Sign-in isn't configured correctly on the server (Supabase URL or keys). Please check the API settings.");
+      }
       return new AppError("server_error");
   }
 }

@@ -32,13 +32,14 @@ adminAuthRouter.post("/auth/login", limiter, async (req, res) => {
     res.json({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken, expiresAt: tokens.expiresAt, admin: toAdminDto(admin) });
   } catch (error) {
     if (error instanceof AppError && (error.code === "unauthorized" || error.code === "forbidden")) {
+      // Never let audit logging turn a wrong-password response into a server error.
       await recordAudit(db(), actorOf(req), {
         module: "settings",
         action: "auth.login_failed",
         entityType: "admin_user",
         entityLabel: email,
         sensitive: true,
-      });
+      }).catch(() => undefined);
       // One message for wrong password and non-admin accounts, so staff emails can't be probed.
       throw new AppError("unauthorized", "The email or password is incorrect, or this account doesn't have admin access.");
     }

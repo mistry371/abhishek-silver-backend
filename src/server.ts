@@ -6,6 +6,7 @@ import { createConnection, setConnection } from "@/db/client";
 import { adminUsers, roles } from "@/db/schema";
 import { seedDatabase } from "@/db/seed";
 import { logger } from "@/lib/logger";
+import { reportInitialAdminIssue } from "@/services/diagnostics";
 import { createApp } from "./app";
 
 const connection = await createConnection({ databaseUrl: env.DATABASE_URL, pgliteDataDir: env.PGLITE_DATA_DIR });
@@ -38,6 +39,8 @@ async function ensureInitialAdmin() {
     logger.info({ email }, "Initial Super Admin created");
   } catch (error) {
     logger.error({ err: error, email }, "Could not create the initial Super Admin");
+    const detail = error instanceof Error ? error.message : "unknown error";
+    reportInitialAdminIssue(detail);
   }
 }
 await ensureInitialAdmin();

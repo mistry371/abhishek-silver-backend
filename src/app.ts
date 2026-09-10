@@ -8,6 +8,8 @@ import { corsOrigins, env } from "@/config/env";
 import { db } from "@/db/client";
 import "@/http/context";
 import { errorHandler, noStore, notFoundHandler } from "@/http/middleware";
+import { AppError } from "@/lib/errors";
+import { diagnosticsAuthorised, runDiagnostics } from "@/services/diagnostics";
 import { logger } from "@/lib/logger";
 import { accountRouter } from "@/modules/account/routes";
 import { adminRouter } from "@/modules/admin";
@@ -38,7 +40,13 @@ export function createApp() {
     }),
   );
 
-  app.get("/health", async (_req, res) => {
+  app.get("/health", async (req, res) => {
+    if (req.query.deep) {
+      if (!diagnosticsAuthorised(req.get("authorization"))) throw new AppError("not_found");
+      res.setHeader("Cache-Control", "no-store");
+      res.json({ status: "ok", ...(await runDiagnostics()) });
+      return;
+    }
     await db().execute(sql`select 1`);
     res.json({ status: "ok" });
   });
