@@ -1,0 +1,49 @@
+{
+  "name": "abhishek-silver-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node.js REST API for the Abhishek Silver jewellery platform (storefront + admin). PostgreSQL on Supabase in production; embedded PGlite for local development.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
+    "build": "tsup",
+    "start": "node --env-file-if-exists=.env dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file-if-exists=.env src/db/migrate.ts",
+    "db:seed": "tsx --env-file-if-exists=.env src/db/seed/run.ts",
+    "db:reset": "tsx --env-file-if-exists=.env src/db/reset.ts",
+    "admin:create": "tsx --env-file-if-exists=.env src/scripts/create-admin.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@supabase/supabase-js": "2.116.0",
+    "cors": "2.8.6",
+    "drizzle-orm": "0.45.2",
+    "express": "5.2.1",
+    "helmet": "8.3.0",
+    "jose": "6.2.12",
+    "multer": "2.3.0",
+    "pino": "10.3.1",
+    "pino-http": "11.0.0",
+    "postgres": "3.4.9",
+    "zod": "4.6.1"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.6",
+    "@types/multer": "2.2.0",
+    "@types/node": "22.20.2",
+    "@types/supertest": "7.2.1",
+    "drizzle-kit": "0.31.10",
+    "supertest": "7.2.2",
+    "tsup": "8.5.1",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

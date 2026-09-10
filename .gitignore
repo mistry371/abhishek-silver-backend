@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+coverage/
+
+# environment — never commit secrets (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# local development data
+.pglite/
+uploads/
+
+# logs & OS
+*.log
+.DS_Store
+
+# local tooling
+.claude/

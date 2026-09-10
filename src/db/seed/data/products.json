@@ -1,0 +1,2793 @@
+[
+  {
+    "legacyId": "p-001",
+    "slug": "aaravi-filigree-gold-band",
+    "sku": "G22K-RG-1001",
+    "name": "Aaravi Filigree Gold Band",
+    "type": "rings",
+    "sub": "bands",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 3.85,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 950
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 3.54,
+      "12": 3.7,
+      "14": 3.85,
+      "16": 4,
+      "18": 4.16,
+      "20": 4.31
+    },
+    "unavailableSizes": [
+      "20"
+    ],
+    "customization": [
+      "engraving",
+      "note"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1705326455036-0fab8ecba04d?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Aaravi filigree gold band with hand-finished detailing",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1655707063513-a08dad26440e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold band resting on a white surface",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A slender 22KT band traced with hand-finished filigree.",
+    "description": "Aaravi pairs a softly domed profile with delicate filigree that catches light from every angle. Slim enough to stack, substantial enough to wear alone, it is finished with a mirror polish inside for all-day comfort.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-28T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-002",
+    "slug": "solitaire-halo-diamond-ring",
+    "sku": "G18K-RG-1002",
+    "name": "Solitaire Halo Diamond Ring",
+    "type": "rings",
+    "sub": "solitaire",
+    "collections": [
+      "bridal-heritage"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 3.2,
+    "grossWeight": null,
+    "stoneWeight": 0.3,
+    "stoneDetails": "Round brilliant-cut diamonds",
+    "making": {
+      "type": "percentage",
+      "value": 14
+    },
+    "stoneCharges": 24500,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "low_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 2.94,
+      "12": 3.07,
+      "14": 3.2,
+      "16": 3.33,
+      "18": 3.46,
+      "20": 3.58
+    },
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1598560917807-1bae44bd2be8?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Solitaire diamond ring with pavé shoulders in gold",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1610109108120-7aeac1ae2c1f?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Diamond solitaire ring seen from above",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A luminous centre stone framed by a delicate halo in 18KT gold.",
+    "description": "Designed for proposals and milestones, this solitaire sets a round brilliant diamond within a fine halo that amplifies its sparkle. The tapered shank keeps the silhouette light and elegant on the hand.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-12T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-003",
+    "slug": "twin-promise-couple-bands",
+    "sku": "G22K-RG-1003",
+    "name": "Twin Promise Couple Bands",
+    "type": "rings",
+    "sub": "couple-bands",
+    "collections": [
+      "bridal-heritage",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 7.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 880
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 6.81,
+      "12": 7.1,
+      "14": 7.4,
+      "16": 7.7,
+      "18": 7.99,
+      "20": 8.29
+    },
+    "unavailableSizes": [],
+    "customization": [
+      "engraving",
+      "note"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1622398925373-3f91b1e275f5?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Two interlocking gold bands on cream fabric",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1628926379972-9843ad139a8c?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of wedding bands on a white surface",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A matched pair of 22KT bands, sold together as a set.",
+    "description": "Twin Promise is a pair of comfort-fit bands with a gently rounded profile — one slightly broader, one finer. Each can be engraved with a date or name to make the set entirely your own.",
+    "flags": {
+      "featured": true,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-02T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-004",
+    "slug": "heritage-trio-stacking-rings",
+    "sku": "G22K-RG-1004",
+    "name": "Heritage Trio Stacking Rings",
+    "type": "rings",
+    "sub": "stackable",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 5.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 1020
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": {
+      "type": "percentage",
+      "value": 8,
+      "label": "Offer"
+    },
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 5.15,
+      "12": 5.38,
+      "14": 5.6,
+      "16": 5.82,
+      "18": 6.05,
+      "20": 6.27
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Three textured gold stacking rings",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1631982690223-8aa4be0a2497?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Three gold rings presented in a white box",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Three textured 22KT rings designed to be worn together or apart.",
+    "description": "A trio of rings in contrasting textures — beaded, twisted and polished — that layer beautifully. Wear all three for a heritage-inspired stack, or separate them across both hands.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-20T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-005",
+    "slug": "amethyst-crown-cocktail-ring",
+    "sku": "G18K-RG-1005",
+    "name": "Amethyst Crown Cocktail Ring",
+    "type": "rings",
+    "sub": "cocktail",
+    "collections": [
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 4.6,
+    "grossWeight": null,
+    "stoneWeight": 2.1,
+    "stoneDetails": "Amethyst centre stone",
+    "making": {
+      "type": "percentage",
+      "value": 16
+    },
+    "stoneCharges": 6800,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "low_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 4.23,
+      "12": 4.42,
+      "14": 4.6,
+      "16": 4.78,
+      "18": 4.97,
+      "20": 5.15
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1603561596973-8166e9e089d1?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold cocktail ring with a purple centre stone",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1567523977592-7959bc5df51e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Side view of the gold cocktail ring",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A regal violet stone crowned in sculpted 18KT gold.",
+    "description": "An evening ring with presence: a rich amethyst held in a crown-like gallery of gold claws. The open setting lets light pass through the stone for a deep, glowing colour.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": true
+    },
+    "createdAt": "2026-07-15T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-006",
+    "slug": "classic-dome-gold-ring",
+    "sku": "G22K-RG-1006",
+    "name": "Classic Dome Gold Ring",
+    "type": "rings",
+    "sub": "bands",
+    "collections": [
+      "everyday-luxe",
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 4.1,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 820
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 3.77,
+      "12": 3.94,
+      "14": 4.1,
+      "16": 4.26,
+      "18": 4.43,
+      "20": 4.59
+    },
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Polished dome gold ring on white fabric",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1653903414925-adfc47c69b3c?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold dome ring on a white box",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A timeless polished dome ring in 22KT gold.",
+    "description": "Pure form, perfectly weighted. The Classic Dome is a wardrobe essential with a high-polish finish and a comfortable inner curve, made to be worn every day for years.",
+    "flags": {
+      "featured": false,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-03-18T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-007",
+    "slug": "twisted-gold-hoop-earrings",
+    "sku": "G22K-ER-1007",
+    "name": "Twisted Gold Hoop Earrings",
+    "type": "earrings",
+    "sub": "hoops",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 4.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 980
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Twisted gold hoop earrings resting on white stones",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1671644730555-916aa8d8157f?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold hoop earring worn close-up",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Softly twisted 22KT hoops with a secure hinged closure.",
+    "description": "A modern classic in warm 22KT gold. The rope-like twist gives these hoops dimension and movement, while the hinged closure keeps them secure and easy to wear from desk to dinner.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-02T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-008",
+    "slug": "petal-drop-gold-earrings",
+    "sku": "G22K-ER-1008",
+    "name": "Petal Drop Gold Earrings",
+    "type": "earrings",
+    "sub": "drops",
+    "collections": [
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 6.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "percentage",
+      "value": 15
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1727990865600-91f8cb8b0168?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of petal drop gold earrings on white fabric",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1705326454933-9685fc6888e1?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Close-up of gold drop earrings",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Layered gold petals that sway gently with every movement.",
+    "description": "Inspired by temple flowers, each earring cascades in layered petals of textured and polished gold. Lightweight for their size, they bring an effortless festive glow.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-09-01T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-009",
+    "slug": "diamond-cluster-stud-earrings",
+    "sku": "G18K-ER-1009",
+    "name": "Diamond Cluster Stud Earrings",
+    "type": "earrings",
+    "sub": "studs",
+    "collections": [
+      "bridal-heritage",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 2.9,
+    "grossWeight": null,
+    "stoneWeight": 0.36,
+    "stoneDetails": "Diamond clusters",
+    "making": {
+      "type": "percentage",
+      "value": 14
+    },
+    "stoneCharges": 19800,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1705326453273-1c35d7dad309?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Diamond cluster stud earrings in gold",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1701777892740-88419a701472?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of stud earrings on white cloth",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Floral diamond clusters set in 18KT gold with screw-back posts.",
+    "description": "Small in scale and big on brilliance, these studs arrange diamonds in a floral cluster that reads as a single larger stone. Screw-back posts add security for everyday wear.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-08T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-010",
+    "slug": "rani-gold-jhumka-earrings",
+    "sku": "G22K-ER-1010",
+    "name": "Rani Gold Jhumka Earrings",
+    "type": "earrings",
+    "sub": "jhumkas",
+    "collections": [
+      "bridal-heritage",
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 12.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Red stone accents",
+    "making": {
+      "type": "percentage",
+      "value": 18
+    },
+    "stoneCharges": 1800,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "note"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1653227907864-560dce4c252d?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Red and gold jhumka earrings on a wooden stand",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1653227907911-6e1afb4cbea1?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Jhumka earrings hanging from a branch",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Traditional bell jhumkas with red accents and granulated detailing.",
+    "description": "Rani revisits the classic jhumka with fine granulation, a domed bell and delicate drops that move as you do. A signature piece for weddings and festive dressing.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-20T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-011",
+    "slug": "maharani-temple-gold-necklace",
+    "sku": "G22K-NK-1011",
+    "name": "Maharani Temple Gold Necklace",
+    "type": "necklaces",
+    "sub": "bridal-sets",
+    "collections": [
+      "bridal-heritage",
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 38.5,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "percentage",
+      "value": 16
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "low_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "note"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1705326454924-f6777522b030?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Temple gold necklace displayed on a white bust",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1705326452390-3ecf6070595f?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace on a bust with flowers in the background",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A statement temple necklace with sculpted motifs in 22KT gold.",
+    "description": "Maharani draws on South Indian temple artistry, with repoussé-style motifs linked into a fluid collar. Composed for bridal and ceremonial dressing, it sits gracefully at the collarbone.",
+    "flags": {
+      "featured": true,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": true
+    },
+    "createdAt": "2026-07-02T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-012",
+    "slug": "kundan-style-bridal-necklace-set",
+    "sku": "G22K-NK-1012",
+    "name": "Kundan-Style Bridal Necklace Set",
+    "type": "necklaces",
+    "sub": "bridal-sets",
+    "collections": [
+      "bridal-heritage"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 46.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Kundan-style stone setting",
+    "making": {
+      "type": "percentage",
+      "value": 18
+    },
+    "stoneCharges": 14500,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "note"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1722410180687-b05b50922362?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Bridal necklace and earrings displayed on a mannequin",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1722410180681-9f5a22d7ebb6?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Bridal necklace set with matching earrings",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Necklace with matching earrings, set in the kundan tradition.",
+    "description": "A complete bridal look: a layered necklace with a kundan-style setting and matching earrings. The adjustable cord lets you fine-tune how it sits with your neckline and outfit.",
+    "flags": {
+      "featured": false,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-30T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-013",
+    "slug": "beaded-heritage-gold-necklace",
+    "sku": "G22K-NK-1013",
+    "name": "Beaded Heritage Gold Necklace",
+    "type": "necklaces",
+    "sub": "statement",
+    "collections": [
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 24.8,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "percentage",
+      "value": 15
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1758995115518-26f90aa61b97?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace with intricate bead detailing on blue velvet",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758995115682-1452a1a9e35b?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace and matching earrings on display",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Hand-strung gold beads with intricate granulated spacers.",
+    "description": "Each bead is finished by hand and separated by finely granulated spacers, creating a rhythm of texture along the length of the necklace. Rich, tactile and made to be treasured.",
+    "flags": {
+      "featured": true,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-08-10T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-014",
+    "slug": "pearl-strand-gold-necklace",
+    "sku": "G22K-NK-1014",
+    "name": "Pearl Strand Gold Necklace",
+    "type": "necklaces",
+    "sub": "statement",
+    "collections": [
+      "bridal-heritage"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 18.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Pearls",
+    "making": {
+      "type": "percentage",
+      "value": 14
+    },
+    "stoneCharges": 5200,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1721103418312-b0057a8c31c2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace with pearls on a red background",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1599475211349-f4c81b3216bc?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold and pearl necklace on a wooden box",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Lustrous pearls interlaced with polished 22KT gold links.",
+    "description": "Soft pearl lustre meets warm gold in a necklace that moves between traditional and contemporary dressing. Finished with a secure hook clasp and adjustable length.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-09-05T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-015",
+    "slug": "everyday-layered-gold-necklace",
+    "sku": "G18K-NK-1015",
+    "name": "Everyday Layered Gold Necklace",
+    "type": "necklaces",
+    "sub": "everyday",
+    "collections": [
+      "everyday-luxe",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 8.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 900
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": {
+      "type": "fixed",
+      "value": 2000,
+      "label": "Offer"
+    },
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1625792508553-5e66a81659fa?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Layered gold necklace on white fabric",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1611652022451-d55126758521?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Woman wearing a fine layered gold necklace",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Two fine 18KT strands, pre-layered so they never tangle.",
+    "description": "The effortless layered look without the tangle: two delicate chains joined at the clasp, each falling at a flattering length. Light enough to wear every day.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-25T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-016",
+    "slug": "classic-rope-gold-chain",
+    "sku": "G22K-CH-1016",
+    "name": "Classic Rope Gold Chain",
+    "type": "chains",
+    "sub": "rope",
+    "collections": [
+      "everyday-luxe",
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 15.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 620
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 13.87,
+      "18": 15.6,
+      "20": 17.33,
+      "22": 19.07
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1611107683227-e9060eccd846?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Rope gold chain on a white surface",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1585711715631-1e6bf224f092?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold rope chain on grey fabric",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A tightly woven 22KT rope chain with a secure lobster clasp.",
+    "description": "Woven for strength and shine, the Classic Rope catches light along every twist. Wear it alone or with a pendant — available in multiple lengths.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-03-10T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-017",
+    "slug": "cuban-link-gold-chain",
+    "sku": "G22K-CH-1017",
+    "name": "Cuban Link Gold Chain",
+    "type": "chains",
+    "sub": "link",
+    "collections": [
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "men",
+    "netWeight": 28.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 700
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 25.24,
+      "18": 28.4,
+      "20": 31.56,
+      "22": 34.71
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1721807550979-6e662d370e92?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Cuban link gold chain on a black background",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1613498510372-8901cad084a2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a gold link chain",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Substantial interlocking links with a flat, polished finish.",
+    "description": "A bold signature chain with tightly interlocking links that lie flat against the skin. Finished with a box clasp for security and a seamless look.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-12T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-018",
+    "slug": "signature-link-gold-chain",
+    "sku": "G22K-CH-1018",
+    "name": "Signature Link Gold Chain",
+    "type": "chains",
+    "sub": "link",
+    "collections": [
+      "everyday-luxe",
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 16.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 680
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 14.58,
+      "18": 16.4,
+      "20": 18.22,
+      "22": 20.04
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1771734065116-61e16b353ded?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold link chain against a black background",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1659708701940-e60893ef03d0?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Layered gold link chains on a dark surface",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Polished interlocking links with a confident, versatile drape.",
+    "description": "A signature link chain in 22KT gold with a smooth, polished finish. Substantial enough to wear alone, balanced enough to layer. Available in four lengths.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-30T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-019",
+    "slug": "statement-curb-gold-chain",
+    "sku": "G22K-CH-1019",
+    "name": "Statement Curb Gold Chain",
+    "type": "chains",
+    "sub": "link",
+    "collections": [
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "men",
+    "netWeight": 22,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 690
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "out_of_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 19.56,
+      "18": 22,
+      "20": 24.44,
+      "22": 26.89
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1662434923031-b9bf1b6c10e2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold curb chain on a dark surface",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1762505465234-de8b802614d9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a gold curb chain and bracelet",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A confident curb chain with diamond-cut facets.",
+    "description": "Diamond-cut facets give each curb link a crisp sparkle. Designed with a weighty, masculine drape and finished with a secure lobster clasp.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-02T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-020",
+    "slug": "paperclip-link-gold-bracelet",
+    "sku": "G22K-BR-1020",
+    "name": "Paperclip Link Gold Bracelet",
+    "type": "bracelets",
+    "sub": "chain",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 7.8,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 900
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bracelet",
+    "sizeOptions": [
+      "6.5",
+      "7",
+      "7.5"
+    ],
+    "defaultSize": "7",
+    "sizeWeights": {
+      "7": 7.8,
+      "6.5": 7.24,
+      "7.5": 8.36
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Paperclip link gold bracelet",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1708220040856-131e4f86a1aa?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of gold chain bracelets on a white box",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Elongated links with a clean, contemporary rhythm.",
+    "description": "The paperclip link reimagined in 22KT gold. Airy, elegant and easy to layer with a watch or bangles.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-22T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-021",
+    "slug": "heritage-jewelled-gold-bracelet",
+    "sku": "G22K-BR-1021",
+    "name": "Heritage Jewelled Gold Bracelet",
+    "type": "bracelets",
+    "sub": "link",
+    "collections": [
+      "bridal-heritage",
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 18.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Coloured stone accents",
+    "making": {
+      "type": "percentage",
+      "value": 16
+    },
+    "stoneCharges": 9500,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "low_stock",
+    "sizing": "bracelet",
+    "sizeOptions": [
+      "6.5",
+      "7",
+      "7.5"
+    ],
+    "defaultSize": "7",
+    "sizeWeights": {
+      "7": 18.6,
+      "6.5": 17.27,
+      "7.5": 19.93
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1611598935678-c88dca238fce?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Ornate gold bracelet set with coloured stones",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1741071520895-47d81779c11e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold bracelets worn on a woman's arm",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Articulated 22KT gold links set with jewel-toned accents.",
+    "description": "Inspired by heirloom bridal jewellery, each link is framed in 22KT gold and set with coloured stone accents. A secure box clasp keeps it comfortable through long celebrations.",
+    "flags": {
+      "featured": true,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": true
+    },
+    "createdAt": "2026-07-20T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-022",
+    "slug": "bold-link-mens-gold-bracelet",
+    "sku": "G22K-BR-1022",
+    "name": "Bold Link Men's Gold Bracelet",
+    "type": "bracelets",
+    "sub": "link",
+    "collections": [
+      "mens-signature"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "men",
+    "netWeight": 24,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 720
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bracelet",
+    "sizeOptions": [
+      "6.5",
+      "7",
+      "7.5"
+    ],
+    "defaultSize": "7",
+    "sizeWeights": {
+      "7": 24,
+      "6.5": 22.29,
+      "7.5": 25.71
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1631729159429-943cbf2e6032?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold link bracelet worn on the wrist",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1740567389909-b36e9cadbef9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Close-up of a gold bracelet on the wrist",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Weighty 22KT links with a satin-and-polish finish.",
+    "description": "A bracelet with real presence, alternating satin and polished links for depth. Designed to sit comfortably beside a watch.",
+    "flags": {
+      "featured": false,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-15T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-023",
+    "slug": "nakshi-carved-gold-bangles",
+    "sku": "G22K-BG-1023",
+    "name": "Nakshi Carved Gold Bangles (Pair)",
+    "type": "bangles",
+    "sub": "pair",
+    "collections": [
+      "festive-edit",
+      "bridal-heritage"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 32,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "percentage",
+      "value": 14
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bangle",
+    "sizeOptions": [
+      "2.4",
+      "2.6",
+      "2.8"
+    ],
+    "defaultSize": "2.6",
+    "sizeWeights": {
+      "2.4": 30.4,
+      "2.6": 32,
+      "2.8": 33.6
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1758995116383-f51775896add?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Stack of ornate carved gold bangles",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768359666502-306694fa6fcf?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold bangles displayed in a jewellery showroom",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A pair of bangles with deeply carved nakshi motifs.",
+    "description": "Nakshi carving brings intricate floral motifs to life across the surface of each bangle. Sold as a pair, they are equally striking stacked with glass bangles or worn alone.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-05T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-024",
+    "slug": "onyx-inlay-gold-kada",
+    "sku": "G22K-BG-1024",
+    "name": "Onyx Inlay Gold Kada",
+    "type": "bangles",
+    "sub": "kada",
+    "collections": [
+      "festive-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 26,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Black onyx inlay",
+    "making": {
+      "type": "percentage",
+      "value": 15
+    },
+    "stoneCharges": 3200,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bangle",
+    "sizeOptions": [
+      "2.4",
+      "2.6",
+      "2.8"
+    ],
+    "defaultSize": "2.6",
+    "sizeWeights": {
+      "2.4": 24.7,
+      "2.6": 26,
+      "2.8": 27.3
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1787769499046-8a94b2de1f62?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Textured gold kada with dark oval inlays",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1679156272446-30738eb5c4e7?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold bangles on a table",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Textured gold with polished black onyx inlays.",
+    "description": "A contemporary kada where hammered gold frames glossy black onyx. Its graphic contrast makes it a standout for both men and women.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": true
+    },
+    "createdAt": "2026-08-15T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-025",
+    "slug": "classic-twin-gold-bangles",
+    "sku": "G22K-BG-1025",
+    "name": "Classic Twin Gold Bangles",
+    "type": "bangles",
+    "sub": "pair",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 21,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 650
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": {
+      "type": "percentage",
+      "value": 5,
+      "label": "Offer"
+    },
+    "stock": "in_stock",
+    "sizing": "bangle",
+    "sizeOptions": [
+      "2.4",
+      "2.6",
+      "2.8"
+    ],
+    "defaultSize": "2.6",
+    "sizeWeights": {
+      "2.4": 19.95,
+      "2.6": 21,
+      "2.8": 22.05
+    },
+    "unavailableSizes": [
+      "2.8"
+    ],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1728381031272-ba3f537feadd?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of gold bangles on a velvet cushion",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1690175867343-2af70ea57537?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of gold bangles on a wooden box",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A polished pair of everyday bangles with a rounded profile.",
+    "description": "Smooth, rounded and wonderfully wearable. These bangles are designed for daily wear, with a comfortable inner edge and a finish that ages beautifully.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-03-28T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-026",
+    "slug": "slim-stackable-gold-bangles",
+    "sku": "G22K-BG-1026",
+    "name": "Slim Stackable Gold Bangles (Set of 4)",
+    "type": "bangles",
+    "sub": "stackable",
+    "collections": [
+      "everyday-luxe",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 18,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 700
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bangle",
+    "sizeOptions": [
+      "2.4",
+      "2.6",
+      "2.8"
+    ],
+    "defaultSize": "2.6",
+    "sizeWeights": {
+      "2.4": 17.1,
+      "2.6": 18,
+      "2.8": 18.9
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1679156271456-d6068c543ee7?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Slim gold bangles stacked on a table",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1741071520904-37ef3c0fea09?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold bangles worn on the wrist",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Four slim bangles in alternating textures.",
+    "description": "A set of four fine bangles — two polished, two textured — that chime softly together. Wear the full stack or split them between wrists.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-09-03T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-027",
+    "slug": "radiant-medallion-gold-pendant",
+    "sku": "G22K-PD-1027",
+    "name": "Radiant Medallion Gold Pendant",
+    "type": "pendants",
+    "sub": "medallion",
+    "collections": [
+      "everyday-luxe",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "unisex",
+    "netWeight": 4.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 1050
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "initial",
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1569397288884-4d43d6738fbd?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold medallion pendant necklace",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold and silver pendant necklace",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A sunburst medallion that can be personalised with an initial.",
+    "description": "Radiating lines give this medallion a soft, sunlit shimmer. Add an initial to the front or an engraving on the reverse for a meaningful keepsake. Chain sold separately.",
+    "flags": {
+      "featured": false,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-08T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-028",
+    "slug": "heart-charm-gold-pendant",
+    "sku": "G18K-PD-1028",
+    "name": "Heart Charm Gold Pendant",
+    "type": "pendants",
+    "sub": "charm",
+    "collections": [
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 2.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 1100
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1623321673989-830eff0fd59f?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Hand holding a gold heart charm on a chain",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602752250055-5ebb552fc3ae?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold and silver heart pendant necklace",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A softly puffed heart charm in 18KT gold.",
+    "description": "A gift that says it simply. The puffed heart has a high-polish finish and space on the reverse for a short engraving.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-26T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-029",
+    "slug": "pearl-drop-gold-pendant",
+    "sku": "G18K-PD-1029",
+    "name": "Pearl Drop Gold Pendant",
+    "type": "pendants",
+    "sub": "pearl",
+    "collections": [
+      "bridal-heritage",
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 2.2,
+    "grossWeight": null,
+    "stoneWeight": 0.08,
+    "stoneDetails": "Pearl with diamond accent",
+    "making": {
+      "type": "per_gram",
+      "value": 1150
+    },
+    "stoneCharges": 2600,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1682629846138-7db022565bd5?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pearl and diamond pendant on a black surface",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1670541481909-0b2c047fb45a?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Close-up of a fine pendant necklace",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A single pearl suspended beneath a diamond accent.",
+    "description": "Understated and luminous. A single pearl hangs from a delicate gold bail set with a diamond accent — beautiful on its own or layered.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-28T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-030",
+    "slug": "classic-black-bead-mangalsutra",
+    "sku": "G22K-MS-1030",
+    "name": "Classic Black Bead Mangalsutra",
+    "type": "mangalsutra",
+    "sub": "classic",
+    "collections": [
+      "bridal-heritage"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "women",
+    "netWeight": 9.8,
+    "grossWeight": 11.4,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 900
+    },
+    "stoneCharges": 0,
+    "otherCharges": 450,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 8.71,
+      "18": 9.8,
+      "20": 10.89,
+      "22": 11.98
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1747933508304-cf26fea81bad?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Black and gold bead mangalsutra clasp",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1737064293898-b82a951c2732?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Black beaded necklace on a white background",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Traditional twin strands of black beads with a gold pendant.",
+    "description": "An enduring design: twin strands of black beads punctuated with gold, finished with a classic pendant. Crafted to be worn every day as a symbol of togetherness.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-03-22T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-031",
+    "slug": "contemporary-gold-mangalsutra",
+    "sku": "G18K-MS-1031",
+    "name": "Contemporary Gold Mangalsutra",
+    "type": "mangalsutra",
+    "sub": "contemporary",
+    "collections": [
+      "everyday-luxe"
+    ],
+    "metal": "gold",
+    "purity": "18k",
+    "gender": "women",
+    "netWeight": 6.4,
+    "grossWeight": 7.2,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 950
+    },
+    "stoneCharges": 0,
+    "otherCharges": 350,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1719861837593-91dbdd0ed5a0?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Beaded necklace with gold and dark beads",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1644751538456-33ecf3b92cca?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Necklace with a black bead and pendant",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A minimal single-strand mangalsutra for modern everyday wear.",
+    "description": "Tradition, distilled. A single fine strand with spaced black beads and a slim gold pendant, designed to sit comfortably under everyday clothing.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-09-06T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-032",
+    "slug": "teddy-charm-kids-gold-pendant",
+    "sku": "G22K-PD-1032",
+    "name": "Teddy Charm Kids Gold Pendant",
+    "type": "pendants",
+    "sub": "charm",
+    "collections": [
+      "gifting-edit"
+    ],
+    "metal": "gold",
+    "purity": "22k",
+    "gender": "kids",
+    "netWeight": 2.1,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "per_gram",
+      "value": 1000
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1623302312645-65df66384692?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold chain with a small teddy bear charm",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A playful teddy charm with smooth, rounded edges.",
+    "description": "Made with little ones in mind, this charm has softly rounded edges and a secure bail. A sweet keepsake for naming ceremonies and birthdays.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-07-28T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-033",
+    "slug": "little-hearts-kids-silver-bracelet",
+    "sku": "S925-BR-2033",
+    "name": "Little Hearts Kids Silver Bracelet",
+    "type": "bracelets",
+    "sub": "chain",
+    "collections": [
+      "gifting-edit",
+      "sterling-studio"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "kids",
+    "netWeight": 6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 900
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1676120963306-8969fa6a810e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver bracelet with a heart charm",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1676120963358-be514060350b?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver bracelet with heart detail",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A lightweight sterling bracelet with tiny heart charms.",
+    "description": "Delicate and durable, with an adjustable length so it can grow with your child. Finished with rounded heart charms that are gentle on skin.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-18T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-034",
+    "slug": "sterling-solitaire-silver-ring",
+    "sku": "S925-RG-2034",
+    "name": "Sterling Solitaire Silver Ring",
+    "type": "rings",
+    "sub": "solitaire",
+    "collections": [
+      "sterling-studio",
+      "gifting-edit"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 3.4,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Cubic zirconia",
+    "making": {
+      "type": "fixed",
+      "value": 1450
+    },
+    "stoneCharges": 350,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 3.13,
+      "12": 3.26,
+      "14": 3.4,
+      "16": 3.54,
+      "18": 3.67,
+      "20": 3.81
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1589674781759-c21c37956a44?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Sterling silver solitaire ring on white",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1591209608777-fb022eac7112?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver ring with a clear stone on white",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A classic solitaire silhouette in bright sterling silver.",
+    "description": "Everything you love about a solitaire, made for every day. A brilliant-cut stone sits high in a four-claw setting on a slim sterling band.",
+    "flags": {
+      "featured": false,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-01T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-035",
+    "slug": "silver-stacking-bands-set",
+    "sku": "S925-RG-2035",
+    "name": "Silver Stacking Bands (Set of 3)",
+    "type": "rings",
+    "sub": "stackable",
+    "collections": [
+      "sterling-studio"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 6.8,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1650
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 6.26,
+      "12": 6.53,
+      "14": 6.8,
+      "16": 7.07,
+      "18": 7.34,
+      "20": 7.62
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1550368566-f9cc32d7392d?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Three silver stacking rings",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1565206077209-0e7e57b6c152?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Two silver rings side by side",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Three sterling bands in polished, hammered and twisted finishes.",
+    "description": "A versatile trio that lets you play with texture. Wear them together for a sculpted stack or apart for a quieter look.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-18T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-036",
+    "slug": "oxidised-silver-signet-ring",
+    "sku": "S925-RG-2036",
+    "name": "Oxidised Silver Signet Ring",
+    "type": "rings",
+    "sub": "bands",
+    "collections": [
+      "mens-signature",
+      "sterling-studio"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "men",
+    "netWeight": 9.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Black onyx",
+    "making": {
+      "type": "fixed",
+      "value": 1900
+    },
+    "stoneCharges": 600,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "ring",
+    "sizeOptions": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20"
+    ],
+    "defaultSize": "14",
+    "sizeWeights": {
+      "10": 8.46,
+      "12": 8.83,
+      "14": 9.2,
+      "16": 9.57,
+      "18": 9.94,
+      "20": 10.3
+    },
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1623365545467-d0f2c7ecd677?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver signet ring with a black stone worn on the hand",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1593295583578-fda964d48b72?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver ring on black fabric",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A weighty signet ring with an onyx face and oxidised detailing.",
+    "description": "Rooted in heritage, refined for today. The oxidised shoulders frame a polished black onyx face, with space inside the band for a personal engraving.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-12T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-037",
+    "slug": "sterling-heart-silver-pendant",
+    "sku": "S925-PD-2037",
+    "name": "Sterling Heart Silver Pendant",
+    "type": "pendants",
+    "sub": "charm",
+    "collections": [
+      "sterling-studio",
+      "gifting-edit"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 4.1,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1200
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [
+      "engraving"
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver heart pendant necklace on white",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1588444968576-f8fe92ce56fd?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver necklace with a heart pendant",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "An open heart pendant on a fine sterling chain.",
+    "description": "An open heart outline with a gentle asymmetry, suspended from a fine sterling chain. A thoughtful gift that can be engraved on the reverse.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-08-12T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-038",
+    "slug": "blue-stone-silver-pendant",
+    "sku": "S925-PD-2038",
+    "name": "Blue Stone Silver Pendant",
+    "type": "pendants",
+    "sub": "medallion",
+    "collections": [
+      "sterling-studio"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 5.2,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Blue stone centre",
+    "making": {
+      "type": "fixed",
+      "value": 1350
+    },
+    "stoneCharges": 900,
+    "otherCharges": 0,
+    "discount": {
+      "type": "percentage",
+      "value": 10,
+      "label": "Offer"
+    },
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver pendant with a blue stone",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1615920887486-dc0c3a035405?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Round silver pendant on white fabric",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A deep blue stone framed in a sculpted sterling bezel.",
+    "description": "A pool of rich colour held in a softly sculpted bezel. The pendant has a slim profile so it sits flat and elegant at the neckline.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-05-26T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-039",
+    "slug": "sterling-link-silver-bracelet",
+    "sku": "S925-BR-2039",
+    "name": "Sterling Link Silver Bracelet",
+    "type": "bracelets",
+    "sub": "link",
+    "collections": [
+      "sterling-studio",
+      "mens-signature"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "unisex",
+    "netWeight": 14.5,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1500
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bracelet",
+    "sizeOptions": [
+      "6.5",
+      "7",
+      "7.5"
+    ],
+    "defaultSize": "7",
+    "sizeWeights": {
+      "7": 14.5,
+      "6.5": 13.46,
+      "7.5": 15.54
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1605884878538-6468614df578?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Sterling silver chain link bracelet on white",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1744722093742-aad22c7fa68b?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver bracelet worn on the wrist",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Polished oval links with a sturdy toggle clasp.",
+    "description": "Clean, sculptural links in bright sterling silver. The toggle clasp doubles as a design detail — easy to fasten on your own.",
+    "flags": {
+      "featured": true,
+      "bestSeller": true,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-03-30T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-040",
+    "slug": "sterling-silver-hoop-earrings",
+    "sku": "S925-ER-2040",
+    "name": "Sterling Silver Hoop Earrings",
+    "type": "earrings",
+    "sub": "hoops",
+    "collections": [
+      "sterling-studio",
+      "everyday-luxe"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 5.6,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1100
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1765464281313-b3844388b316?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of silver hoop earrings on white",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1713004539634-a6694a83f3d9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver earrings on a white background",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Medium tube hoops with a smooth, high-shine finish.",
+    "description": "The hoops you will reach for every day. Lightweight hollow tubes with a click-in closure and a mirror-bright sterling finish.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-07-05T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-041",
+    "slug": "crystal-drop-silver-earrings",
+    "sku": "S925-ER-2041",
+    "name": "Crystal Drop Silver Earrings",
+    "type": "earrings",
+    "sub": "drops",
+    "collections": [
+      "sterling-studio",
+      "gifting-edit"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "women",
+    "netWeight": 4.8,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": "Cubic zirconia",
+    "making": {
+      "type": "fixed",
+      "value": 1250
+    },
+    "stoneCharges": 450,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": null,
+    "sizeOptions": [],
+    "defaultSize": null,
+    "sizeWeights": {},
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of silver drop earrings",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1693212793204-bcea856c75fe?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver earrings on black cloth",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "Faceted stones that fall in a delicate line of light.",
+    "description": "Graduated stones set in fine sterling bezels create a slender line of sparkle. Elegant for evenings, easy for everyday.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": true,
+      "limited": false
+    },
+    "createdAt": "2026-09-02T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-042",
+    "slug": "fine-silver-bangles-pair",
+    "sku": "S999-BG-2042",
+    "name": "Fine Silver Bangles (Pair)",
+    "type": "bangles",
+    "sub": "pair",
+    "collections": [
+      "festive-edit"
+    ],
+    "metal": "silver",
+    "purity": "999",
+    "gender": "women",
+    "netWeight": 42,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 2200
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bangle",
+    "sizeOptions": [
+      "2.4",
+      "2.6",
+      "2.8"
+    ],
+    "defaultSize": "2.6",
+    "sizeWeights": {
+      "2.4": 39.9,
+      "2.6": 42,
+      "2.8": 44.1
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1517857399767-a9dc28f5a734?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Two fine silver bangles",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1786052351994-37c1af4c55d7?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver bangles reflected on a mirror",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A pair of solid bangles in 999 fine silver.",
+    "description": "Solid, satisfying and softly lustrous, these bangles are crafted in 999 fine silver for a pure, bright tone. A traditional gift for festive occasions.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": true,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-06-25T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-043",
+    "slug": "mens-silver-chain-bracelet",
+    "sku": "S925-BR-2043",
+    "name": "Men's Silver Chain Bracelet",
+    "type": "bracelets",
+    "sub": "chain",
+    "collections": [
+      "mens-signature"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "men",
+    "netWeight": 22,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1800
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "bracelet",
+    "sizeOptions": [
+      "6.5",
+      "7",
+      "7.5"
+    ],
+    "defaultSize": "7",
+    "sizeWeights": {
+      "7": 22,
+      "6.5": 20.43,
+      "7.5": 23.57
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1774294546043-df9ecc9bd70e?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a silver chain bracelet",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1612473078715-923c0069e0c2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver bracelet worn on the wrist",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A substantial sterling chain bracelet with a box clasp.",
+    "description": "Built for everyday wear, with heavy-gauge links and a flush box clasp. Pairs well with a watch or a leather strap.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-07-10T10:00:00+05:30"
+  },
+  {
+    "legacyId": "p-044",
+    "slug": "sterling-rope-silver-necklace",
+    "sku": "S925-NK-2044",
+    "name": "Sterling Rope Silver Necklace",
+    "type": "necklaces",
+    "sub": "everyday",
+    "collections": [
+      "sterling-studio"
+    ],
+    "metal": "silver",
+    "purity": "925",
+    "gender": "unisex",
+    "netWeight": 12,
+    "grossWeight": null,
+    "stoneWeight": null,
+    "stoneDetails": null,
+    "making": {
+      "type": "fixed",
+      "value": 1400
+    },
+    "stoneCharges": 0,
+    "otherCharges": 0,
+    "discount": null,
+    "stock": "in_stock",
+    "sizing": "chain",
+    "sizeOptions": [
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "defaultSize": "18",
+    "sizeWeights": {
+      "16": 10.67,
+      "18": 12,
+      "20": 13.33,
+      "22": 14.67
+    },
+    "unavailableSizes": [],
+    "customization": [],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1631050164355-822f8ab7dcb9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Sterling silver necklace on white paper",
+        "width": 1200,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1585053736987-f817dc225fc5?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver necklace on white fabric",
+        "width": 1200,
+        "height": 1500
+      }
+    ],
+    "shortDescription": "A classic rope necklace in bright sterling silver.",
+    "description": "A versatile rope chain that works alone or with a pendant. Tightly woven for a lively shine and finished with a secure lobster clasp.",
+    "flags": {
+      "featured": false,
+      "bestSeller": false,
+      "trending": false,
+      "newArrival": false,
+      "limited": false
+    },
+    "createdAt": "2026-04-20T10:00:00+05:30"
+  }
+]

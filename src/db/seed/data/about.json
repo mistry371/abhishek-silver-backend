@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "eyebrow": "Our Story",
+    "title": "Jewellery made with intention",
+    "description": "A modern jewellery house rooted in Indian craft, built on transparency and personal care.",
+    "image": {
+      "url": "https://images.unsplash.com/photo-1688382654723-a7366006519b?auto=format&fit=crop&w=1200&h=1700&q=80",
+      "alt": "Woman wearing a green sari with heritage jewellery",
+      "width": 1200,
+      "height": 1700
+    },
+    "wideImage": {
+      "url": "https://images.unsplash.com/photo-1626136978522-b67ac41126e9?auto=format&fit=crop&w=2400&h=1500&q=80",
+      "alt": "A display case filled with fine jewellery",
+      "width": 2400,
+      "height": 1500
+    }
+  },
+  "story": {
+    "title": "Where our story begins",
+    "paragraphs": [
+      "We started with a simple belief: choosing fine jewellery should feel as considered and joyful as wearing it. Every piece we offer is selected for its design, its finish and the way it feels on the body.",
+      "Today we bring that same care online — pairing the warmth of personal service with the clarity of transparent pricing, so you can choose with confidence wherever you are."
+    ],
+    "image": {
+      "url": "https://images.unsplash.com/photo-1758995115682-1452a1a9e35b?auto=format&fit=crop&w=1200&h=1700&q=80",
+      "alt": "Gold necklace and matching earrings on display",
+      "width": 1200,
+      "height": 1700
+    }
+  },
+  "vision": "To make fine gold and silver jewellery something every customer can choose with complete confidence.",
+  "mission": "To offer beautifully crafted pieces, explain every price clearly and guide each customer personally — before, during and after their purchase.",
+  "expertise": [
+    {
+      "eyebrow": "Gold",
+      "title": "Gold, understood",
+      "text": "From rich 22KT pieces for ceremony to 18KT settings that hold stones securely, we help you choose the right purity for the design and the way you'll wear it.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1594140700783-f9e70c7abc25?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in a gold and red sari wearing traditional gold jewellery",
+        "width": 1200,
+        "height": 1700
+      }
+    },
+    {
+      "eyebrow": "Silver",
+      "title": "Silver, refined",
+      "text": "Sterling and fine silver designed with a contemporary eye — easy to wear every day and simple to care for.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1761222101900-9c9e34fac2ce?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Arms adorned with delicate silver bracelets",
+        "width": 1200,
+        "height": 1700
+      }
+    }
+  ],
+  "craftsmanship": {
+    "title": "The details make the piece",
+    "text": "Balanced proportions, secure settings, comfortable finishing and a polish that ages beautifully — we look closely at the things you feel long after the first wear.",
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1758995115518-26f90aa61b97?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Gold necklace with intricate bead detailing on velvet",
+        "width": 2400,
+        "height": 1500
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1650389236412-e7413cbcf2fe?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "A jewellery display case in a showroom",
+        "width": 1200,
+        "height": 1700
+      }
+    ],
+    "pillars": [
+      {
+        "title": "Design",
+        "text": "Proportion and wearability considered from the first sketch."
+      },
+      {
+        "title": "Finishing",
+        "text": "Smooth edges, secure clasps and a considered final polish."
+      },
+      {
+        "title": "Inspection",
+        "text": "Each piece is checked before it is packed for you."
+      }
+    ]
+  },
+  "quality": [
+    "Metal, purity and weights clearly stated for every piece",
+    "Stone details listed wherever stones are used",
+    "Full price breakdown: metal value, making charges, stone charges and GST",
+    "Final price and stock confirmed before payment"
+  ],
+  "customerCommitment": [
+    {
+      "title": "Transparent pricing",
+      "text": "You see exactly how every price is built."
+    },
+    {
+      "title": "Personal guidance",
+      "text": "Talk to our team on WhatsApp, phone, email or in store."
+    },
+    {
+      "title": "Made for you",
+      "text": "Custom designs and personalisation for meaningful occasions."
+    }
+  ],
+  "certifications": []
+}

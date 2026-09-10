@@ -1,0 +1,522 @@
+{
+  "categories": [
+    {
+      "id": "cat-gold",
+      "slug": "gold-jewellery",
+      "name": "Gold Jewellery",
+      "shortName": "Gold",
+      "description": "22KT and 18KT gold jewellery — from refined everyday pieces to bridal heirlooms.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1758995115682-1452a1a9e35b?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace and matching earrings",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "metal",
+      "subcategories": [],
+      "displayOrder": 1,
+      "active": true,
+      "seo": {
+        "title": "Gold Jewellery — Rings, Necklaces, Bangles & More",
+        "description": "Shop 22KT and 18KT gold jewellery with transparent pricing: rings, earrings, necklaces, chains, bangles and mangalsutra."
+      }
+    },
+    {
+      "id": "cat-silver",
+      "slug": "silver-jewellery",
+      "name": "Silver Jewellery",
+      "shortName": "Silver",
+      "description": "925 sterling and 999 fine silver, designed with a contemporary, luminous finish.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1631050164355-822f8ab7dcb9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Silver necklace on white paper",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "metal",
+      "subcategories": [],
+      "displayOrder": 2,
+      "active": true,
+      "seo": {
+        "title": "Silver Jewellery — Sterling & Fine Silver",
+        "description": "Discover 925 sterling and 999 fine silver rings, earrings, pendants, bracelets and bangles."
+      }
+    },
+    {
+      "id": "cat-rings",
+      "slug": "rings",
+      "name": "Rings",
+      "description": "Bands, solitaires, cocktail rings and couple bands in gold and silver.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1631982690223-8aa4be0a2497?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Three gold rings in a white box",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-rings-bands",
+          "slug": "bands",
+          "name": "Bands",
+          "categoryId": "cat-rings"
+        },
+        {
+          "id": "cat-rings-solitaire",
+          "slug": "solitaire",
+          "name": "Solitaire",
+          "categoryId": "cat-rings"
+        },
+        {
+          "id": "cat-rings-cocktail",
+          "slug": "cocktail",
+          "name": "Cocktail",
+          "categoryId": "cat-rings"
+        },
+        {
+          "id": "cat-rings-couple-bands",
+          "slug": "couple-bands",
+          "name": "Couple Bands",
+          "categoryId": "cat-rings"
+        },
+        {
+          "id": "cat-rings-stackable",
+          "slug": "stackable",
+          "name": "Stackable",
+          "categoryId": "cat-rings"
+        }
+      ],
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "cat-earrings",
+      "slug": "earrings",
+      "name": "Earrings",
+      "description": "Studs, hoops, drops and jhumkas for every occasion.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1727990865600-91f8cb8b0168?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Pair of gold earrings on a white sheet",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-earrings-studs",
+          "slug": "studs",
+          "name": "Studs",
+          "categoryId": "cat-earrings"
+        },
+        {
+          "id": "cat-earrings-hoops",
+          "slug": "hoops",
+          "name": "Hoops",
+          "categoryId": "cat-earrings"
+        },
+        {
+          "id": "cat-earrings-drops",
+          "slug": "drops",
+          "name": "Drops",
+          "categoryId": "cat-earrings"
+        },
+        {
+          "id": "cat-earrings-jhumkas",
+          "slug": "jhumkas",
+          "name": "Jhumkas",
+          "categoryId": "cat-earrings"
+        }
+      ],
+      "displayOrder": 4,
+      "active": true
+    },
+    {
+      "id": "cat-necklaces",
+      "slug": "necklaces",
+      "name": "Necklaces",
+      "description": "Bridal sets, statement necklaces and everyday layers.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1705326454924-f6777522b030?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold necklace displayed on a white bust",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-necklaces-bridal-sets",
+          "slug": "bridal-sets",
+          "name": "Bridal Sets",
+          "categoryId": "cat-necklaces"
+        },
+        {
+          "id": "cat-necklaces-statement",
+          "slug": "statement",
+          "name": "Statement",
+          "categoryId": "cat-necklaces"
+        },
+        {
+          "id": "cat-necklaces-everyday",
+          "slug": "everyday",
+          "name": "Everyday",
+          "categoryId": "cat-necklaces"
+        }
+      ],
+      "displayOrder": 5,
+      "active": true
+    },
+    {
+      "id": "cat-chains",
+      "slug": "chains",
+      "name": "Chains",
+      "description": "Rope and link chains, finished to be worn alone or with a pendant.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1585711715631-1e6bf224f092?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold chain necklace on grey fabric",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-chains-rope",
+          "slug": "rope",
+          "name": "Rope",
+          "categoryId": "cat-chains"
+        },
+        {
+          "id": "cat-chains-link",
+          "slug": "link",
+          "name": "Link",
+          "categoryId": "cat-chains"
+        }
+      ],
+      "displayOrder": 6,
+      "active": true
+    },
+    {
+      "id": "cat-bracelets",
+      "slug": "bracelets",
+      "name": "Bracelets",
+      "description": "Chain and link bracelets with a fluid, comfortable fit.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold chain bracelet",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-bracelets-chain",
+          "slug": "chain",
+          "name": "Chain",
+          "categoryId": "cat-bracelets"
+        },
+        {
+          "id": "cat-bracelets-link",
+          "slug": "link",
+          "name": "Link",
+          "categoryId": "cat-bracelets"
+        }
+      ],
+      "displayOrder": 7,
+      "active": true
+    },
+    {
+      "id": "cat-bangles",
+      "slug": "bangles",
+      "name": "Bangles",
+      "description": "Carved pairs, kadas and stackable bangles in gold and silver.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1679156271456-d6068c543ee7?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold bangles on a table",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-bangles-pair",
+          "slug": "pair",
+          "name": "Pairs",
+          "categoryId": "cat-bangles"
+        },
+        {
+          "id": "cat-bangles-kada",
+          "slug": "kada",
+          "name": "Kada",
+          "categoryId": "cat-bangles"
+        },
+        {
+          "id": "cat-bangles-stackable",
+          "slug": "stackable",
+          "name": "Stackable",
+          "categoryId": "cat-bangles"
+        }
+      ],
+      "displayOrder": 8,
+      "active": true
+    },
+    {
+      "id": "cat-pendants",
+      "slug": "pendants",
+      "name": "Pendants",
+      "description": "Medallions, charms and pearl pendants — many can be personalised.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1569397288884-4d43d6738fbd?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold pendant necklace",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-pendants-medallion",
+          "slug": "medallion",
+          "name": "Medallion",
+          "categoryId": "cat-pendants"
+        },
+        {
+          "id": "cat-pendants-charm",
+          "slug": "charm",
+          "name": "Charm",
+          "categoryId": "cat-pendants"
+        },
+        {
+          "id": "cat-pendants-pearl",
+          "slug": "pearl",
+          "name": "Pearl",
+          "categoryId": "cat-pendants"
+        }
+      ],
+      "displayOrder": 9,
+      "active": true
+    },
+    {
+      "id": "cat-mangalsutra",
+      "slug": "mangalsutra",
+      "name": "Mangalsutra",
+      "description": "Classic and contemporary mangalsutra designs in gold.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1719861837593-91dbdd0ed5a0?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Beaded necklace with gold and dark beads",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "type",
+      "subcategories": [
+        {
+          "id": "cat-mangalsutra-classic",
+          "slug": "classic",
+          "name": "Classic",
+          "categoryId": "cat-mangalsutra"
+        },
+        {
+          "id": "cat-mangalsutra-contemporary",
+          "slug": "contemporary",
+          "name": "Contemporary",
+          "categoryId": "cat-mangalsutra"
+        }
+      ],
+      "displayOrder": 10,
+      "active": true
+    },
+    {
+      "id": "cat-men",
+      "slug": "men",
+      "name": "Men's Jewellery",
+      "shortName": "Men",
+      "description": "Chains, kadas, bracelets and signet rings with a bold, considered profile.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1613498510372-8901cad084a2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a gold chain",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "audience",
+      "subcategories": [],
+      "displayOrder": 11,
+      "active": true
+    },
+    {
+      "id": "cat-women",
+      "slug": "women",
+      "name": "Women's Jewellery",
+      "shortName": "Women",
+      "description": "Pieces for every day and every celebration.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1611652022451-d55126758521?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Woman wearing a fine gold necklace",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "audience",
+      "subcategories": [],
+      "displayOrder": 12,
+      "active": true
+    },
+    {
+      "id": "cat-kids",
+      "slug": "kids",
+      "name": "Kids Jewellery",
+      "shortName": "Kids",
+      "description": "Delicate, lightweight pieces made for little ones and gifting.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1623302312645-65df66384692?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold chain with a small teddy bear charm",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "audience",
+      "subcategories": [],
+      "displayOrder": 13,
+      "active": true
+    },
+    {
+      "id": "cat-custom",
+      "slug": "custom-jewellery",
+      "name": "Custom Jewellery",
+      "shortName": "Custom",
+      "description": "Personalised designs, created for your occasion.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1698495386518-5e21688bc27b?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Hand wearing a finely crafted ring",
+        "width": 1200,
+        "height": 1500
+      },
+      "group": "service",
+      "subcategories": [],
+      "displayOrder": 14,
+      "active": true
+    }
+  ],
+  "collections": [
+    {
+      "id": "col-bridal",
+      "slug": "bridal-heritage",
+      "name": "Bridal Heritage",
+      "eyebrow": "For the wedding trousseau",
+      "description": "Temple motifs, statement sets and heirloom bangles — composed for the most meaningful days.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1610173826014-d131b02d69ca?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Bride in a red and gold sari wearing layered gold jewellery",
+        "width": 2400,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Bride in red bridal attire with ornate gold jewellery",
+        "width": 1200,
+        "height": 1700
+      },
+      "displayOrder": 1,
+      "active": true
+    },
+    {
+      "id": "col-festive",
+      "slug": "festive-edit",
+      "name": "Festive Edit",
+      "eyebrow": "Celebration season",
+      "description": "Pieces with presence, chosen for gatherings, rituals and the joy of dressing up.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1758995116383-f51775896add?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Ornate gold bangles stacked on a dark surface",
+        "width": 2400,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1641382161166-4f3c320f0c6d?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in festive gold and red attire wearing gold jewellery",
+        "width": 1200,
+        "height": 1700
+      },
+      "displayOrder": 2,
+      "active": true
+    },
+    {
+      "id": "col-everyday",
+      "slug": "everyday-luxe",
+      "name": "Everyday Luxe",
+      "eyebrow": "Made to be worn",
+      "description": "Refined gold for daily rituals — light, comfortable and quietly brilliant.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1613966561243-c6959a886009?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Woman wearing a fine gold necklace",
+        "width": 2400,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1611652022451-d55126758521?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in a white dress wearing a fine gold necklace",
+        "width": 1200,
+        "height": 1700
+      },
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "col-mens",
+      "slug": "mens-signature",
+      "name": "Men's Signature",
+      "eyebrow": "Bold, considered",
+      "description": "Chains, kadas, bracelets and signet rings with weight and character.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1762505465234-de8b802614d9?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a gold chain and bracelet",
+        "width": 1200,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1613498510372-8901cad084a2?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Man wearing a gold chain",
+        "width": 1200,
+        "height": 1500
+      },
+      "displayOrder": 4,
+      "active": true
+    },
+    {
+      "id": "col-sterling",
+      "slug": "sterling-studio",
+      "name": "Sterling Studio",
+      "eyebrow": "Contemporary silver",
+      "description": "Clean lines and luminous sterling silver for modern, everyday wear.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Silver jewellery set with clear gemstones on black",
+        "width": 2400,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1786052351994-37c1af4c55d7?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Silver chain bracelets reflected on a mirror",
+        "width": 1200,
+        "height": 1700
+      },
+      "displayOrder": 5,
+      "active": true
+    },
+    {
+      "id": "col-gifting",
+      "slug": "gifting-edit",
+      "name": "Gifting Edit",
+      "eyebrow": "Thoughtfully chosen",
+      "description": "Personalisable pendants, delicate chains and pieces made to be given.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1602752250055-5ebb552fc3ae?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Gold and silver heart pendant necklace",
+        "width": 1200,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1623321673989-830eff0fd59f?auto=format&fit=crop&w=1200&h=1500&q=80",
+        "alt": "Hand holding a gold heart charm",
+        "width": 1200,
+        "height": 1500
+      },
+      "displayOrder": 6,
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,1041 @@
+{
+  "homepage": {
+    "hero": [
+      {
+        "id": "hero-1",
+        "eyebrow": "The Bridal Heritage Edit",
+        "title": "The art of fine jewellery",
+        "description": "Designed to become part of your story.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1610173826014-d131b02d69ca?auto=format&fit=crop&w=2400&h=1500&q=80",
+          "alt": "Bride in a red and gold sari wearing layered gold jewellery",
+          "width": 2400,
+          "height": 1500
+        },
+        "mobileImage": {
+          "url": "https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=1200&h=1700&q=80",
+          "alt": "Bride in red bridal attire with ornate gold jewellery",
+          "width": 1200,
+          "height": 1700
+        },
+        "primaryCta": {
+          "label": "Explore Collection",
+          "href": "/collection/bridal-heritage"
+        },
+        "secondaryCta": {
+          "label": "Shop Gold",
+          "href": "/shop/gold-jewellery"
+        },
+        "tone": "light",
+        "align": "left",
+        "displayOrder": 1,
+        "active": true
+      },
+      {
+        "id": "hero-2",
+        "eyebrow": "Crafted in 22KT gold",
+        "title": "Heirlooms, reimagined",
+        "description": "Carved bangles and kadas with a quiet, sculptural presence.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1758995116383-f51775896add?auto=format&fit=crop&w=2400&h=1500&q=80",
+          "alt": "A stack of ornate gold bangles on a dark surface",
+          "width": 2400,
+          "height": 1500
+        },
+        "mobileImage": {
+          "url": "https://images.unsplash.com/photo-1771734065116-61e16b353ded?auto=format&fit=crop&w=1200&h=1700&q=80",
+          "alt": "Close-up of a gold chain against a dark background",
+          "width": 1200,
+          "height": 1700
+        },
+        "primaryCta": {
+          "label": "Shop Bangles",
+          "href": "/shop/bangles"
+        },
+        "tone": "light",
+        "align": "left",
+        "displayOrder": 2,
+        "active": true
+      },
+      {
+        "id": "hero-3",
+        "eyebrow": "Sterling Studio",
+        "title": "Silver, in its finest light",
+        "description": "Contemporary sterling silver for everyday brilliance.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=2400&h=1500&q=80",
+          "alt": "Silver jewellery set with clear gemstones on black",
+          "width": 2400,
+          "height": 1500
+        },
+        "mobileImage": {
+          "url": "https://images.unsplash.com/photo-1786052351994-37c1af4c55d7?auto=format&fit=crop&w=1200&h=1700&q=80",
+          "alt": "Silver chain bracelets reflected on a mirror",
+          "width": 1200,
+          "height": 1700
+        },
+        "primaryCta": {
+          "label": "Shop Silver",
+          "href": "/shop/silver-jewellery"
+        },
+        "secondaryCta": {
+          "label": "View Collection",
+          "href": "/collection/sterling-studio"
+        },
+        "tone": "light",
+        "align": "left",
+        "displayOrder": 3,
+        "active": true
+      },
+      {
+        "id": "hero-4",
+        "eyebrow": "Made for you",
+        "title": "Your design, our craft",
+        "description": "Personalised jewellery, created for your occasion.",
+        "image": {
+          "url": "https://images.unsplash.com/photo-1611107683227-e9060eccd846?auto=format&fit=crop&w=2400&h=1500&q=80",
+          "alt": "Gold chain necklace resting on a white surface",
+          "width": 2400,
+          "height": 1500
+        },
+        "mobileImage": {
+          "url": "https://images.unsplash.com/photo-1705326454924-f6777522b030?auto=format&fit=crop&w=1200&h=1700&q=80",
+          "alt": "Gold necklace displayed on a white bust",
+          "width": 1200,
+          "height": 1700
+        },
+        "primaryCta": {
+          "label": "Create Your Jewellery",
+          "href": "/custom-jewellery"
+        },
+        "tone": "dark",
+        "align": "left",
+        "displayOrder": 4,
+        "active": true
+      }
+    ],
+    "goldEditorial": {
+      "id": "gold-editorial",
+      "key": "gold",
+      "eyebrow": "The Gold Edit",
+      "title": "Gold Jewellery",
+      "description": "Warm, radiant and made to last generations. Explore 22KT and 18KT gold — from refined everyday pieces to ceremonial statements.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1594140700783-f9e70c7abc25?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in a gold and red sari wearing traditional gold jewellery",
+        "width": 1200,
+        "height": 1700
+      },
+      "cta": {
+        "label": "Shop Gold",
+        "href": "/shop/gold-jewellery"
+      },
+      "displayOrder": 1,
+      "active": true
+    },
+    "silverEditorial": {
+      "id": "silver-editorial",
+      "key": "silver",
+      "eyebrow": "Sterling Studio",
+      "title": "Silver Jewellery",
+      "description": "Luminous, modern and effortlessly wearable. Sterling and fine silver designed for the rhythm of everyday life.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1761222101900-9c9e34fac2ce?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Arms adorned with delicate silver bracelets",
+        "width": 1200,
+        "height": 1700
+      },
+      "cta": {
+        "label": "Shop Silver",
+        "href": "/shop/silver-jewellery"
+      },
+      "displayOrder": 2,
+      "active": true
+    },
+    "campaign": {
+      "id": "campaign-timeless",
+      "key": "campaign",
+      "eyebrow": "Everyday Luxe",
+      "title": "Timeless Elegance",
+      "description": "Discover pieces designed to be treasured — refined enough for every day, meaningful enough for a lifetime.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1611652022451-d55126758521?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in a white dress wearing a fine gold necklace",
+        "width": 1200,
+        "height": 1700
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1611652022451-d55126758521?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in a white dress wearing a fine gold necklace",
+        "width": 1200,
+        "height": 1700
+      },
+      "cta": {
+        "label": "Shop Collection",
+        "href": "/collection/everyday-luxe"
+      },
+      "displayOrder": 3,
+      "active": true
+    },
+    "festival": {
+      "id": "festival-campaign",
+      "key": "festival",
+      "eyebrow": "The Festive Edit",
+      "title": "Dressed for celebration",
+      "description": "Jhumkas, carved bangles and statement necklaces chosen for gatherings, rituals and the joy of the season.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1758995116383-f51775896add?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Ornate gold bangles stacked on a dark surface",
+        "width": 2400,
+        "height": 1500
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1641382161166-4f3c320f0c6d?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Woman in festive gold and red attire wearing gold jewellery",
+        "width": 1200,
+        "height": 1700
+      },
+      "cta": {
+        "label": "Explore the Edit",
+        "href": "/collection/festive-edit"
+      },
+      "displayOrder": 4,
+      "active": true
+    },
+    "customJewellery": {
+      "id": "custom-jewellery",
+      "key": "custom",
+      "eyebrow": "Custom Jewellery",
+      "title": "Personalised designs, created for your occasion",
+      "description": "Share an idea, a sketch or a reference — our team will guide you through design, metal, purity and budget, and keep you informed at every step.",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1698495386518-5e21688bc27b?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Hand wearing a finely crafted ring",
+        "width": 1200,
+        "height": 1700
+      },
+      "mobileImage": {
+        "url": "https://images.unsplash.com/photo-1631982690223-8aa4be0a2497?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Three gold rings presented in a white box",
+        "width": 1200,
+        "height": 1700
+      },
+      "cta": {
+        "label": "Create Your Jewellery",
+        "href": "/custom-jewellery"
+      },
+      "displayOrder": 5,
+      "active": true
+    },
+    "brandStory": {
+      "eyebrow": "Our Story",
+      "title": "Jewellery made with intention",
+      "paragraphs": [
+        "We believe fine jewellery should be chosen with confidence and worn with joy. Every piece in our collection is selected for its design, its finish and the way it feels to wear.",
+        "From the first sketch to the final polish, we care about the details — balanced proportions, secure settings and a finish that ages beautifully. And because trust matters, we show you how every price is built."
+      ],
+      "image": {
+        "url": "https://images.unsplash.com/photo-1758995115682-1452a1a9e35b?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Gold necklace and matching earrings on display",
+        "width": 1200,
+        "height": 1700
+      },
+      "secondaryImage": {
+        "url": "https://images.unsplash.com/photo-1650389236412-e7413cbcf2fe?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "A jewellery display case in a showroom",
+        "width": 1200,
+        "height": 1700
+      },
+      "pillars": [
+        {
+          "title": "Craftsmanship",
+          "description": "Considered design and careful finishing in every piece."
+        },
+        {
+          "title": "Transparency",
+          "description": "Metal value, making charges and GST shown clearly."
+        },
+        {
+          "title": "Personal Service",
+          "description": "Guidance on WhatsApp, phone or in our showroom."
+        }
+      ],
+      "cta": {
+        "label": "Read Our Story",
+        "href": "/about"
+      }
+    },
+    "seoContent": {
+      "title": "Gold and silver jewellery, chosen with care",
+      "paragraphs": [
+        "Explore gold jewellery in 22KT and 18KT alongside sterling and fine silver — rings, earrings, necklaces, chains, bracelets, bangles, pendants and mangalsutra for women, men and kids.",
+        "Every product page lists the metal, purity, gross and net weight, making charges and GST, so you can compare pieces with clarity. Looking for something unique? Our custom jewellery service creates personalised designs for weddings, anniversaries and milestones."
+      ]
+    }
+  },
+  "testimonials": [
+    {
+      "id": "t-1",
+      "name": "Bridal customer",
+      "quote": "The team helped me put together my wedding jewellery without any pressure. Seeing the full price breakdown made the decision so much easier.",
+      "rating": 5,
+      "isSample": true,
+      "displayOrder": 1,
+      "active": true
+    },
+    {
+      "id": "t-2",
+      "name": "Anniversary gift",
+      "quote": "I ordered an engraved pendant for my wife. The WhatsApp updates kept me informed, and the finish was beautiful.",
+      "rating": 5,
+      "isSample": true,
+      "displayOrder": 2,
+      "active": true
+    },
+    {
+      "id": "t-3",
+      "name": "Custom design",
+      "quote": "I shared a rough sketch of a ring and they turned it into something far better than I imagined.",
+      "rating": 5,
+      "isSample": true,
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "t-4",
+      "name": "Everyday wear",
+      "quote": "My silver hoops have become the pair I wear every single day. Light, comfortable and still shining.",
+      "rating": 5,
+      "isSample": true,
+      "displayOrder": 4,
+      "active": true
+    }
+  ],
+  "instagram": [
+    {
+      "id": "ig-1",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1633934542430-0905ccb5f050?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Rings and a necklace styled together",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-2",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1585960622850-ed33c41d6418?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Gold necklace worn with a white shirt",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-3",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1620656798579-1984d9e87df7?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Layered gold necklace worn with black",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-4",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1616837874254-8d5aaa63e273?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Gold necklace worn with a black blazer",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-5",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1601821765780-754fa98637c1?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Gold necklace worn with a white shirt",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-6",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1623040593884-0044b3ce4ff9?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Hand wearing two rings",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-7",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1777817118010-ee0ded8a7823?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Arms crossed wearing stacked bracelets",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    },
+    {
+      "id": "ig-8",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1594140700520-8afea3283e2c?auto=format&fit=crop&w=900&h=900&q=80",
+        "alt": "Woman wearing green and gold earrings",
+        "width": 900,
+        "height": 900
+      },
+      "url": "https://www.instagram.com/abhisheksilver/"
+    }
+  ],
+  "trust": [
+    {
+      "id": "trust-pricing",
+      "icon": "scale",
+      "title": "Transparent Pricing",
+      "description": "Metal value, making charges and GST are shown for every piece.",
+      "displayOrder": 1,
+      "active": true
+    },
+    {
+      "id": "trust-payments",
+      "icon": "shield",
+      "title": "Secure Payments",
+      "description": "Checkout is processed through an encrypted payment gateway.",
+      "displayOrder": 2,
+      "active": true
+    },
+    {
+      "id": "trust-custom",
+      "icon": "pen",
+      "title": "Personalised Designs",
+      "description": "Create a piece for your occasion with our custom service.",
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "trust-enquiry",
+      "icon": "message",
+      "title": "Easy Enquiry",
+      "description": "Talk to our team on WhatsApp, phone or email.",
+      "displayOrder": 4,
+      "active": true
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-price",
+      "category": "Pricing",
+      "question": "How is the price of a piece calculated?",
+      "answer": "Jewellery prices are built from the metal rate for the piece's purity multiplied by its net weight, plus making charges, stone charges (where applicable) and any other charges. GST is then applied and any offer is deducted. Every product page shows this breakdown.",
+      "displayOrder": 1,
+      "active": true
+    },
+    {
+      "id": "faq-price-change",
+      "category": "Pricing",
+      "question": "Why can the price of a piece change?",
+      "answer": "Gold and silver rates move with the market. Prices on the website are updated from our pricing system, and the final price is confirmed when you place your order.",
+      "displayOrder": 2,
+      "active": true
+    },
+    {
+      "id": "faq-purity",
+      "category": "Pricing",
+      "question": "What is the difference between 22KT and 18KT gold?",
+      "answer": "22KT gold contains 91.6% pure gold and has a rich, warm colour. 18KT gold contains 75% pure gold; the added alloy makes it harder, which is why it is often used for diamond and gemstone settings.",
+      "displayOrder": 3,
+      "active": true
+    },
+    {
+      "id": "faq-payment",
+      "category": "Orders & Payments",
+      "question": "Which payment methods can I use?",
+      "answer": "Payments are processed through our secure payment gateway. The methods available to you are shown at checkout.",
+      "displayOrder": 4,
+      "active": true
+    },
+    {
+      "id": "faq-track",
+      "category": "Orders & Payments",
+      "question": "How do I track my order?",
+      "answer": "Sign in and open My Account → Orders to see the live status of every order, from confirmation through to delivery.",
+      "displayOrder": 5,
+      "active": true
+    },
+    {
+      "id": "faq-shipping",
+      "category": "Shipping & Returns",
+      "question": "How long will delivery take?",
+      "answer": "Delivery timelines depend on the piece and your location. They are confirmed with your order — please see our Shipping Policy for details.",
+      "displayOrder": 6,
+      "active": true
+    },
+    {
+      "id": "faq-returns",
+      "category": "Shipping & Returns",
+      "question": "Can I return or exchange a piece?",
+      "answer": "Please refer to our Returns & Refund Policy for eligibility and the process. Our team is happy to help with any questions.",
+      "displayOrder": 7,
+      "active": true
+    },
+    {
+      "id": "faq-custom",
+      "category": "Custom Jewellery",
+      "question": "Can you make a custom piece for me?",
+      "answer": "Yes. Share your idea through the Custom Jewellery page or on WhatsApp — include reference images, preferred metal and budget. Our team will contact you to discuss design, feasibility and timelines.",
+      "displayOrder": 8,
+      "active": true
+    },
+    {
+      "id": "faq-size",
+      "category": "Custom Jewellery",
+      "question": "How do I find my ring or bangle size?",
+      "answer": "Choose from the sizes listed on the product page. If you are unsure, contact us on WhatsApp and we will guide you through measuring at home.",
+      "displayOrder": 9,
+      "active": true
+    },
+    {
+      "id": "faq-care",
+      "category": "Care",
+      "question": "How should I care for my jewellery?",
+      "answer": "Store pieces separately in a soft pouch, keep them away from perfume and chemicals, and wipe gently with a soft cloth after wearing. Silver can be brightened with a silver polishing cloth.",
+      "displayOrder": 10,
+      "active": true
+    }
+  ],
+  "blog": [
+    {
+      "id": "b-1",
+      "slug": "how-jewellery-prices-are-calculated",
+      "title": "How jewellery prices are calculated",
+      "excerpt": "Metal rate, purity, weight, making charges and GST — a clear guide to reading a jewellery price.",
+      "category": "Gold Education",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1758995115518-26f90aa61b97?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Gold necklace with intricate bead detailing on velvet",
+        "width": 2400,
+        "height": 1500
+      },
+      "author": {
+        "name": "Editorial Team"
+      },
+      "tags": [
+        "pricing",
+        "gold",
+        "buying guide"
+      ],
+      "readingMinutes": 5,
+      "publishedAt": "2026-08-20T10:00:00+05:30",
+      "updatedAt": "2026-08-20T10:00:00+05:30",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Unlike most products, the price of gold and silver jewellery is built from several transparent components. Understanding them helps you compare pieces with confidence."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "1. Metal value"
+        },
+        {
+          "type": "paragraph",
+          "text": "The metal value is the rate for the piece's purity multiplied by its net weight — the weight of the metal alone, excluding stones or beads."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "2. Making charges"
+        },
+        {
+          "type": "paragraph",
+          "text": "Making charges reflect the design and craftsmanship involved. They may be expressed per gram, as a percentage of the metal value, or as a fixed amount."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "3. Stone and other charges"
+        },
+        {
+          "type": "paragraph",
+          "text": "Diamonds, gemstones, pearls or beads are priced separately. Other charges can include specific finishing or stringing work."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "4. GST and offers"
+        },
+        {
+          "type": "paragraph",
+          "text": "GST is applied to the taxable value. Where an offer applies, the discount is shown clearly in the breakdown."
+        },
+        {
+          "type": "quote",
+          "text": "A clear price is the foundation of a confident purchase."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Check the purity (e.g. 22KT, 18KT, 925).",
+            "Compare net weight, not only gross weight.",
+            "Look at making charges alongside the design.",
+            "Confirm the final price at checkout."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b-2",
+      "slug": "22kt-vs-18kt-gold",
+      "title": "22KT vs 18KT gold: choosing the right purity",
+      "excerpt": "Colour, durability and design — how purity shapes the jewellery you choose.",
+      "category": "Buying Guides",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1617633150878-7df1d12a9a57?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Detail of gold jewellery worn with a red and gold sari",
+        "width": 1200,
+        "height": 1700
+      },
+      "author": {
+        "name": "Editorial Team"
+      },
+      "tags": [
+        "gold",
+        "purity"
+      ],
+      "readingMinutes": 4,
+      "publishedAt": "2026-07-28T10:00:00+05:30",
+      "updatedAt": "2026-07-28T10:00:00+05:30",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Purity describes how much pure gold an alloy contains. It affects colour, hardness and the kind of designs a piece can support."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "22KT gold"
+        },
+        {
+          "type": "paragraph",
+          "text": "22KT gold is 91.6% pure gold. Its deep yellow tone is traditional in Indian jewellery, and it is ideal for bangles, chains and ceremonial pieces."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "18KT gold"
+        },
+        {
+          "type": "paragraph",
+          "text": "18KT gold is 75% pure gold. The higher proportion of alloy makes it harder, so it holds diamonds and gemstones securely and suits fine, contemporary designs."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Choose 22KT for rich colour and traditional designs.",
+            "Choose 18KT for stone-set and delicate pieces.",
+            "Both are priced by the rate for their specific purity."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b-3",
+      "slug": "caring-for-sterling-silver",
+      "title": "Caring for sterling silver",
+      "excerpt": "Simple habits that keep your silver bright for years.",
+      "category": "Silver Education",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1786052351994-37c1af4c55d7?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Silver chain bracelets reflected on a mirror",
+        "width": 1200,
+        "height": 1700
+      },
+      "author": {
+        "name": "Editorial Team"
+      },
+      "tags": [
+        "silver",
+        "care"
+      ],
+      "readingMinutes": 3,
+      "publishedAt": "2026-07-10T10:00:00+05:30",
+      "updatedAt": "2026-07-10T10:00:00+05:30",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "925 sterling silver is 92.5% pure silver. Like all silver, it can tarnish naturally when exposed to air and moisture — the good news is that it is easy to care for."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Everyday care"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Put jewellery on after perfume and lotions.",
+            "Remove before swimming or cleaning.",
+            "Wipe with a soft cloth after wearing.",
+            "Store in a sealed pouch to slow tarnishing."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Restoring shine"
+        },
+        {
+          "type": "paragraph",
+          "text": "A silver polishing cloth restores brightness gently. For pieces with stones or oxidised detailing, avoid dips and harsh cleaners."
+        }
+      ]
+    },
+    {
+      "id": "b-4",
+      "slug": "styling-layered-necklaces",
+      "title": "The art of layering necklaces",
+      "excerpt": "Proportion, length and texture — how to build a layered look that feels effortless.",
+      "category": "Styling",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1613966561243-c6959a886009?auto=format&fit=crop&w=2400&h=1500&q=80",
+        "alt": "Woman wearing a fine gold necklace",
+        "width": 2400,
+        "height": 1500
+      },
+      "author": {
+        "name": "Editorial Team"
+      },
+      "tags": [
+        "styling",
+        "necklaces"
+      ],
+      "readingMinutes": 4,
+      "publishedAt": "2026-06-18T10:00:00+05:30",
+      "updatedAt": "2026-06-18T10:00:00+05:30",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Layering lets you tell a personal story through jewellery. The secret is contrast with a common thread."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Vary the lengths"
+        },
+        {
+          "type": "paragraph",
+          "text": "Leave around 5cm between each layer so every piece has room to be seen."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Mix textures, keep one tone"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pair a fine box chain with a rope chain or a pendant in the same metal for a cohesive look."
+        },
+        {
+          "type": "image",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1625792508553-5e66a81659fa?auto=format&fit=crop&w=1200&h=1500&q=80",
+            "alt": "Layered gold necklace on white fabric",
+            "width": 1200,
+            "height": 1500
+          },
+          "caption": "A pre-layered necklace keeps strands from tangling."
+        }
+      ]
+    },
+    {
+      "id": "b-5",
+      "slug": "planning-your-bridal-jewellery",
+      "title": "Planning your bridal jewellery",
+      "excerpt": "A calm, step-by-step approach to choosing jewellery for every wedding function.",
+      "category": "Festival Collections",
+      "coverImage": {
+        "url": "https://images.unsplash.com/photo-1570212773364-e30cd076539e?auto=format&fit=crop&w=1200&h=1700&q=80",
+        "alt": "Bride in a wedding sari looking downward",
+        "width": 1200,
+        "height": 1700
+      },
+      "author": {
+        "name": "Editorial Team"
+      },
+      "tags": [
+        "bridal",
+        "wedding"
+      ],
+      "readingMinutes": 6,
+      "publishedAt": "2026-05-30T10:00:00+05:30",
+      "updatedAt": "2026-05-30T10:00:00+05:30",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Bridal jewellery is often the most meaningful purchase you will make. A little planning makes the experience joyful rather than overwhelming."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Start with your outfits"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neckline, colour and embroidery guide which necklace shapes and metals will work best for each function."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Balance heirloom and everyday"
+        },
+        {
+          "type": "paragraph",
+          "text": "Alongside statement sets, choose a few pieces — like a mangalsutra, fine chain or bangles — that you will wear long after the celebrations."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Personalise"
+        },
+        {
+          "type": "paragraph",
+          "text": "Custom jewellery allows you to add initials, dates or family motifs. Allow time for design discussion and confirmation."
+        }
+      ]
+    }
+  ],
+  "policies": {
+    "shipping": {
+      "slug": "shipping",
+      "title": "Shipping Policy",
+      "intro": "This page will contain the business's official shipping policy. The sections below outline the structure; final wording must be supplied and reviewed by the business.",
+      "sections": [
+        {
+          "heading": "Delivery locations",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Dispatch and delivery timelines",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Shipping charges",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Packaging and insurance",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Order tracking",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        }
+      ],
+      "isPlaceholder": true
+    },
+    "returns": {
+      "slug": "returns",
+      "title": "Returns & Refund Policy",
+      "intro": "This page will contain the business's official returns & refund policy. The sections below outline the structure; final wording must be supplied and reviewed by the business.",
+      "sections": [
+        {
+          "heading": "Eligibility",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Custom and personalised pieces",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "How to request a return",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Inspection",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Refund method and timelines",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        }
+      ],
+      "isPlaceholder": true
+    },
+    "privacy": {
+      "slug": "privacy",
+      "title": "Privacy Policy",
+      "intro": "This page will contain the business's official privacy policy. The sections below outline the structure; final wording must be supplied and reviewed by the business.",
+      "sections": [
+        {
+          "heading": "Information we collect",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "How we use your information",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Payments",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Cookies and analytics",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Your rights",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Contact",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        }
+      ],
+      "isPlaceholder": true
+    },
+    "terms": {
+      "slug": "terms",
+      "title": "Terms & Conditions",
+      "intro": "This page will contain the business's official terms & conditions. The sections below outline the structure; final wording must be supplied and reviewed by the business.",
+      "sections": [
+        {
+          "heading": "Use of the website",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Product information and pricing",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Orders and acceptance",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Payments",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Intellectual property",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        },
+        {
+          "heading": "Governing law",
+          "body": [
+            "Content for this section will be provided by the business."
+          ]
+        }
+      ],
+      "isPlaceholder": true
+    }
+  },
+  "offers": [
+    {
+      "id": "offer-festive",
+      "type": "festival",
+      "eyebrow": "The Festive Edit",
+      "title": "Pieces for the season",
+      "description": "Explore festive jewellery selected for celebrations.",
+      "cta": {
+        "label": "Explore",
+        "href": "/collection/festive-edit"
+      },
+      "active": true,
+      "displayOrder": 1
+    }
+  ],
+  "coupons": [
+    {
+      "code": "WELCOME5",
+      "type": "percentage",
+      "value": 5,
+      "maxDiscount": 5000,
+      "description": "5% off your order (up to ₹5,000)"
+    },
+    {
+      "code": "FESTIVE2000",
+      "type": "fixed",
+      "value": 2000,
+      "minOrderValue": 50000,
+      "description": "₹2,000 off orders above ₹50,000"
+    },
+    {
+      "code": "SILVER10",
+      "type": "percentage",
+      "value": 10,
+      "description": "10% off silver jewellery",
+      "appliesTo": {
+        "categorySlugs": [
+          "silver-jewellery"
+        ]
+      }
+    }
+  ],
+  "rates": {
+    "gold": {
+      "24k": 10480,
+      "22k": 9610,
+      "18k": 7860,
+      "14k": 6130
+    },
+    "silver": {
+      "925": 118,
+      "999": 128
+    },
+    "effectiveAt": "2026-09-10T09:00:00+05:30"
+  },
+  "gstRate": 3,
+  "storeImage": {
+    "url": "https://images.unsplash.com/photo-1724986481830-4e7b781c2bd1?auto=format&fit=crop&w=1200&h=1700&q=80",
+    "alt": "Jewellery displayed on a table in a showroom",
+    "width": 1200,
+    "height": 1700
+  }
+}
