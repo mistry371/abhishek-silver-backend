@@ -8,7 +8,7 @@ import { db, type Tx } from "@/db/client";
 import { categories, collections, inventoryLevels, metalRates, productCollections, products, subcategories, vendors } from "@/db/schema";
 import { can, requireAnyPermission, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
-import { paginated, parse, zImage, zMoney, zSeo, zText, zUuid } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zImage, zMoney, zSeo, zText, zUuid } from "@/lib/validation";
 import { GENDERS, METALS, PURITIES, PURITIES_BY_METAL, purityLabels } from "@/modules/catalog/labels";
 import { priceable, resolveVariant, type ProductRow } from "@/modules/catalog/snapshot";
 import { loadPricingContext, priceProduct, type PricingContext } from "@/modules/pricing/context";
@@ -179,7 +179,7 @@ const createSchema = z.object({
   initialStock: z.object({ locationId: z.string().trim().min(1).max(40), quantity: z.number().int().min(1).max(100_000) }).optional(),
 });
 
-const updateSchema = z.object(productShape).partial();
+const updateSchema = partialUpdate(z.object(productShape));
 
 type ProductDraft = Pick<
   ProductRow,
@@ -680,7 +680,7 @@ catalogueRouter.post("/categories", requirePermission("catalog:manage_taxonomy")
 
 catalogueRouter.patch("/categories/:id", requirePermission("catalog:manage_taxonomy"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(categorySchema.partial(), req.body);
+  const patch = parse(partialUpdate(categorySchema), req.body);
   const actor = actorOf(req);
   const row = await withUniqueFields(
     () =>
@@ -749,7 +749,7 @@ catalogueRouter.post("/categories/:id/subcategories", requirePermission("catalog
 
 catalogueRouter.patch("/subcategories/:id", requirePermission("catalog:manage_taxonomy"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(subcategorySchema.partial(), req.body);
+  const patch = parse(partialUpdate(subcategorySchema), req.body);
   const row = await withUniqueFields(
     async () =>
       (
@@ -810,7 +810,7 @@ catalogueRouter.post("/collections", requirePermission("catalog:manage_taxonomy"
 
 catalogueRouter.patch("/collections/:id", requirePermission("catalog:manage_taxonomy"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(collectionSchema.partial(), req.body);
+  const patch = parse(partialUpdate(collectionSchema), req.body);
   const row = await withUniqueFields(
     async () =>
       (

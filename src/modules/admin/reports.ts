@@ -617,9 +617,8 @@ async function inventoryReport(c: Ctx): Promise<ReportBody> {
           { key: "status", label: "Status" },
           ...(valuation ? [{ key: "valuation", label: "Valuation", format: "currency" as const }] : []),
         ],
-        rows: rows.map(({ purchasePrice, threshold: _t, productId: _p, ...r }) => {
+        rows: rows.map(({ purchasePrice, threshold: _t, ...r }) => {
           void _t;
-          void _p;
           return valuation ? { ...r, valuation: purchasePrice !== null ? round2(r.units * purchasePrice) : null } : r;
         }),
       },

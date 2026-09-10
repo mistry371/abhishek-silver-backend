@@ -5,7 +5,7 @@ import { db, type Tx } from "@/db/client";
 import { categories, collections, coupons, offers, products } from "@/db/schema";
 import { requirePermission } from "@/http/auth";
 import { AppError, invalid, notFound } from "@/lib/errors";
-import { paginated, parse, zBoolQuery, zImage, zMoney, zText, zUuid } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zBoolQuery, zImage, zMoney, zText, zUuid } from "@/lib/validation";
 import { METALS } from "@/modules/catalog/labels";
 import { actorOf, diff, recordAudit } from "@/services/audit";
 import { afterCatalogChange, revalidateStorefront } from "@/services/revalidate";
@@ -109,7 +109,7 @@ marketingRouter.post("/coupons", requirePermission("marketing:manage"), async (r
 
 marketingRouter.patch("/coupons/:id", requirePermission("marketing:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(couponSchema.partial(), req.body);
+  const patch = parse(partialUpdate(couponSchema), req.body);
   const { startsAt, endsAt, ...couponFields } = patch;
   const actor = actorOf(req);
   const row = await withUniqueFields(
@@ -118,6 +118,9 @@ marketingRouter.patch("/coupons/:id", requirePermission("marketing:manage"), asy
         const [current] = await tx.select().from(coupons).where(eq(coupons.id, id)).for("update");
         if (!current) throw notFound();
         if (patch.code && patch.code !== current.code && current.usedCount > 0) throw invalid({ code: "This coupon has been used, so its code can't change." });
+        if (patch.usageLimit !== undefined && patch.usageLimit !== null && patch.usageLimit < current.usedCount) {
+          throw invalid({ usageLimit: `This coupon has already been used ${current.usedCount} times.` });
+        }
         await validateCoupon(tx, {
           ...patch,
           type: patch.type ?? current.type,
@@ -242,7 +245,7 @@ marketingRouter.post("/offers", requirePermission("marketing:manage"), async (re
 
 marketingRouter.patch("/offers/:id", requirePermission("marketing:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(offerSchema.partial(), req.body);
+  const patch = parse(partialUpdate(offerSchema), req.body);
   const actor = actorOf(req);
   const row = await db().transaction(async (tx) => {
     const [current] = await tx.select().from(offers).where(eq(offers.id, id)).for("update");

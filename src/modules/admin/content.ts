@@ -5,7 +5,7 @@ import { db } from "@/db/client";
 import { blogPosts, contentBlocks, faqs, testimonials } from "@/db/schema";
 import { requirePermission } from "@/http/auth";
 import { invalid, notFound } from "@/lib/errors";
-import { paginated, parse, zImage, zSeo, zText } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zImage, zSeo, zText } from "@/lib/validation";
 import { contentSchemas, policySchema, POLICY_SLUGS, type ContentKey } from "@/modules/content/types";
 import { actorOf, recordAudit } from "@/services/audit";
 import { revalidateStorefront } from "@/services/revalidate";
@@ -61,8 +61,8 @@ contentAdminRouter.get("/content/policies/:slug", requirePermission("content:vie
   const slug = String(req.params.slug);
   if (!(POLICY_SLUGS as readonly string[]).includes(slug)) throw notFound();
   const [row] = await db().select().from(contentBlocks).where(eq(contentBlocks.key, `policy:${slug}`)).limit(1);
-  if (!row) throw notFound();
-  res.json(row);
+  // A policy that was never written can still be opened and created from the admin.
+  res.json(row ?? { key: `policy:${slug}`, value: null, updatedByName: null, updatedAt: null });
 });
 
 contentAdminRouter.put("/content/policies/:slug", requirePermission("content:manage"), async (req, res) => {
@@ -143,7 +143,7 @@ contentAdminRouter.post("/testimonials", requirePermission("content:manage"), as
 
 contentAdminRouter.patch("/testimonials/:id", requirePermission("content:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(testimonialSchema.partial(), req.body);
+  const patch = parse(partialUpdate(testimonialSchema), req.body);
   const [row] = await db()
     .update(testimonials)
     .set({ ...patch, updatedAt: new Date() })
@@ -201,7 +201,7 @@ contentAdminRouter.post("/faqs/reorder", requirePermission("content:manage"), as
 
 contentAdminRouter.patch("/faqs/:id", requirePermission("content:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(faqSchema.partial(), req.body);
+  const patch = parse(partialUpdate(faqSchema), req.body);
   const row = await withUniqueFields(
     async () =>
       (
@@ -299,7 +299,7 @@ contentAdminRouter.post("/blog-posts", requirePermission("content:manage"), asyn
 
 contentAdminRouter.patch("/blog-posts/:id", requirePermission("content:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(blogSchema.partial(), req.body);
+  const patch = parse(partialUpdate(blogSchema), req.body);
   const [current] = await db().select().from(blogPosts).where(eq(blogPosts.id, id)).limit(1);
   if (!current) throw notFound();
   if (patch.status === "published" && !(patch.coverImage ?? current.coverImage)?.url) throw invalid({ coverImage: "Add a cover image before publishing." });

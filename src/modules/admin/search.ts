@@ -31,7 +31,7 @@ searchRouter.get("/search", requirePermission("dashboard:view"), async (req, res
         .from(products)
         .where(and(isNull(products.deletedAt), searchAny(q, [products.name, products.sku, products.barcode])))
         .limit(limit)
-        .then((rows) => rows.map((r) => ({ type: "product", id: r.id, title: r.name, subtitle: `${r.sku} · ${r.status}`, href: `/admin/catalogue/products/${r.id}` }))),
+        .then((rows) => rows.map((r) => ({ type: "product", id: r.id, title: r.name, subtitle: `${r.sku} · ${r.status}`, href: `/admin/products/${r.id}` }))),
     );
   }
   if (can(req, "customers:view")) {
@@ -77,7 +77,7 @@ searchRouter.get("/search", requirePermission("dashboard:view"), async (req, res
             id: r.id,
             title: r.invoiceNumber ?? "Draft invoice",
             subtitle: `${r.customer.name} · ${r.status}`,
-            href: `/admin/billing/invoices/${r.id}`,
+            href: `/admin/invoices/${r.id}`,
           })),
         ),
     );

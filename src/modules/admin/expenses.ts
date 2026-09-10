@@ -10,7 +10,7 @@ import { adminOf, can, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
 import { istDate, startOfIstMonth } from "@/lib/dates";
 import { round2 } from "@/lib/money";
-import { paginated, parse, zBoolQuery, zDate, zMoney, zText, zUuid } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zBoolQuery, zDate, zMoney, zText, zUuid } from "@/lib/validation";
 import { actorOf, diff, recordAudit, type Actor } from "@/services/audit";
 import { notify } from "@/services/notifications";
 import { documentNumbers } from "@/services/sequences";
@@ -99,7 +99,7 @@ expensesRouter.post("/expense-categories", requirePermission("expenses:manage_ca
 
 expensesRouter.patch("/expense-categories/:id", requirePermission("expenses:manage_categories"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(categorySchema.partial(), req.body);
+  const patch = parse(partialUpdate(categorySchema), req.body);
   const actor = actorOf(req);
   const row = await db().transaction(async (tx) => {
     const [current] = await tx.select().from(expenseCategories).where(eq(expenseCategories.id, id)).for("update");
@@ -171,7 +171,7 @@ expensesRouter.post("/recurring-expenses", requirePermission("expenses:manage_ca
 
 expensesRouter.patch("/recurring-expenses/:id", requirePermission("expenses:manage_categories"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(recurringSchema.partial(), req.body);
+  const patch = parse(partialUpdate(recurringSchema), req.body);
   const actor = actorOf(req);
   const row = await db().transaction(async (tx) => {
     const [current] = await tx.select().from(recurringExpenses).where(eq(recurringExpenses.id, id)).for("update");
@@ -306,6 +306,11 @@ async function logEvent(tx: Tx, expenseId: string, action: string, actor: Actor,
   await tx.insert(expenseEvents).values({ expenseId, action, note: note ?? null, actorName: actor.name });
 }
 
+/** Expense options (tax fields, approvals, payment sources) for anyone working with expenses. */
+expensesRouter.get("/expenses/settings", requirePermission("expenses:view"), async (_req, res) => {
+  res.json(await getSetting("expenses"));
+});
+
 expensesRouter.get("/expenses/summary", requirePermission("expenses:view"), async (req, res) => {
   const { from, to } = parse(z.object({ from: zDate.optional(), to: zDate.optional() }), req.query);
   const today = istDate();
@@ -344,6 +349,7 @@ expensesRouter.get("/expenses/summary", requirePermission("expenses:view"), asyn
     .orderBy(desc(expenses.createdAt))
     .limit(5);
   const recurring = await database.select().from(recurringExpenses).where(eq(recurringExpenses.active, true));
+  const [pendingCount] = await database.select({ value: count() }).from(expenses).where(eq(expenses.status, "submitted"));
   const in30Days = new Date(Date.now() + 30 * 86_400_000).toISOString().slice(0, 10);
   const perMonth = { weekly: 52 / 12, monthly: 1, quarterly: 1 / 3, yearly: 1 / 12 } as const;
 
@@ -352,7 +358,7 @@ expensesRouter.get("/expenses/summary", requirePermission("expenses:view"), asyn
     thisMonth: totals!.month,
     period: { from: periodFrom, to: periodTo, total: totals!.period, count: totals!.periodCount },
     topCategories,
-    pendingApprovals: { count: pending.length, items: pending },
+    pendingApprovals: { count: pendingCount?.value ?? pending.length, items: pending },
     recent,
     recurring: {
       active: recurring.length,
@@ -609,6 +615,7 @@ expensesRouter.post("/expenses/:id/attachments", requirePermission("expenses:cre
   try {
     await db().transaction(async (tx) => {
       const expense = await lockExpense(tx, id);
+      assertCanEdit(req, expense);
       if (expense.attachments.length >= MAX_ATTACHMENTS) throw invalid({ file: `An expense can have up to ${MAX_ATTACHMENTS} attachments.` });
       const name = req.file!.originalname.replace(/[^\w.\- ]+/g, "_").slice(0, 120) || "receipt";
       const attachment = { id: randomUUID(), name, path: stored.path, size: req.file!.size, type, uploadedAt: new Date().toISOString() };

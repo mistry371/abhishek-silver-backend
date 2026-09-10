@@ -3,10 +3,10 @@ import { Router } from "express";
 import { z } from "zod";
 import { db, type Tx } from "@/db/client";
 import { auditLogs, products, purchaseItems, purchases, stockLocations, vendors } from "@/db/schema";
-import { can, requirePermission } from "@/http/auth";
+import { can, requireAnyPermission, requirePermission } from "@/http/auth";
 import { AppError, invalid, notFound } from "@/lib/errors";
 import { round2, round3 } from "@/lib/money";
-import { paginated, parse, zDate, zEmail, zMobile, zMoney, zText, zUuid, zWeight } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zDate, zEmail, zMobile, zMoney, zText, zUuid, zWeight } from "@/lib/validation";
 import { METALS, PURITIES, PURITIES_BY_METAL } from "@/modules/catalog/labels";
 import { actorOf, diff, recordAudit } from "@/services/audit";
 import { applyStockChange } from "@/services/inventory";
@@ -117,7 +117,7 @@ purchasingRouter.post("/vendors", requirePermission("vendors:manage"), async (re
 
 purchasingRouter.patch("/vendors/:id", requirePermission("vendors:manage"), async (req, res) => {
   const id = idParam(req);
-  const patch = parse(vendorSchema.partial(), req.body);
+  const patch = parse(partialUpdate(vendorSchema), req.body);
   const actor = actorOf(req);
   const vendor = await db().transaction(async (tx) => {
     const [current] = await tx.select().from(vendors).where(eq(vendors.id, id)).for("update");
@@ -377,6 +377,19 @@ purchasingRouter.post("/purchases/:id/submit", requirePermission("purchases:crea
       href: `/admin/purchases/${id}`,
       permission: "purchases:approve",
     });
+  });
+  res.json(await purchaseDetail(id));
+});
+
+/** Sends a purchase awaiting approval back to draft so its lines can be corrected (e.g. linked to products). */
+purchasingRouter.post("/purchases/:id/reopen", requireAnyPermission("purchases:create", "purchases:approve"), async (req, res) => {
+  const id = idParam(req);
+  const actor = actorOf(req);
+  await db().transaction(async (tx) => {
+    const current = await lockPurchase(tx, id);
+    if (current.status !== "pending_approval") throw new AppError("validation_error", "Only purchases awaiting approval can be returned to draft.");
+    await tx.update(purchases).set({ status: "draft", submittedAt: null, updatedAt: new Date() }).where(eq(purchases.id, id));
+    await recordAudit(tx, actor, { module: "purchases", action: "purchase.reopen", entityType: "purchase", entityId: id, entityLabel: current.purchaseNumber });
   });
   res.json(await purchaseDetail(id));
 });

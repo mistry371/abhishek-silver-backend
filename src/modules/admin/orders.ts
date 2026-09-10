@@ -410,7 +410,8 @@ const RETURN_TRANSITIONS: Record<string, string[]> = {
   requested: ["approved", "rejected"],
   approved: ["received", "rejected"],
   received: ["closed"],
-  rejected: ["closed"],
+  // Rejected is final, so rejected returns never count against returnable quantity.
+  rejected: [],
   closed: [],
 };
 

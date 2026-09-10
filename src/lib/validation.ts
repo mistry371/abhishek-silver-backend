@@ -110,6 +110,21 @@ export const zPagination = z.object({
   pageSize: z.coerce.number().int().min(1).max(100).default(25),
 });
 
+/**
+ * Like `.partial()` for PATCH bodies, but WITHOUT applying `.default()` values:
+ * Zod fills defaults for omitted keys, which would silently reset fields the
+ * client didn't send (e.g. a blocked customer becoming active, SEO being cleared).
+ */
+export function partialUpdate<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
+  const shape: Record<string, z.ZodType> = {};
+  for (const [key, field] of Object.entries(schema.shape)) {
+    let inner = field as z.ZodType;
+    while (inner instanceof z.ZodDefault) inner = inner.unwrap() as z.ZodType;
+    shape[key] = inner.optional();
+  }
+  return z.object(shape) as unknown as z.ZodObject<{ [K in keyof T]: z.ZodOptional<T[K]> }>;
+}
+
 export function paginated<T>(items: T[], total: number, page: number, pageSize: number) {
   return { items, total, page, pageSize, totalPages: Math.max(1, Math.ceil(total / pageSize)) };
 }

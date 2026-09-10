@@ -3,9 +3,9 @@ import { Router } from "express";
 import { z } from "zod";
 import { db } from "@/db/client";
 import { categories, inventoryLevels, products, stockLocations, stockMovements, vendors } from "@/db/schema";
-import { can, requirePermission } from "@/http/auth";
+import { can, requireAnyPermission, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
-import { paginated, parse, zText, zUuid } from "@/lib/validation";
+import { paginated, parse, zDate, zText, zUuid } from "@/lib/validation";
 import { METALS, PURITIES } from "@/modules/catalog/labels";
 import { actorOf, recordAudit } from "@/services/audit";
 import { applyStockChange } from "@/services/inventory";
@@ -19,7 +19,7 @@ export const inventoryRouter = Router();
 /* Locations                                                           */
 /* ------------------------------------------------------------------ */
 
-inventoryRouter.get("/locations", requirePermission("inventory:view"), async (_req, res) => {
+inventoryRouter.get("/locations", requireAnyPermission("inventory:view", "settings:manage"), async (_req, res) => {
   const rows = await db().select().from(stockLocations).orderBy(asc(stockLocations.displayOrder));
   const units = await db()
     .select({ locationId: inventoryLevels.locationId, value: sql<number>`coalesce(sum(${inventoryLevels.quantity}), 0)`.mapWith(Number) })
@@ -122,6 +122,8 @@ inventoryRouter.get("/inventory", requirePermission("inventory:view"), async (re
     query.locationId
       ? sql`exists (select 1 from ${inventoryLevels} where ${inventoryLevels.productId} = ${products.id} and ${inventoryLevels.locationId} = ${query.locationId} and ${inventoryLevels.quantity} > 0)`
       : undefined,
+    // Low/out-of-stock views count active products only, matching the summary and dashboard.
+    query.status && query.status !== "in_stock" && !query.productStatus ? eq(products.status, "active") : undefined,
     query.status === "out_of_stock" ? sql`${quantity} <= 0` : undefined,
     query.status === "low_stock" ? sql`${quantity} > 0 and ${quantity} <= ${products.lowStockThreshold}` : undefined,
     query.status === "in_stock" ? sql`${quantity} > ${products.lowStockThreshold}` : undefined,
@@ -227,8 +229,8 @@ const movementListSchema = listQuery.extend({
   type: z.enum(["opening", "purchase", "sale", "return", "add", "reduce", "adjustment", "transfer"]).optional(),
   locationId: z.string().max(40).optional(),
   referenceType: z.enum(["purchase", "order", "sale", "return", "manual", "seed"]).optional(),
-  from: z.string().optional(),
-  to: z.string().optional(),
+  from: zDate.optional(),
+  to: zDate.optional(),
 });
 
 inventoryRouter.get("/inventory/movements", requirePermission("inventory:view"), async (req, res) => {

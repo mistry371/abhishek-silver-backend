@@ -5,7 +5,7 @@ import { db } from "@/db/client";
 import { categories, chargeRates, makingChargeDefaults, metalRates, pricingHistory, pricingSettings, productCollections, products } from "@/db/schema";
 import { requirePermission } from "@/http/auth";
 import { invalid, notFound } from "@/lib/errors";
-import { paginated, parse, zMoney, zText, zUuid } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zMoney, zText, zUuid } from "@/lib/validation";
 import { METALS, PURITIES, PURITIES_BY_METAL, purityLabels } from "@/modules/catalog/labels";
 import { priceable, resolveVariant } from "@/modules/catalog/snapshot";
 import { loadPricingContext, priceProduct, type PriceableProduct, type PricingContext } from "@/modules/pricing/context";
@@ -171,7 +171,7 @@ pricingRouter.post("/pricing/charge-rates", requirePermission("pricing:manage"),
 
 pricingRouter.patch("/pricing/charge-rates/:id", requirePermission("pricing:manage"), async (req, res) => {
   const id = idParam(req);
-  const { reason, ...patch } = parse(chargeRateSchema.partial().extend({ reason: zText(300) }), req.body);
+  const { reason, ...patch } = parse(partialUpdate(chargeRateSchema).extend({ reason: zText(300) }), req.body);
   const actor = actorOf(req);
   const row = await db().transaction(async (tx) => {
     const [current] = await tx.select().from(chargeRates).where(eq(chargeRates.id, id)).for("update");

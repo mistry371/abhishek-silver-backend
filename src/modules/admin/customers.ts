@@ -17,7 +17,7 @@ import {
 import { adminOf, requirePermission } from "@/http/auth";
 import { conflict, invalid, notFound } from "@/lib/errors";
 import { istDateEnd, istDateStart } from "@/lib/dates";
-import { paginated, parse, zDate, zEmail, zMobile, zText } from "@/lib/validation";
+import { paginated, parse, partialUpdate, zDate, zEmail, zMobile, zText } from "@/lib/validation";
 import { addressSchema } from "@/modules/account/schemas";
 import { toAddressDto } from "@/modules/account/presenter";
 import { actorOf, diff, recordAudit } from "@/services/audit";
@@ -202,7 +202,7 @@ customersRouter.get("/customers/:id", requirePermission("customers:view"), async
     ...saleRows.filter((s) => s.channel === "manual").map((s) => ({ at: s.createdAt, type: "sale", label: `In-store sale ${s.saleNumber}`, href: `/admin/sales/${s.id}` })),
     ...invoiceRows
       .filter((i) => i.issuedAt)
-      .map((i) => ({ at: i.issuedAt!, type: "invoice", label: `Invoice ${i.invoiceNumber} issued`, href: `/admin/billing/invoices/${i.id}` })),
+      .map((i) => ({ at: i.issuedAt!, type: "invoice", label: `Invoice ${i.invoiceNumber} issued`, href: `/admin/invoices/${i.id}` })),
     ...enquiryRows.map((e) => ({ at: e.createdAt, type: "enquiry", label: `Enquiry ${e.reference}`, href: `/admin/enquiries/${e.id}` })),
     ...notes.map((n) => ({ at: n.createdAt, type: "note", label: `Note by ${n.authorName}`, href: null })),
   ]
@@ -214,7 +214,7 @@ customersRouter.get("/customers/:id", requirePermission("customers:view"), async
     stats: {
       totalSpent,
       purchaseCount: counted.length,
-      onlineOrderCount: orderRows.filter((o) => o.paymentStatus === "paid" || o.status !== "new").length,
+      onlineOrderCount: orderRows.filter((o) => o.paymentStatus === "paid" || o.paymentStatus === "refunded").length,
       averagePurchaseValue: counted.length ? Math.round(totalSpent / counted.length) : 0,
       firstPurchaseAt: purchaseDates.length ? new Date(Math.min(...purchaseDates)) : null,
       lastPurchaseAt: purchaseDates.length ? new Date(Math.max(...purchaseDates)) : null,
@@ -286,7 +286,7 @@ customersRouter.post("/customers", requirePermission("customers:manage"), async 
 
 customersRouter.patch("/customers/:id", requirePermission("customers:manage"), async (req, res) => {
   const current = await loadCustomer(idParam(req));
-  const patch = parse(customerSchema.partial(), req.body);
+  const patch = parse(partialUpdate(customerSchema), req.body);
   await assertNoDuplicate({ email: patch.email, phone: patch.phone }, current.id);
   if (current.authUserId && patch.email !== undefined && patch.email !== current.email) {
     // The sign-in email lives in the identity provider; changing it here would desynchronise them.
@@ -361,6 +361,14 @@ customersRouter.delete("/customers/:id/addresses/:addressId", requirePermission(
     .where(and(eq(customerAddresses.id, addressId), eq(customerAddresses.customerId, customer.id)))
     .returning();
   if (!removed) throw notFound();
+  // Keep a default shipping/billing address when the default one is removed.
+  const remaining = await db().select().from(customerAddresses).where(eq(customerAddresses.customerId, customer.id)).orderBy(asc(customerAddresses.createdAt));
+  if (remaining.length && !remaining.some((a) => a.isDefaultShipping)) {
+    await db().update(customerAddresses).set({ isDefaultShipping: true }).where(eq(customerAddresses.id, remaining[0]!.id));
+  }
+  if (remaining.length && !remaining.some((a) => a.isDefaultBilling)) {
+    await db().update(customerAddresses).set({ isDefaultBilling: true }).where(eq(customerAddresses.id, remaining[0]!.id));
+  }
   await recordAudit(db(), actorOf(req), {
     module: "customers",
     action: "customer.address_remove",
