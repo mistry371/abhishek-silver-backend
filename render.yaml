@@ -1,0 +1,66 @@
+# Render Blueprint — Render dashboard → New → Blueprint → select this repository.
+# Render asks for every value marked `sync: false`. Nothing secret is stored in this file.
+services:
+  - type: web
+    name: abhishek-silver-api
+    runtime: node
+    region: frankfurt # closest Render region to the Supabase project (eu-west-1)
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: node dist/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: API_PREFIX
+        value: /v1
+      - key: TRUST_PROXY
+        value: "true"
+      # Creates tables, roles, settings and store content on start (safe to leave on).
+      - key: MIGRATE_ON_START
+        value: "true"
+      - key: AUTH_PROVIDER
+        value: supabase
+      - key: STORAGE_PROVIDER
+        value: supabase
+      - key: SUPABASE_MEDIA_BUCKET
+        value: media
+      - key: SUPABASE_PRIVATE_BUCKET
+        value: private-documents
+      # "none" = site live without online payments. Change to "razorpay" once the Razorpay keys below are set.
+      - key: PAYMENT_PROVIDER
+        value: none
+
+      # ---- Values you enter in Render ----
+      - key: DATABASE_URL # Supabase → Connect → Session pooler
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PUBLIC_API_URL # this service's URL, e.g. https://abhishek-silver-api.onrender.com
+        sync: false
+      - key: PUBLIC_SITE_URL # website URL, e.g. https://abhishek-silver.vercel.app
+        sync: false
+      - key: CORS_ORIGINS # same as PUBLIC_SITE_URL
+        sync: false
+      - key: STOREFRONT_REVALIDATE_URL # PUBLIC_SITE_URL + /api/revalidate
+        sync: false
+      - key: STOREFRONT_REVALIDATE_SECRET # same value as REVALIDATE_SECRET on Vercel
+        sync: false
+      - key: INITIAL_ADMIN_EMAIL # your admin login email (first start only)
+        sync: false
+      - key: INITIAL_ADMIN_NAME
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD # your admin login password (first start only)
+        sync: false
+      - key: RAZORPAY_KEY_ID # optional until PAYMENT_PROVIDER=razorpay
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false

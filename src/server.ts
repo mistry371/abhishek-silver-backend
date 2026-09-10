@@ -1,7 +1,9 @@
 import { count } from "drizzle-orm";
+import { auth } from "@/auth";
+import { SUPER_ADMIN_ROLE } from "@/auth/permissions";
 import { env } from "@/config/env";
 import { createConnection, setConnection } from "@/db/client";
-import { roles } from "@/db/schema";
+import { adminUsers, roles } from "@/db/schema";
 import { seedDatabase } from "@/db/seed";
 import { logger } from "@/lib/logger";
 import { createApp } from "./app";
@@ -17,7 +19,28 @@ if (connection.driver === "pglite") {
     logger.info("Empty local database — seeding demo data");
     await seedDatabase({ demo: true });
   }
+} else if (env.MIGRATE_ON_START) {
+  // Hosted deploys without a shell: tables, roles, settings and store content are prepared on start (idempotent).
+  await connection.migrate();
+  await seedDatabase({ demo: false });
+  logger.info("Database migrated and essential data ensured");
 }
+
+/** Creates the first Super Admin from INITIAL_ADMIN_* when the business has no admin yet. */
+async function ensureInitialAdmin() {
+  if (!env.INITIAL_ADMIN_EMAIL || !env.INITIAL_ADMIN_PASSWORD) return;
+  const [{ value }] = await connection.db.select({ value: count() }).from(adminUsers);
+  if (value > 0) return;
+  const email = env.INITIAL_ADMIN_EMAIL.trim().toLowerCase();
+  try {
+    const identity = await auth().createUser({ email, password: env.INITIAL_ADMIN_PASSWORD });
+    await connection.db.insert(adminUsers).values({ authUserId: identity.userId, name: env.INITIAL_ADMIN_NAME?.trim() || "Owner", email, roleId: SUPER_ADMIN_ROLE });
+    logger.info({ email }, "Initial Super Admin created");
+  } catch (error) {
+    logger.error({ err: error, email }, "Could not create the initial Super Admin");
+  }
+}
+await ensureInitialAdmin();
 
 const server = createApp().listen(env.PORT, () => {
   logger.info(

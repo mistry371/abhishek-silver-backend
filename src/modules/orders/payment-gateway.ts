@@ -28,7 +28,8 @@ class DemoGateway implements PaymentGateway {
   }
 
   verifySignature({ signature }: { signature: string }) {
-    return signature === "demo_valid_signature";
+    // Only the development gateway accepts demo payments — never when payments are disabled.
+    return env.PAYMENT_PROVIDER === "demo" && signature === "demo_valid_signature";
   }
 
   async paymentMethod() {

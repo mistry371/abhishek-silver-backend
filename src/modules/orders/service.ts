@@ -1,5 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
+import { env } from "@/config/env";
 import type { PaymentIntent } from "@/contracts/storefront";
 import { db } from "@/db/client";
 import { coupons, orderItems, orders, orderStatusEvents, products } from "@/db/schema";
@@ -32,6 +33,9 @@ export const createOrderSchema = z.object({
 const formatINR = (value: number) => `₹${value.toLocaleString("en-IN")}`;
 
 export async function createOrder(input: z.output<typeof createOrderSchema>, customer: CustomerRow | null) {
+  if (env.PAYMENT_PROVIDER === "none") {
+    throw new AppError("payment_failed", "Online payment isn't available yet. Please contact us on WhatsApp or call the store to place your order.");
+  }
   const commerce = await getSetting("commerce");
   if (!customer && !commerce.guestCheckout) throw unauthorized("Please sign in to place your order.");
 

@@ -31,10 +31,18 @@ const schema = z
     SUPABASE_MEDIA_BUCKET: z.string().default("media"),
     SUPABASE_PRIVATE_BUCKET: z.string().default("private-documents"),
 
-    PAYMENT_PROVIDER: z.enum(["demo", "razorpay"]).default("demo"),
+    /** "none" launches the site without online payments (customers enquire / call instead). */
+    PAYMENT_PROVIDER: z.enum(["demo", "razorpay", "none"]).default("demo"),
     RAZORPAY_KEY_ID: optional,
     RAZORPAY_KEY_SECRET: optional,
     RAZORPAY_WEBHOOK_SECRET: optional,
+
+    /** Hosted deploys: apply migrations and essential data (roles, settings, store content) on every start. */
+    MIGRATE_ON_START: z.preprocess((v) => v === "true" || v === "1", z.boolean()).default(false),
+    /** Creates the first Super Admin on start when no admin exists yet. Ignored afterwards. */
+    INITIAL_ADMIN_EMAIL: optional,
+    INITIAL_ADMIN_NAME: optional,
+    INITIAL_ADMIN_PASSWORD: optional,
 
     SEED_ADMIN_PASSWORD: optional,
   })
@@ -46,7 +54,7 @@ const schema = z
     if (env.NODE_ENV === "production") {
       require(env.DATABASE_URL, "DATABASE_URL", "is required in production (embedded PGlite is for local development only)");
       require(env.AUTH_PROVIDER === "supabase", "AUTH_PROVIDER", "must be 'supabase' in production");
-      require(env.PAYMENT_PROVIDER === "razorpay", "PAYMENT_PROVIDER", "must be 'razorpay' in production");
+      require(env.PAYMENT_PROVIDER !== "demo", "PAYMENT_PROVIDER", "must be 'razorpay' (or 'none' to launch without online payments) in production");
     }
     if (env.AUTH_PROVIDER === "local") {
       require(env.LOCAL_JWT_SECRET && env.LOCAL_JWT_SECRET.length >= 32, "LOCAL_JWT_SECRET", "must be at least 32 characters");

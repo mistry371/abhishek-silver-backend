@@ -54,6 +54,17 @@ These accounts, the demo catalogue and the demo metal rates exist **only for dev
 
 ---
 
+## Deploy on Render (Blueprint)
+
+1. Supabase: create the project and two Storage buckets — `media` (public) and `private-documents` (private).
+2. Render → **New → Blueprint** → choose this repository. Fill in the values it asks for (see comments in `render.yaml`).
+3. Deploy. On start the API creates the tables, roles, settings and store content, and your first Super Admin from
+   `INITIAL_ADMIN_EMAIL` / `INITIAL_ADMIN_PASSWORD`.
+4. The site can launch with `PAYMENT_PROVIDER=none` (browsing, enquiries and WhatsApp; checkout explains online payment
+   isn't available yet). Add the Razorpay keys and switch to `razorpay` when ready.
+
+Free Render services sleep when idle, so the first request after a quiet period can take up to a minute.
+
 ## Going live on Supabase
 
 1. **Create a Supabase project** (region close to Gujarat, e.g. Mumbai).
