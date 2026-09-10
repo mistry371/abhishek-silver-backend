@@ -5,6 +5,7 @@ import { env } from "@/config/env";
 import { createConnection, setConnection } from "@/db/client";
 import { adminUsers, roles } from "@/db/schema";
 import { seedDatabase } from "@/db/seed";
+import { AppError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 import { reportInitialAdminIssue } from "@/services/diagnostics";
 import { createApp } from "./app";
@@ -33,13 +34,27 @@ async function ensureInitialAdmin() {
   const [{ value }] = await connection.db.select({ value: count() }).from(adminUsers);
   if (value > 0) return;
   const email = env.INITIAL_ADMIN_EMAIL.trim().toLowerCase();
+  const password = env.INITIAL_ADMIN_PASSWORD;
   try {
-    const identity = await auth().createUser({ email, password: env.INITIAL_ADMIN_PASSWORD });
+    let identity;
+    try {
+      identity = await auth().createUser({ email, password });
+    } catch (error) {
+      // The owner may already have a sign-in account with this email — link it when the password matches.
+      if (!(error instanceof AppError && error.fieldErrors?.email)) throw error;
+      try {
+        identity = (await auth().signInWithPassword({ email, password })).identity;
+      } catch {
+        throw new Error("A Supabase user with INITIAL_ADMIN_EMAIL already exists with a different password. Reset it in Supabase (Authentication → Users) or use another email.");
+      }
+    }
     await connection.db.insert(adminUsers).values({ authUserId: identity.userId, name: env.INITIAL_ADMIN_NAME?.trim() || "Owner", email, roleId: SUPER_ADMIN_ROLE });
+    reportInitialAdminIssue(null);
     logger.info({ email }, "Initial Super Admin created");
   } catch (error) {
     logger.error({ err: error, email }, "Could not create the initial Super Admin");
-    const detail = error instanceof Error ? error.message : "unknown error";
+    const detail =
+      error instanceof AppError && error.fieldErrors ? Object.values(error.fieldErrors).join(" ") : error instanceof Error ? error.message : "unknown error";
     reportInitialAdminIssue(detail);
   }
 }

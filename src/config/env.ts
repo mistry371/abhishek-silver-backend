@@ -1,7 +1,28 @@
 import { z } from "zod";
 
-/** Treat empty strings from .env files as "not set". */
-const optional = z.preprocess((value) => (value === "" ? undefined : value), z.string().optional());
+const WRAPPERS: Record<string, string> = { '"': '"', "'": "'", "<": ">" };
+
+/** Trims whitespace and one pair of wrapping quotes or <angle brackets> copied from templates. Empty means "not set". */
+function clean(value: unknown) {
+  if (typeof value !== "string") return value;
+  let text = value.trim();
+  const close = WRAPPERS[text[0] ?? ""];
+  if (close && text.length >= 2 && text.endsWith(close)) text = text.slice(1, -1).trim();
+  return text === "" ? undefined : text;
+}
+
+/**
+ * Accepts the usual paste mistakes for the project URL — no scheme, the db. host, an API path,
+ * a dashboard link or a Postgres connection string — and returns https://<project-ref>.supabase.co.
+ */
+function normalizeSupabaseUrl(value: unknown) {
+  const text = clean(value);
+  if (typeof text !== "string") return text;
+  const ref = /(?:^|\/\/|db\.|postgres\.|project\/)([a-z0-9]{20})(?=\.supabase\.co|[:@/]|$)/i.exec(text)?.[1];
+  return ref ? `https://${ref.toLowerCase()}.supabase.co` : text.replace(/\/+$/, "");
+}
+
+const optional = z.preprocess(clean, z.string().optional());
 
 const schema = z
   .object({
@@ -22,7 +43,7 @@ const schema = z
 
     AUTH_PROVIDER: z.enum(["local", "supabase"]).default("local"),
     LOCAL_JWT_SECRET: optional,
-    SUPABASE_URL: optional,
+    SUPABASE_URL: z.preprocess(normalizeSupabaseUrl, z.string().optional()),
     SUPABASE_ANON_KEY: optional,
     SUPABASE_SERVICE_ROLE_KEY: optional,
     SUPABASE_JWT_SECRET: optional,

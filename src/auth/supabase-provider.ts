@@ -24,6 +24,7 @@ let serviceClient: SupabaseClient | null = null;
 const service = () => (serviceClient ??= createClient(env.SUPABASE_URL!, env.SUPABASE_SERVICE_ROLE_KEY!, clientOptions));
 
 interface SupabaseLikeError {
+  name?: string;
   code?: string;
   status?: number;
   message?: string;
@@ -54,6 +55,9 @@ function mapError(error: SupabaseLikeError, context: string): AppError {
     default:
       if (error.status === 429) return new AppError("rate_limited");
       logger.error({ code: error.code, status: error.status, message: error.message, context }, "Supabase auth request failed");
+      if (error.name === "AuthRetryableFetchError") {
+        return new AppError("server_error", "The server can't reach the sign-in service (check SUPABASE_URL on the API). Please try again shortly.");
+      }
       if (error.status === 401 || error.status === 403) {
         // Supabase rejected the project key itself (not the user's password).
         return new AppError("server_error", "Sign-in isn't configured correctly on the server (Supabase URL or keys). Please check the API settings.");

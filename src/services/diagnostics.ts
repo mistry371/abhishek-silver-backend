@@ -34,8 +34,9 @@ async function probeSupabase(path: string, key: string | undefined) {
     if (response.ok) return "ok";
     if (response.status === 401 || response.status === 403) return `rejected (${response.status}) — wrong key or key from another project`;
     return `unexpected status ${response.status}`;
-  } catch {
-    return "unreachable — check SUPABASE_URL";
+  } catch (error) {
+    const cause = (error as { cause?: { code?: string } }).cause?.code ?? (error instanceof Error ? error.name : "error");
+    return `unreachable (${cause}) — check SUPABASE_URL`;
   }
 }
 
@@ -58,6 +59,8 @@ export async function runDiagnostics() {
   }
 
   if (env.AUTH_PROVIDER === "supabase") {
+    // The project URL is public (it ships in client apps); keys are never reported.
+    report.supabaseUrl = env.SUPABASE_URL;
     report.supabaseAnonKey = await probeSupabase("/auth/v1/settings", env.SUPABASE_ANON_KEY);
     report.supabaseServiceRoleKey = await probeSupabase("/auth/v1/admin/users?page=1&per_page=1", env.SUPABASE_SERVICE_ROLE_KEY);
   }
