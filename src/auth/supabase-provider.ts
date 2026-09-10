@@ -56,7 +56,7 @@ function mapError(error: SupabaseLikeError, context: string): AppError {
       if (error.status === 429) return new AppError("rate_limited");
       logger.error({ code: error.code, status: error.status, message: error.message, context }, "Supabase auth request failed");
       if (error.name === "AuthRetryableFetchError") {
-        return new AppError("server_error", "The server can't reach the sign-in service (check SUPABASE_URL on the API). Please try again shortly.");
+        return new AppError("server_error", "The server can't reach the sign-in service (check SUPABASE_URL and the Supabase keys on the API). Please try again shortly.");
       }
       if (error.status === 401 || error.status === 403) {
         // Supabase rejected the project key itself (not the user's password).

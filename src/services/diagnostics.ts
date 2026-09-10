@@ -35,9 +35,27 @@ async function probeSupabase(path: string, key: string | undefined) {
     if (response.status === 401 || response.status === 403) return `rejected (${response.status}) — wrong key or key from another project`;
     return `unexpected status ${response.status}`;
   } catch (error) {
-    const cause = (error as { cause?: { code?: string } }).cause?.code ?? (error instanceof Error ? error.name : "error");
-    return `unreachable (${cause}) — check SUPABASE_URL`;
+    const failure = error as { name?: string; message?: string; cause?: { name?: string; code?: string; message?: string } };
+    // Header errors can echo the key, so messages are only classified, never returned.
+    if (/ByteString|header/i.test(`${failure.message} ${failure.cause?.message}`)) {
+      return "key has characters that aren't allowed (line breaks or •••• from a masked key) — copy it again from Supabase";
+    }
+    return `unreachable (${failure.cause?.code ?? failure.cause?.name ?? failure.name ?? "error"}) — check SUPABASE_URL`;
   }
+}
+
+/** Describes a key without revealing it: type, length and paste problems. */
+function keyFormat(name: "SUPABASE_ANON_KEY" | "SUPABASE_SERVICE_ROLE_KEY", key: string | undefined) {
+  if (!key) return "missing";
+  const raw = process.env[name] ?? "";
+  const kind = key.startsWith("eyJ") ? "legacy JWT key" : key.startsWith("sb_publishable_") ? "publishable key" : key.startsWith("sb_secret_") ? "secret key" : "unrecognised key";
+  const notes = [
+    /\s/.test(raw.trim()) && "had spaces/line breaks (removed)",
+    /[^\x20-\x7e\s]/.test(raw) && "has special characters such as •••• (masked copy)",
+    name === "SUPABASE_SERVICE_ROLE_KEY" && kind === "publishable key" && "this is the public key — use the secret/service_role key",
+    name === "SUPABASE_ANON_KEY" && kind === "secret key" && "this is the secret key — use the anon/publishable key",
+  ].filter(Boolean);
+  return [`${kind}, ${key.length} chars`, ...notes].join("; ");
 }
 
 export async function runDiagnostics() {
@@ -63,6 +81,8 @@ export async function runDiagnostics() {
     report.supabaseUrl = env.SUPABASE_URL;
     report.supabaseAnonKey = await probeSupabase("/auth/v1/settings", env.SUPABASE_ANON_KEY);
     report.supabaseServiceRoleKey = await probeSupabase("/auth/v1/admin/users?page=1&per_page=1", env.SUPABASE_SERVICE_ROLE_KEY);
+    report.supabaseAnonKeyFormat = keyFormat("SUPABASE_ANON_KEY", env.SUPABASE_ANON_KEY);
+    report.supabaseServiceRoleKeyFormat = keyFormat("SUPABASE_SERVICE_ROLE_KEY", env.SUPABASE_SERVICE_ROLE_KEY);
   }
 
   report.initialAdminEmailSet = Boolean(env.INITIAL_ADMIN_EMAIL);

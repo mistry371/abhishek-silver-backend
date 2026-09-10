@@ -22,7 +22,16 @@ function normalizeSupabaseUrl(value: unknown) {
   return ref ? `https://${ref.toLowerCase()}.supabase.co` : text.replace(/\/+$/, "");
 }
 
+/** API keys never contain whitespace: drops spaces/line breaks and a pasted "NAME=" or "Bearer " prefix. */
+function cleanKey(value: unknown) {
+  const text = clean(value);
+  if (typeof text !== "string") return text;
+  const key = clean(text.replace(/^(?:[A-Z_]+=|Bearer\s+)/, ""));
+  return typeof key === "string" ? key.replace(/\s+/g, "") : key;
+}
+
 const optional = z.preprocess(clean, z.string().optional());
+const optionalKey = z.preprocess(cleanKey, z.string().optional());
 
 const schema = z
   .object({
@@ -44,8 +53,8 @@ const schema = z
     AUTH_PROVIDER: z.enum(["local", "supabase"]).default("local"),
     LOCAL_JWT_SECRET: optional,
     SUPABASE_URL: z.preprocess(normalizeSupabaseUrl, z.string().optional()),
-    SUPABASE_ANON_KEY: optional,
-    SUPABASE_SERVICE_ROLE_KEY: optional,
+    SUPABASE_ANON_KEY: optionalKey,
+    SUPABASE_SERVICE_ROLE_KEY: optionalKey,
     SUPABASE_JWT_SECRET: optional,
 
     STORAGE_PROVIDER: z.enum(["local", "supabase"]).default("local"),
