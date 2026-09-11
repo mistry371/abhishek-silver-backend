@@ -8,6 +8,7 @@ import { seedDatabase } from "@/db/seed";
 import { AppError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 import { reportInitialAdminIssue } from "@/services/diagnostics";
+import { ensureStorageBuckets } from "@/services/storage";
 import { createApp } from "./app";
 
 const connection = await createConnection({ databaseUrl: env.DATABASE_URL, pgliteDataDir: env.PGLITE_DATA_DIR });
@@ -59,6 +60,7 @@ async function ensureInitialAdmin() {
   }
 }
 await ensureInitialAdmin();
+await ensureStorageBuckets().catch((error: unknown) => logger.error({ err: error }, "Storage buckets could not be prepared"));
 
 const server = createApp().listen(env.PORT, () => {
   logger.info(

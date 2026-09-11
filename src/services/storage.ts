@@ -4,6 +4,7 @@ import { dirname, normalize, resolve, sep } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { env } from "@/config/env";
 import { AppError } from "@/lib/errors";
+import { logger } from "@/lib/logger";
 
 /**
  * File storage: local disk in development, Supabase Storage in production.
@@ -74,13 +75,60 @@ export function publicUrl(path: string) {
   return `${env.PUBLIC_API_URL.replace(/\/$/, "")}/uploads/media/${path}`;
 }
 
+let bucketsReady: Promise<void> | null = null;
+
+/** Creates missing Supabase buckets (media public, private documents private) so a fresh project needs no dashboard setup. */
+export function ensureStorageBuckets() {
+  if (env.STORAGE_PROVIDER !== "supabase") return Promise.resolve();
+  bucketsReady ??= (async () => {
+    for (const bucket of ["media", "private"] as const) {
+      const name = bucketName(bucket);
+      const isPublic = bucket === "media";
+      const { data, error } = await client().storage.getBucket(name);
+      if (data) {
+        if (data.public !== isPublic) {
+          const { error: updateError } = await client().storage.updateBucket(name, { public: isPublic });
+          if (updateError) throw updateError;
+          logger.info({ bucket: name, public: isPublic }, "Storage bucket visibility corrected");
+        }
+        continue;
+      }
+      if (error && !/not found/i.test(error.message)) throw error;
+      const { error: createError } = await client().storage.createBucket(name, { public: isPublic });
+      if (createError && !/already exists/i.test(createError.message)) throw createError;
+      logger.info({ bucket: name, public: isPublic }, "Storage bucket created");
+    }
+  })().catch((error: unknown) => {
+    bucketsReady = null;
+    throw error;
+  });
+  return bucketsReady;
+}
+
+/** Diagnostics: whether each bucket exists and its visibility. */
+export async function describeStorageBuckets() {
+  const report: Record<string, string> = {};
+  for (const bucket of ["media", "private"] as const) {
+    const name = bucketName(bucket);
+    const { data, error } = await client().storage.getBucket(name);
+    report[name] = data ? (data.public ? "ok (public)" : "ok (private)") : `missing${error ? ` — ${error.message}` : ""}`;
+  }
+  return report;
+}
+
 export async function storeFile({ bucket, buffer, type, folder }: { bucket: Bucket; buffer: Buffer; type: string; folder: string }) {
   const now = new Date();
   const path = `${folder}/${now.getUTCFullYear()}/${String(now.getUTCMonth() + 1).padStart(2, "0")}/${randomUUID()}${extensions[type] ?? ""}`;
 
   if (env.STORAGE_PROVIDER === "supabase") {
-    const { error } = await client().storage.from(bucketName(bucket)).upload(path, buffer, { contentType: type, upsert: false });
-    if (error) throw new AppError("server_error", "The file couldn't be uploaded. Please try again.");
+    try {
+      await ensureStorageBuckets();
+      const { error } = await client().storage.from(bucketName(bucket)).upload(path, buffer, { contentType: type, upsert: false });
+      if (error) throw error;
+    } catch (error) {
+      logger.error({ err: error, bucket: bucketName(bucket) }, "Supabase storage upload failed");
+      throw new AppError("server_error", "The file couldn't be uploaded. Please try again.");
+    }
   } else {
     const full = localPath(bucket, path);
     await mkdir(dirname(full), { recursive: true });

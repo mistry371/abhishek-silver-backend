@@ -3,6 +3,7 @@ import { count, sql } from "drizzle-orm";
 import { env } from "@/config/env";
 import { db } from "@/db/client";
 import { adminUsers, roles } from "@/db/schema";
+import { describeStorageBuckets } from "@/services/storage";
 
 /**
  * Deployment diagnostics (`GET /health?deep=1`, bearer = STOREFRONT_REVALIDATE_SECRET).
@@ -83,6 +84,10 @@ export async function runDiagnostics() {
     report.supabaseServiceRoleKey = await probeSupabase("/auth/v1/admin/users?page=1&per_page=1", env.SUPABASE_SERVICE_ROLE_KEY);
     report.supabaseAnonKeyFormat = keyFormat("SUPABASE_ANON_KEY", env.SUPABASE_ANON_KEY);
     report.supabaseServiceRoleKeyFormat = keyFormat("SUPABASE_SERVICE_ROLE_KEY", env.SUPABASE_SERVICE_ROLE_KEY);
+  }
+
+  if (env.STORAGE_PROVIDER === "supabase") {
+    report.storageBuckets = await describeStorageBuckets().catch(() => "unavailable");
   }
 
   report.initialAdminEmailSet = Boolean(env.INITIAL_ADMIN_EMAIL);
