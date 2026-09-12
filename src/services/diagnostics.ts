@@ -61,6 +61,9 @@ function keyFormat(name: "SUPABASE_ANON_KEY" | "SUPABASE_SERVICE_ROLE_KEY", key:
 
 export async function runDiagnostics() {
   const report: Record<string, unknown> = {
+    // Render sets RENDER_GIT_COMMIT on every deploy, so this says exactly which build is running.
+    commit: process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? "unknown",
+    features: { imports: true },
     authProvider: env.AUTH_PROVIDER,
     storageProvider: env.STORAGE_PROVIDER,
     paymentProvider: env.PAYMENT_PROVIDER,
