@@ -30,7 +30,7 @@ const optionalText = (max: number) =>
     .optional()
     .transform((value) => value || null);
 
-const vendorSchema = z.object({
+export const vendorSchema = z.object({
   name: zText(160),
   contactPerson: optionalText(120),
   mobile: zMobile.nullable().optional(),

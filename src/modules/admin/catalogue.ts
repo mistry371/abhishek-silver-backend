@@ -4,7 +4,7 @@ import multer from "multer";
 import { z } from "zod";
 import type { Permission } from "@/auth/permissions";
 import type { PriceBreakdown } from "@/contracts/common";
-import { db, type Tx } from "@/db/client";
+import { db, type Executor, type Tx } from "@/db/client";
 import { categories, collections, inventoryLevels, metalRates, productCollections, products, subcategories, vendors } from "@/db/schema";
 import { can, requireAnyPermission, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
@@ -26,7 +26,7 @@ export const catalogueRouter = Router();
 /* Product fields & field-level permissions                            */
 /* ------------------------------------------------------------------ */
 
-const slugSchema = z
+export const slugSchema = z
   .string()
   .trim()
   .toLowerCase()
@@ -49,7 +49,7 @@ const flagsSchema = z.object({
   limited: z.boolean(),
 });
 
-const productShape = {
+export const productShape = {
   name: zText(160),
   slug: slugSchema,
   sku: z
@@ -97,9 +97,9 @@ const productShape = {
   purchasePrice: zMoney.nullable(),
   vendorId: zUuid.nullable(),
 };
-type ProductField = keyof typeof productShape;
+export type ProductField = keyof typeof productShape;
 
-const fieldPermission: Record<ProductField, Permission> = {
+export const fieldPermission: Record<ProductField, Permission> = {
   name: "products:edit_content",
   slug: "products:edit_content",
   shortDescription: "products:edit_content",
@@ -140,7 +140,7 @@ const fieldPermission: Record<ProductField, Permission> = {
 const PRICE_FIELDS = new Set<ProductField>(["metal", "purity", "netWeight", "sizeWeights", "makingType", "makingValue", "stoneCharges", "otherCharges", "discount"]);
 const CONFIDENTIAL_FIELDS = new Set<ProductField>(["purchasePrice", "vendorId"]);
 
-const createSchema = z.object({
+export const createSchema = z.object({
   name: productShape.name,
   slug: productShape.slug,
   sku: productShape.sku,
@@ -181,7 +181,7 @@ const createSchema = z.object({
 
 const updateSchema = partialUpdate(z.object(productShape));
 
-type ProductDraft = Pick<
+export type ProductDraft = Pick<
   ProductRow,
   | "metal"
   | "purity"
@@ -202,14 +202,14 @@ type ProductDraft = Pick<
   | "images"
 > & { collectionIds: string[] };
 
-const UNIQUE_FIELDS: Record<string, [string, string]> = {
+export const UNIQUE_FIELDS: Record<string, [string, string]> = {
   products_slug: ["slug", "This URL slug is already used by another product."],
   products_sku: ["sku", "This SKU is already used by another product."],
   products_barcode: ["barcode", "This barcode is already used by another product."],
 };
 
 /** Cross-field and referential checks shared by create, update and bulk activation. */
-async function validateProduct(tx: Tx, p: ProductDraft) {
+export async function validateProduct(tx: Executor, p: ProductDraft) {
   const errors: Record<string, string> = {};
   if (!PURITIES_BY_METAL[p.metal].includes(p.purity)) errors.purity = "Choose a purity that matches the metal.";
   if (p.grossWeight !== null && p.grossWeight < p.netWeight) errors.grossWeight = "Gross weight can't be less than net weight.";
@@ -621,7 +621,7 @@ const listingRuleSchema = z
   })
   .nullable();
 
-const categorySchema = z.object({
+export const categorySchema = z.object({
   slug: slugSchema,
   name: zText(80),
   shortName: nullableText(40).default(null),
@@ -634,7 +634,7 @@ const categorySchema = z.object({
   active: z.boolean().default(true),
 });
 
-function checkListingRule(group: string, rule: z.output<typeof listingRuleSchema>) {
+export function checkListingRule(group: string, rule: z.output<typeof listingRuleSchema>) {
   if (group === "type" && rule) throw invalid({ listingRule: "Jewellery types list their own products and don't use a listing rule." });
   if (group !== "type" && (!rule || (!rule.metal && !rule.genders?.length && !rule.customizable))) {
     throw invalid({ listingRule: "Choose which products this page should list (metal, audience or personalisable)." });
@@ -725,7 +725,7 @@ catalogueRouter.delete("/categories/:id", requirePermission("catalog:manage_taxo
   res.status(204).end();
 });
 
-const subcategorySchema = z.object({
+export const subcategorySchema = z.object({
   slug: slugSchema,
   name: zText(80),
   displayOrder: z.number().int().min(0).max(1000).default(0),
@@ -776,7 +776,7 @@ catalogueRouter.delete("/subcategories/:id", requirePermission("catalog:manage_t
   res.status(204).end();
 });
 
-const collectionSchema = z.object({
+export const collectionSchema = z.object({
   slug: slugSchema,
   name: zText(80),
   eyebrow: nullableText(80).default(null),

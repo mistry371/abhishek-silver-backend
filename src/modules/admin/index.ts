@@ -8,6 +8,7 @@ import { customersRouter } from "./customers";
 import { dashboardRouter } from "./dashboard";
 import { enquiriesAdminRouter } from "./enquiries";
 import { expensesRouter } from "./expenses";
+import { importsRouter } from "./imports";
 import { inventoryRouter } from "./inventory";
 import { marketingRouter } from "./marketing";
 import { notificationsRouter } from "./notifications";
@@ -44,6 +45,7 @@ secured.use(
   enquiriesAdminRouter,
   reportsRouter,
   settingsRouter,
+  importsRouter,
 );
 
 adminRouter.use(secured);

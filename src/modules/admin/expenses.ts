@@ -4,7 +4,7 @@ import { and, asc, count, desc, eq, gte, inArray, isNotNull, isNull, lte, ne, sq
 import { Router } from "express";
 import multer from "multer";
 import { z } from "zod";
-import { db, type Tx } from "@/db/client";
+import { db, type Executor, type Tx } from "@/db/client";
 import { expenseCategories, expenseEvents, expenses, recurringExpenses, vendors, type ExpenseStatus } from "@/db/schema";
 import { adminOf, can, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
@@ -34,7 +34,7 @@ const optionalText = (max: number) =>
     .optional()
     .transform((value) => value || null);
 
-const PAYMENT_METHODS = ["cash", "upi", "bank_transfer", "card", "cheque", "other"] as const;
+export const PAYMENT_METHODS = ["cash", "upi", "bank_transfer", "card", "cheque", "other"] as const;
 const MAX_ATTACHMENTS = 5;
 
 /* ------------------------------------------------------------------ */
@@ -143,7 +143,7 @@ export function advanceDate(date: string, frequency: "weekly" | "monthly" | "qua
   return new Date(Date.UTC(year, month - 1 + months, Math.min(day, lastDay))).toISOString().slice(0, 10);
 }
 
-async function assertActiveCategory(tx: Tx, categoryId: string) {
+export async function assertActiveCategory(tx: Executor, categoryId: string) {
   const [category] = await tx.select().from(expenseCategories).where(eq(expenseCategories.id, categoryId)).limit(1);
   if (!category || !category.active) throw invalid({ categoryId: "Choose an active expense category." });
 }
@@ -231,7 +231,7 @@ expensesRouter.post("/recurring-expenses/:id/create-draft", requirePermission("e
 /* Expenses                                                            */
 /* ------------------------------------------------------------------ */
 
-const expenseSchema = z.object({
+export const expenseSchema = z.object({
   expenseDate: zDate,
   categoryId: zUuid,
   amount: zMoney.refine((value) => value > 0, { error: "Enter an amount above zero." }),
@@ -245,9 +245,9 @@ const expenseSchema = z.object({
   description: zText(500),
   notes: optionalText(2000),
 });
-type ExpenseInput = z.output<typeof expenseSchema>;
+export type ExpenseInput = z.output<typeof expenseSchema>;
 
-async function prepareExpense(tx: Tx, input: ExpenseInput) {
+export async function prepareExpense(tx: Executor, input: ExpenseInput) {
   const settings = await getSetting("expenses", tx);
   const hasTax = (input.taxAmount ?? 0) > 0 || (input.gstRate ?? 0) > 0;
   if (hasTax && !settings.taxFieldsEnabled) throw invalid({ taxAmount: "Tax fields are turned off in Settings → Expenses." });

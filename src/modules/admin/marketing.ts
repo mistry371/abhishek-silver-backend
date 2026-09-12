@@ -1,7 +1,7 @@
 import { and, asc, count, desc, eq, inArray, sql } from "drizzle-orm";
 import { Router } from "express";
 import { z } from "zod";
-import { db, type Tx } from "@/db/client";
+import { db, type Executor, type Tx } from "@/db/client";
 import { categories, collections, coupons, offers, products } from "@/db/schema";
 import { requirePermission } from "@/http/auth";
 import { AppError, invalid, notFound } from "@/lib/errors";
@@ -24,7 +24,7 @@ function checkWindow(startsAt?: string | null, endsAt?: string | null) {
 /* Coupons                                                             */
 /* ------------------------------------------------------------------ */
 
-const couponSchema = z.object({
+export const couponSchema = z.object({
   code: z
     .string()
     .trim()
@@ -57,7 +57,7 @@ function couponState(coupon: typeof coupons.$inferSelect) {
   return "active";
 }
 
-async function validateCoupon(tx: Tx, input: Partial<z.output<typeof couponSchema>>) {
+export async function validateCoupon(tx: Executor, input: Partial<z.output<typeof couponSchema>>) {
   if (input.type === "percentage" && input.value !== undefined && input.value > 90) throw invalid({ value: "Percentage coupons are limited to 90%." });
   checkWindow(input.startsAt, input.endsAt);
   const scope = input.appliesTo;
