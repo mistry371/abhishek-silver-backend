@@ -3,6 +3,7 @@ import { Router } from "express";
 import { db } from "@/db/client";
 import { blogPosts, contentBlocks, faqs, offers, testimonials } from "@/db/schema";
 import { notFound } from "@/lib/errors";
+import { latestInstagramPosts } from "@/services/instagram";
 import { POLICY_SLUGS, type ContactContent } from "./types";
 
 export const contentRouter = Router();
@@ -46,6 +47,12 @@ contentRouter.get("/content/testimonials", async (_req, res) => {
 });
 
 contentRouter.get("/content/instagram", async (_req, res) => {
+  // Live posts from Instagram when connected; otherwise the posts managed in the admin panel.
+  const live = await latestInstagramPosts().catch(() => null);
+  if (live?.length) {
+    res.json(live);
+    return;
+  }
   const value = await block<{ posts?: unknown[] }>("instagram").catch(() => ({ posts: [] }));
   res.json(value.posts ?? []);
 });

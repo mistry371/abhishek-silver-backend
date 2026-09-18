@@ -3,6 +3,7 @@ import { count, sql } from "drizzle-orm";
 import { env } from "@/config/env";
 import { db } from "@/db/client";
 import { adminUsers, roles } from "@/db/schema";
+import { instagramStatus } from "@/services/instagram";
 import { describeStorageBuckets } from "@/services/storage";
 
 /**
@@ -92,6 +93,8 @@ export async function runDiagnostics() {
   if (env.STORAGE_PROVIDER === "supabase") {
     report.storageBuckets = await describeStorageBuckets().catch(() => "unavailable");
   }
+
+  report.instagram = await instagramStatus().catch(() => "unavailable");
 
   report.initialAdminEmailSet = Boolean(env.INITIAL_ADMIN_EMAIL);
   report.initialAdminEmailLooksValid = env.INITIAL_ADMIN_EMAIL ? /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(env.INITIAL_ADMIN_EMAIL.trim()) : null;

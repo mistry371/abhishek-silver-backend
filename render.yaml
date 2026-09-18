@@ -58,6 +58,8 @@ services:
         sync: false
       - key: INITIAL_ADMIN_PASSWORD # your admin login password (first start only)
         sync: false
+      - key: INSTAGRAM_ACCESS_TOKEN # optional: latest Instagram posts on the homepage (see README)
+        sync: false
       - key: RAZORPAY_KEY_ID # optional until PAYMENT_PROVIDER=razorpay
         sync: false
       - key: RAZORPAY_KEY_SECRET

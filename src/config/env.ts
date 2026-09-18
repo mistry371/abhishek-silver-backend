@@ -61,6 +61,9 @@ const schema = z
     SUPABASE_MEDIA_BUCKET: z.string().default("media"),
     SUPABASE_PRIVATE_BUCKET: z.string().default("private-documents"),
 
+    /** Long-lived token (Instagram API with Instagram Login) — shows the latest posts and reels on the homepage. */
+    INSTAGRAM_ACCESS_TOKEN: optionalKey,
+
     /** "none" launches the site without online payments (customers enquire / call instead). */
     PAYMENT_PROVIDER: z.enum(["demo", "razorpay", "none"]).default("demo"),
     RAZORPAY_KEY_ID: optional,

@@ -65,6 +65,17 @@ These accounts, the demo catalogue and the demo metal rates exist **only for dev
 
 Free Render services sleep when idle, so the first request after a quiet period can take up to a minute.
 
+## Instagram feed on the homepage
+
+Set `INSTAGRAM_ACCESS_TOKEN` on Render to show the latest posts and reels automatically:
+
+1. The Instagram account must be a **Business** or **Creator** account (Instagram app → Settings → Account type and tools).
+2. At [developers.facebook.com](https://developers.facebook.com) create an app (type **Business**) and add the **Instagram** product.
+3. Under **API setup with Instagram login**, add the account and click **Generate token**.
+4. Paste the token into `INSTAGRAM_ACCESS_TOKEN` on Render and deploy.
+
+Posts refresh every 15 minutes and the token is renewed weekly, so it never needs pasting again. `GET /health?deep=1` reports `instagram: ok — N latest posts` when it works. Without a token, or while Instagram is unreachable, the homepage shows the posts from **Admin → Content → Instagram**.
+
 ## Going live on Supabase
 
 1. **Create a Supabase project** (region close to Gujarat, e.g. Mumbai).
