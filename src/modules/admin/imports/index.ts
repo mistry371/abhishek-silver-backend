@@ -9,6 +9,7 @@ import { actorOf } from "@/services/audit";
 import { couponImport, expenseImport, metalRateImport } from "./entities/finance";
 import { inventoryImport } from "./entities/inventory";
 import { customerImport, vendorImport } from "./entities/people";
+import { parentProductImport } from "./entities/parent-products";
 import { productImport } from "./entities/products";
 import { categoryImport, collectionImport, subcategoryImport } from "./entities/taxonomy";
 import { runImport } from "./run";
@@ -28,6 +29,7 @@ export const importsRouter = Router();
 
 const registry: AnyImport[] = [
   productImport,
+  parentProductImport,
   inventoryImport,
   customerImport,
   vendorImport,

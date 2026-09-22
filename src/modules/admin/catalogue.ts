@@ -1,15 +1,15 @@
-import { and, asc, count, desc, eq, inArray, isNull, sql, type SQL } from "drizzle-orm";
+import { and, asc, count, desc, eq, inArray, isNotNull, isNull, sql, type SQL } from "drizzle-orm";
 import { Router } from "express";
 import multer from "multer";
 import { z } from "zod";
 import type { Permission } from "@/auth/permissions";
 import type { PriceBreakdown } from "@/contracts/common";
 import { db, type Executor, type Tx } from "@/db/client";
-import { categories, collections, inventoryLevels, metalRates, productCollections, products, subcategories, vendors } from "@/db/schema";
+import { categories, collections, inventoryLevels, metalRates, parentProducts, productCollections, products, subcategories, vendors } from "@/db/schema";
 import { can, requireAnyPermission, requirePermission } from "@/http/auth";
 import { AppError, forbidden, invalid, notFound } from "@/lib/errors";
-import { paginated, parse, partialUpdate, zImage, zMoney, zSeo, zText, zUuid } from "@/lib/validation";
-import { GENDERS, METALS, PURITIES, PURITIES_BY_METAL, purityLabels } from "@/modules/catalog/labels";
+import { paginated, parse, partialUpdate, zBoolQuery, zImage, zMoney, zSeo, zText, zUuid } from "@/lib/validation";
+import { GENDERS, METALS, PURITIES, PURITIES_BY_METAL, purityLabels, variantLabelOf } from "@/modules/catalog/labels";
 import { priceable, resolveVariant, type ProductRow } from "@/modules/catalog/snapshot";
 import { loadPricingContext, priceProduct, type PricingContext } from "@/modules/pricing/context";
 import { MissingRateError } from "@/modules/pricing/engine";
@@ -19,6 +19,7 @@ import { afterCatalogChange } from "@/services/revalidate";
 import { getSetting } from "@/services/settings";
 import { storeFile, validateFile } from "@/services/storage";
 import { idParam, listQuery, searchAny, sortBy, withUniqueFields } from "./helpers";
+import { assertSiblingLabelFree, assertSlugFree } from "./variant-rules";
 
 export const catalogueRouter = Router();
 
@@ -200,7 +201,11 @@ export type ProductDraft = Pick<
   | "vendorId"
   | "status"
   | "images"
-> & { collectionIds: string[] };
+> & {
+  collectionIds: string[];
+  /** Parent product the product is (or will be) a variant of; its images can stand in for the product's own. */
+  parentId?: string | null;
+};
 
 export const UNIQUE_FIELDS: Record<string, [string, string]> = {
   products_slug: ["slug", "This URL slug is already used by another product."],
@@ -244,7 +249,10 @@ export async function validateProduct(tx: Executor, p: ProductDraft) {
     if (!vendor) errors.vendorId = "Choose an existing vendor.";
   }
   if (p.status === "active") {
-    if (!p.images.length) errors.images = "Add at least one image before activating.";
+    if (!p.images.length) {
+      const [parent] = p.parentId ? await tx.select({ images: parentProducts.images }).from(parentProducts).where(eq(parentProducts.id, p.parentId)).limit(1) : [];
+      if (!parent?.images.length) errors.images = "Add at least one image before activating.";
+    }
     const [rate] = await tx
       .select({ metal: metalRates.metal })
       .from(metalRates)
@@ -266,7 +274,7 @@ function stockStatusOf(row: Pick<ProductRow, "status" | "lowStockThreshold">, to
   return "in_stock";
 }
 
-function currentPrice(row: ProductRow, collectionIds: string[], context: PricingContext): { pricing: PriceBreakdown | null; pricingError: string | null } {
+export function currentPrice(row: ProductRow, collectionIds: string[], context: PricingContext): { pricing: PriceBreakdown | null; pricingError: string | null } {
   try {
     return { pricing: priceProduct(priceable(row, collectionIds), resolveVariant(row).netWeight, context).pricing, pricingError: null };
   } catch (error) {
@@ -299,9 +307,14 @@ async function productDetail(id: string, confidential: boolean) {
   const vendor =
     confidential && row.vendorId ? ((await database.select({ id: vendors.id, name: vendors.name }).from(vendors).where(eq(vendors.id, row.vendorId)))[0] ?? null) : null;
   const context = await loadPricingContext(database);
+  const [parent] = row.parentId
+    ? await database.select({ id: parentProducts.id, name: parentProducts.name }).from(parentProducts).where(eq(parentProducts.id, row.parentId)).limit(1)
+    : [];
 
   return {
     ...withoutConfidential(row, confidential),
+    parent: parent ?? null,
+    variantLabel: parent ? variantLabelOf(row) : null,
     category: category ?? null,
     collectionIds,
     stock: { total, levels, stockStatus: stockStatusOf(row, total) },
@@ -323,6 +336,8 @@ const productListSchema = listQuery.extend({
   stock: z.enum(["in", "low", "out"]).optional(),
   vendorId: zUuid.optional(),
   flag: z.enum(["featured", "bestSeller", "trending", "newArrival", "limited"]).optional(),
+  /** true → only products in no parent product (the parent product variant picker). */
+  standalone: zBoolQuery,
 });
 
 catalogueRouter.get("/products", requirePermission("products:view"), async (req, res) => {
@@ -352,13 +367,21 @@ catalogueRouter.get("/products", requirePermission("products:view"), async (req,
     query.stock === "out" ? sql`${quantity} <= 0` : undefined,
     query.stock === "low" ? sql`${quantity} > 0 and ${quantity} <= ${products.lowStockThreshold}` : undefined,
     query.stock === "in" ? sql`${quantity} > ${products.lowStockThreshold}` : undefined,
+    query.standalone === true ? isNull(products.parentId) : undefined,
+    query.standalone === false ? isNotNull(products.parentId) : undefined,
   );
 
   const rows = await db()
-    .select({ product: products, categoryName: categories.name, quantity: sql<number>`${quantity}`.mapWith(Number) })
+    .select({
+      product: products,
+      categoryName: categories.name,
+      quantity: sql<number>`${quantity}`.mapWith(Number),
+      parent: { id: parentProducts.id, name: parentProducts.name },
+    })
     .from(products)
     .innerJoin(categories, eq(categories.id, products.categoryId))
     .leftJoin(stockAgg, eq(stockAgg.productId, products.id))
+    .leftJoin(parentProducts, eq(parentProducts.id, products.parentId))
     .where(where)
     .orderBy(
       sortBy(
@@ -381,7 +404,7 @@ catalogueRouter.get("/products", requirePermission("products:view"), async (req,
 
   res.json(
     paginated(
-      rows.map(({ product, categoryName, quantity: stock }) => {
+      rows.map(({ product, categoryName, quantity: stock, parent }) => {
         const collectionIds = links.filter((l) => l.productId === product.id).map((l) => l.collectionId);
         const { pricing, pricingError } = currentPrice(product, collectionIds, context);
         return {
@@ -402,6 +425,8 @@ catalogueRouter.get("/products", requirePermission("products:view"), async (req,
           stockStatus: stockStatusOf(product, stock),
           finalPrice: pricing?.finalPrice ?? null,
           pricingError,
+          parent: parent ?? null,
+          variantLabel: parent ? variantLabelOf(product) : null,
           updatedAt: product.updatedAt,
           ...(confidential ? { purchasePrice: product.purchasePrice, vendorId: product.vendorId } : {}),
         };
@@ -432,6 +457,7 @@ catalogueRouter.post("/products", requirePermission("products:create"), async (r
     () =>
       db().transaction(async (tx) => {
         await validateProduct(tx, { ...fields, collectionIds });
+        await assertSlugFree(tx, fields.slug);
         const [row] = await tx
           .insert(products)
           .values({ ...fields, lowStockThreshold: threshold })
@@ -488,6 +514,10 @@ catalogueRouter.patch("/products/:id", requireAnyPermission(...new Set(Object.va
         const { collectionIds, ...fields } = patch;
         const nextCollections = collectionIds ? [...new Set(collectionIds)] : currentCollections;
         await validateProduct(tx, { ...current, ...fields, collectionIds: nextCollections });
+        if (fields.slug && fields.slug !== current.slug) await assertSlugFree(tx, fields.slug, { productId: id });
+        if ((fields.metal && fields.metal !== current.metal) || (fields.purity && fields.purity !== current.purity)) {
+          await assertSiblingLabelFree(tx, { ...current, ...fields });
+        }
 
         const [row] = await tx
           .update(products)
@@ -538,7 +568,14 @@ catalogueRouter.delete("/products/:id", requirePermission("products:delete"), as
     if ((stock?.total ?? 0) > 0) {
       throw new AppError("validation_error", `This product still has ${stock!.total} in stock. Reduce stock to zero before deleting it.`);
     }
-    await tx.update(products).set({ deletedAt: new Date(), status: "disabled", updatedAt: new Date() }).where(eq(products.id, id));
+    // A deleted product also leaves its parent product (the parent itself stays).
+    await tx
+      .update(products)
+      .set({ deletedAt: new Date(), status: "disabled", parentId: null, variantCustomLabel: null, variantOrder: 0, updatedAt: new Date() })
+      .where(eq(products.id, id));
+    if (current.parentId) {
+      await tx.update(parentProducts).set({ defaultVariantId: null, updatedAt: new Date() }).where(and(eq(parentProducts.id, current.parentId), eq(parentProducts.defaultVariantId, id)));
+    }
     await recordAudit(tx, actor, {
       module: "products",
       action: "product.delete",

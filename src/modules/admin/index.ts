@@ -13,6 +13,7 @@ import { inventoryRouter } from "./inventory";
 import { marketingRouter } from "./marketing";
 import { notificationsRouter } from "./notifications";
 import { ordersAdminRouter } from "./orders";
+import { parentProductsRouter } from "./parent-products";
 import { pricingRouter } from "./pricing";
 import { purchasingRouter } from "./purchasing";
 import { reportsRouter } from "./reports";
@@ -33,6 +34,7 @@ secured.use(
   notificationsRouter,
   customersRouter,
   catalogueRouter,
+  parentProductsRouter,
   inventoryRouter,
   purchasingRouter,
   ordersAdminRouter,

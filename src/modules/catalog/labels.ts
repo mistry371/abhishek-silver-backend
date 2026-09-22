@@ -57,3 +57,16 @@ export const customizationCatalog: Record<CustomizationKey, CustomizationOption>
     helpText: "Our team will confirm feasibility before your order is processed.",
   },
 };
+
+/** Default variant label: the purity code and metal, e.g. "22K Gold", "925 Silver". */
+export function defaultVariantLabel(metal: MetalType, purity: PurityCode) {
+  return `${purity.toUpperCase()} ${metalLabels[metal]}`;
+}
+
+/** A variant's label: its custom label when set, otherwise the default. */
+export function variantLabelOf(row: { metal: MetalType; purity: PurityCode; variantCustomLabel?: string | null }) {
+  return row.variantCustomLabel?.trim() || defaultVariantLabel(row.metal, row.purity);
+}
+
+/** Labels are compared ignoring case and spacing. */
+export const labelKey = (label: string) => label.trim().toLowerCase().replace(/\s+/g, " ");

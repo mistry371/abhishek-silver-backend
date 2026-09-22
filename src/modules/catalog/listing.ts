@@ -13,13 +13,25 @@ import type {
 } from "@/contracts/storefront";
 import { AppError, notFound } from "@/lib/errors";
 import { GENDERS, genderLabels, METALS, metalLabels, PURITIES, purityFineness, purityLabels, sizeLabel } from "./labels";
-import { findEntry, priceEntry, resolveAvailability, type CatalogEntry, type CatalogSnapshot, type CategoryRow } from "./snapshot";
+import {
+  collapseVariants,
+  findEntry,
+  groupKey,
+  priceEntry,
+  resolveAvailability,
+  type CatalogEntry,
+  type CatalogSnapshot,
+  type CategoryRow,
+} from "./snapshot";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
+/** Listing cards an entry list represents: each active parent counts once. */
+const cardCount = (entries: CatalogEntry[]) => new Set(entries.map(groupKey)).size;
+
 export function matchesBase(entry: CatalogEntry, base: CategoryRow | undefined) {
   if (!base) return true;
-  if (base.group === "type") return entry.row.categoryId === base.id;
+  if (base.group === "type") return entry.category.id === base.id;
   const rule = base.listingRule;
   if (!rule || (!rule.metal && !rule.genders?.length && !rule.customizable)) return false;
   if (rule.metal && entry.row.metal !== rule.metal) return false;
@@ -69,7 +81,7 @@ function facetFrom<T extends string>(
   label: (value: T) => string,
 ): FacetOption[] {
   return values
-    .map((value) => ({ value, label: label(value), count: entries.filter((e) => getValues(e).includes(value)).length }))
+    .map((value) => ({ value, label: label(value), count: cardCount(entries.filter((e) => getValues(e).includes(value))) }))
     .filter((option) => option.count > 0);
 }
 
@@ -81,7 +93,7 @@ function buildFacets(snapshot: CatalogSnapshot, scoped: CatalogEntry[], filters:
     const sizing = [...sizingTypes][0]!;
     const values = [...new Set(typeScoped.flatMap((e) => e.row.sizeOptions))].sort((a, b) => Number(a) - Number(b) || a.localeCompare(b));
     for (const value of values) {
-      const count = typeScoped.filter((e) => e.product.sizes.some((s) => s.value === value && s.available)).length;
+      const count = cardCount(typeScoped.filter((e) => e.product.sizes.some((s) => s.value === value && s.available)));
       if (count > 0) sizes.push({ value, label: sizeLabel(sizing, value), count });
     }
   }
@@ -167,7 +179,8 @@ export function listProducts(snapshot: CatalogSnapshot, filters: ProductFilters)
     return true;
   });
 
-  const sorted = sortEntries(filtered, filters.sort ?? "featured");
+  // Each active parent appears once: its default variant if that matches, otherwise its first match in this sort.
+  const sorted = collapseVariants(snapshot, sortEntries(filtered, filters.sort ?? "featured"));
   const pageSize = clamp(filters.pageSize ?? 12, 1, 48);
   const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const page = clamp(filters.page ?? 1, 1, totalPages);
@@ -196,7 +209,7 @@ export function listMerchandised(
   }
   if (metal) list = list.filter((e) => e.row.metal === metal && e.product.availability.purchasable);
   if (collection) list = list.filter((e) => e.product.collections.some((c) => c.slug === collection));
-  return sortEntries(list, sort)
+  return collapseVariants(snapshot, sortEntries(list, sort))
     .slice(0, limit)
     .map((e) => e.summary);
 }
@@ -204,26 +217,30 @@ export function listMerchandised(
 export function relatedProducts(snapshot: CatalogSnapshot, idOrSlug: string, limit: number): ProductSummary[] {
   const source = findEntry(snapshot, idOrSlug);
   if (!source) return [];
-  const sourceCollections = new Set(source.collections.map((c) => c.id));
-  return snapshot.entries
-    .filter((e) => e.row.id !== source.row.id && e.product.stockStatus !== "out_of_stock")
+  const sourceCollections = new Set(source.displayCollections.map((c) => c.id));
+  const sourceGroup = groupKey(source);
+  const ranked = snapshot.entries
+    // Never the product itself nor its sibling variants.
+    .filter((e) => groupKey(e) !== sourceGroup && e.product.stockStatus !== "out_of_stock")
     .map((e) => ({
       entry: e,
       score:
-        (e.row.categoryId === source.row.categoryId ? 3 : 0) +
-        e.collections.filter((c) => sourceCollections.has(c.id)).length +
+        (e.category.id === source.category.id ? 3 : 0) +
+        e.displayCollections.filter((c) => sourceCollections.has(c.id)).length +
         (e.row.metal === source.row.metal ? 1 : 0),
     }))
     .filter((item) => item.score > 1)
     .sort((a, b) => b.score - a.score || b.entry.row.salesCount - a.entry.row.salesCount)
+    .map((item) => item.entry);
+  return collapseVariants(snapshot, ranked)
     .slice(0, limit)
-    .map((item) => item.entry.summary);
+    .map((entry) => entry.summary);
 }
 
 export function categoriesWithCounts(snapshot: CatalogSnapshot): Category[] {
   return snapshot.categories.map((category) => {
     const row = snapshot.categoryRows.find((c) => c.id === category.id);
-    return { ...category, productCount: snapshot.entries.filter((e) => matchesBase(e, row)).length };
+    return { ...category, productCount: cardCount(snapshot.entries.filter((e) => matchesBase(e, row))) };
   });
 }
 
@@ -248,9 +265,12 @@ export function searchSuggestions(snapshot: CatalogSnapshot, query: string): Sea
   const normalized = query.trim().toLowerCase();
   if (normalized.length < 2) return { query, products: [], categories: [], collections: [], total: 0 };
 
-  const matches = sortEntries(
-    snapshot.entries.filter((e) => matchesQuery(e.product, normalized)),
-    "featured",
+  const matches = collapseVariants(
+    snapshot,
+    sortEntries(
+      snapshot.entries.filter((e) => matchesQuery(e.product, normalized)),
+      "featured",
+    ),
   );
   const tokens = normalized.split(/\s+/);
   const categories = categoriesWithCounts(snapshot)

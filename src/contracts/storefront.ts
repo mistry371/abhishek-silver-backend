@@ -54,13 +54,31 @@ export interface CustomizationOption {
   options?: { value: string; label: string }[];
 }
 
+/** The parent product (design) a product is a variant of, on the product page. */
+export interface ProductParentRef {
+  id: string;
+  slug: string;
+  name: string;
+}
+
+/** The parent product on a listing card. Prices span the parent's active variants. */
+export interface ProductParentSummary extends ProductParentRef {
+  variantCount: number;
+  priceFrom: number;
+  priceTo: number;
+}
+
+/** A sibling variant (another product of the same design), for the variant picker. */
 export interface ProductVariant {
   id: string;
+  slug: string;
   sku: string;
-  size?: string;
-  grossWeight: number;
-  netWeight: number;
+  label: string;
+  metal: MetalType;
+  purity: PurityCode;
+  price: number;
   availability: InventoryAvailability;
+  image: ImageAsset | null;
 }
 
 export type ProductBadge = "new" | "best_seller" | "trending" | "sale" | "limited" | "out_of_stock";
@@ -96,6 +114,9 @@ export interface Product {
   stockStatus: StockStatus;
   sizes: ProductSizeOption[];
   defaultSize?: string | null;
+  /** Set when the product is a variant of an active parent product. */
+  parent: ProductParentRef | null;
+  /** Every active variant of the parent (including this product), in display order. Empty for standalone products. */
   variants: ProductVariant[];
   customization: CustomizationOption[];
   badges: ProductBadge[];
@@ -134,7 +155,10 @@ export type ProductSummary = Pick<
   | "customization"
   | "badges"
   | "createdAt"
->;
+> & {
+  /** Set when the card stands for a parent product (one design with several variants). */
+  parent: ProductParentSummary | null;
+};
 
 export interface Subcategory {
   id: string;

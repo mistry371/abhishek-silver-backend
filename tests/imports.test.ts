@@ -49,6 +49,7 @@ describe("bulk import — templates and listing", () => {
     expect(all.status).toBe(200);
     expect(all.body.items.map((entry: { entity: string }) => entry.entity)).toEqual([
       "products",
+      "parent-products",
       "inventory",
       "customers",
       "vendors",

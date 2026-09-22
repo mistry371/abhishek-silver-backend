@@ -76,7 +76,11 @@ catalogRouter.get("/products", async (req, res) => {
 
 catalogRouter.get("/products/slugs", async (_req, res) => {
   const snapshot = await catalog();
-  res.json(snapshot.entries.map((e) => ({ slug: e.row.slug, updatedAt: e.row.updatedAt.toISOString() })));
+  res.json([
+    ...snapshot.entries.map((e) => ({ slug: e.row.slug, updatedAt: e.row.updatedAt.toISOString() })),
+    // Active parent products (with at least one active variant) have their own /product/<slug> page.
+    ...[...snapshot.parents.values()].map((group) => ({ slug: group.row.slug, updatedAt: group.row.updatedAt.toISOString() })),
+  ]);
 });
 
 catalogRouter.get("/products/merchandising", async (req, res) => {

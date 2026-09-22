@@ -1,4 +1,4 @@
-import { boolean, index, integer, jsonb, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { boolean, index, integer, jsonb, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid, type AnyPgColumn } from "drizzle-orm/pg-core";
 import type {
   CategoryGroup,
   CategoryListingRule,
@@ -8,6 +8,7 @@ import type {
   MakingChargeType,
   MerchandisingFlags,
   MetalType,
+  ParentProductStatus,
   ProductDiscount,
   ProductStatus,
   PurityCode,
@@ -126,6 +127,14 @@ export const products = pgTable(
     /** Optimistic-concurrency version bumped on every stock movement. */
     stockVersion: integer("stock_version").notNull().default(0),
 
+    /* ---- Parent product (one design with variants) ---- */
+    /** The design this product is a variant of. A product belongs to at most one parent. */
+    parentId: uuid("parent_id").references((): AnyPgColumn => parentProducts.id, { onDelete: "set null" }),
+    /** Custom variant label; when null the label is "<purity> <metal>", e.g. "22K Gold". */
+    variantCustomLabel: text("variant_label"),
+    /** Position among the parent's variants (ascending). */
+    variantOrder: integer("variant_order").notNull().default(0),
+
     salesCount: integer("sales_count").notNull().default(0),
     viewsCount: integer("views_count").notNull().default(0),
     createdAt: createdAt(),
@@ -136,7 +145,48 @@ export const products = pgTable(
     index("products_category_idx").on(t.categoryId),
     index("products_status_idx").on(t.status),
     index("products_metal_purity_idx").on(t.metal, t.purity),
+    index("products_parent_idx").on(t.parentId),
   ],
+);
+
+/**
+ * One jewellery design sold in several variants (e.g. 22K gold and 925 silver).
+ * Variants are ordinary products (own SKU, stock and price); the parent only
+ * holds the shared presentation. Deleting a parent never deletes products.
+ */
+export const parentProducts = pgTable(
+  "parent_products",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    slug: text("slug").notNull().unique(),
+    name: text("name").notNull(),
+    shortDescription: text("short_description").notNull().default(""),
+    description: text("description").notNull().default(""),
+    categoryId: uuid("category_id")
+      .notNull()
+      .references(() => categories.id),
+    subcategoryId: uuid("subcategory_id").references(() => subcategories.id, { onDelete: "set null" }),
+    images: jsonb("images").$type<ImageAsset[]>().notNull().default([]),
+    seo: jsonb("seo").$type<SeoMeta>().notNull().default({}),
+    status: text("status").$type<ParentProductStatus>().notNull().default("draft"),
+    defaultVariantId: uuid("default_variant_id").references((): AnyPgColumn => products.id, { onDelete: "set null" }),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [index("parent_products_status_idx").on(t.status)],
+);
+
+export const parentProductCollections = pgTable(
+  "parent_product_collections",
+  {
+    parentId: uuid("parent_id")
+      .notNull()
+      .references(() => parentProducts.id, { onDelete: "cascade" }),
+    collectionId: uuid("collection_id")
+      .notNull()
+      .references(() => collections.id, { onDelete: "cascade" }),
+  },
+  (t) => [primaryKey({ columns: [t.parentId, t.collectionId] })],
 );
 
 export const productCollections = pgTable(

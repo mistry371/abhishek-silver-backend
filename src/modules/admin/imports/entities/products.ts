@@ -1,9 +1,9 @@
-import { and, eq, isNull, sql } from "drizzle-orm";
+import { and, eq, isNull, max, sql } from "drizzle-orm";
 import { z } from "zod";
-import { categories, collections, productCollections, products, subcategories, vendors } from "@/db/schema";
+import { categories, collections, parentProducts, productCollections, products, subcategories, vendors } from "@/db/schema";
 import type { Executor } from "@/db/client";
 import { partialUpdate } from "@/lib/validation";
-import { GENDERS, METALS, PURITIES } from "@/modules/catalog/labels";
+import { GENDERS, labelKey, METALS, PURITIES, variantLabelOf } from "@/modules/catalog/labels";
 import { getSetting } from "@/services/settings";
 import { createSchema, fieldPermission, productShape, validateProduct, type ProductField } from "../../catalogue";
 import type { RowReader } from "../reader";
@@ -53,6 +53,22 @@ const columns: ImportColumn[] = [
   { key: "barcode", label: "Barcode", example: "", example2: "", hint: "Optional. Must be unique across products." },
   { key: "lowStockThreshold", label: "Low Stock Alert At", example: "", example2: "3", hint: "Optional. Raise an alert when stock falls to this many units." },
   {
+    key: "parentProduct",
+    label: "Parent Product",
+    example: "",
+    example2: "",
+    hint: "Optional. URL slug of an existing parent product (one design with several variants) to add this product to. Blank leaves it as it is.",
+    permission: "products:edit_content",
+  },
+  {
+    key: "variantLabel",
+    label: "Variant Label",
+    example: "",
+    example2: "",
+    hint: 'Optional. What this variant is called on the parent product, e.g. "Rose Gold". Blank uses purity and metal, e.g. "22K Gold". Labels must differ within a parent.',
+    permission: "products:edit_content",
+  },
+  {
     key: "purchasePrice",
     label: "Purchase Cost",
     example: "",
@@ -81,10 +97,10 @@ interface Named {
   name: string;
 }
 
-const same = (text: string) => text.trim().toLowerCase().replace(/\s+/g, " ");
+export const same = (text: string) => text.trim().toLowerCase().replace(/\s+/g, " ");
 
 /** Taxonomy is referenced by slug or by the name staff see on screen. */
-function findNamed<T extends Named>(items: T[], text: string): T | null {
+export function findNamed<T extends Named>(items: T[], text: string): T | null {
   const wanted = same(text);
   return items.find((item) => item.slug.toLowerCase() === wanted || same(item.name) === wanted) ?? null;
 }
@@ -113,8 +129,92 @@ interface ProductState {
   collections: Named[];
   suppliers: (Named & { code: string })[];
   slugs: Set<string>;
+  /** Parent products by slug, and their names by id. */
+  parents: Map<string, { id: string; name: string }>;
+  parentNames: Map<string, string>;
+  /** Effective variant labels per parent, kept up to date as rows are planned (key: product id or "row:<n>"). */
+  labels: Map<string, Map<string, { label: string; sku: string }>>;
+  /** Next free variant position per parent. */
+  nextOrder: Map<string, number>;
   skuRows: Map<string, number>;
   defaultThreshold: number;
+}
+
+type ParentFields = Pick<typeof products.$inferInsert, "parentId" | "variantCustomLabel" | "variantOrder">;
+type ProductRow = typeof products.$inferSelect;
+
+async function labelsOf(ex: Executor, state: ProductState, parentId: string) {
+  let book = state.labels.get(parentId);
+  if (!book) {
+    const members = await ex
+      .select({ id: products.id, sku: products.sku, metal: products.metal, purity: products.purity, variantCustomLabel: products.variantCustomLabel })
+      .from(products)
+      .where(and(eq(products.parentId, parentId), isNull(products.deletedAt)));
+    book = new Map(members.map((m) => [m.id, { label: variantLabelOf(m), sku: m.sku }]));
+    state.labels.set(parentId, book);
+  }
+  return book;
+}
+
+async function nextOrderOf(ex: Executor, state: ProductState, parentId: string) {
+  let next = state.nextOrder.get(parentId);
+  if (next === undefined) {
+    const [row] = await ex.select({ value: max(products.variantOrder) }).from(products).where(eq(products.parentId, parentId));
+    next = row?.value === null || row?.value === undefined ? 0 : row.value + 1;
+  }
+  state.nextOrder.set(parentId, next + 1);
+  return next;
+}
+
+/**
+ * "Parent Product" and "Variant Label": attaches the product to an existing
+ * parent and/or sets its custom label, keeping labels unique within the parent
+ * (also when a row changes a variant's metal or purity, which changes its default label).
+ */
+async function readParentFields(
+  row: RowReader,
+  state: ProductState,
+  ex: Executor,
+  sku: string | undefined,
+  existing: ProductRow | null,
+  fields: Record<string, unknown>,
+): Promise<Partial<ParentFields>> {
+  const patch: Partial<ParentFields> = {};
+  const parentSlug = row.text("parentProduct", { max: 160 })?.toLowerCase();
+  const customLabel = row.text("variantLabel", { max: 60 });
+  let parentId = existing?.parentId ?? null;
+
+  if (parentSlug) {
+    const parent = state.parents.get(parentSlug);
+    if (!parent) row.error("parentProduct", `Parent product "${parentSlug}" not found. Use the URL slug of an existing parent product.`);
+    else if (existing?.parentId && existing.parentId !== parent.id) {
+      row.error("parentProduct", `${sku} already belongs to the parent product “${state.parentNames.get(existing.parentId) ?? "another design"}”. Remove it there first.`);
+    } else {
+      parentId = parent.id;
+      if (existing?.parentId !== parent.id) {
+        patch.parentId = parent.id;
+        patch.variantOrder = await nextOrderOf(ex, state, parent.id);
+      }
+    }
+  }
+  if (customLabel) {
+    if (!parentId) row.error("variantLabel", "A variant label needs a parent product. Fill in Parent Product as well.");
+    else if (customLabel !== existing?.variantCustomLabel) patch.variantCustomLabel = customLabel;
+  }
+  const metal = (fields.metal as ProductRow["metal"] | undefined) ?? existing?.metal;
+  const purity = (fields.purity as ProductRow["purity"] | undefined) ?? existing?.purity;
+  if (!parentId || !row.ok || !metal || !purity) return patch;
+
+  const label = variantLabelOf({ metal, purity, variantCustomLabel: customLabel ?? (existing?.parentId === parentId ? existing.variantCustomLabel : null) });
+  const book = await labelsOf(ex, state, parentId);
+  const key = existing?.id ?? `row:${row.number}`;
+  const clash = [...book.entries()].find(([other, entry]) => other !== key && labelKey(entry.label) === labelKey(label));
+  if (clash) {
+    row.error(customLabel ? "variantLabel" : "parentProduct", `${clash[1].sku} is already labelled “${label}” in this parent product. Give this variant a different Variant Label.`);
+    return patch;
+  }
+  book.set(key, { label, sku: sku ?? "" });
+  return patch;
 }
 
 interface ProductPlan extends RowPlan {
@@ -244,12 +344,18 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       ? await ctx.ex.select({ id: vendors.id, slug: vendors.code, name: vendors.name, code: vendors.code }).from(vendors)
       : [];
     const slugRows = await ctx.ex.select({ slug: products.slug }).from(products);
+    const parentRows = await ctx.ex.select({ id: parentProducts.id, slug: parentProducts.slug, name: parentProducts.name }).from(parentProducts);
     return {
       categories: categoryRows,
       subcategories: subcategoryRows,
       collections: collectionRows,
       suppliers: vendorRows,
-      slugs: new Set(slugRows.map((row) => row.slug)),
+      // Parent slugs are reserved too, so /product/<slug> is never ambiguous.
+      slugs: new Set([...slugRows.map((row) => row.slug), ...parentRows.map((row) => row.slug)]),
+      parents: new Map(parentRows.map((row) => [row.slug, { id: row.id, name: row.name }])),
+      parentNames: new Map(parentRows.map((row) => [row.id, row.name])),
+      labels: new Map(),
+      nextOrder: new Map(),
       skuRows: new Map<string, number>(),
       defaultThreshold: (await getSetting("inventory", ctx.ex)).defaultLowStockThreshold,
     };
@@ -264,6 +370,11 @@ export const productImport = defineImport<ProductState, ProductPlan>({
     }
     const existing = sku ? await findBySku(ctx.ex, sku) : null;
     const fields = readFields(row, state, existing);
+    const parentFields = row.ok ? await readParentFields(row, state, ctx.ex, sku, existing, fields) : {};
+    const explicitSlug = fields.slug as string | undefined;
+    if (explicitSlug && explicitSlug !== existing?.slug && state.parents.has(explicitSlug)) {
+      row.error("slug", `This URL slug is already used by the parent product “${state.parents.get(explicitSlug)!.name}”.`);
+    }
     if (!sku || !row.ok) return null;
 
     if (!existing) {
@@ -279,9 +390,9 @@ export const productImport = defineImport<ProductState, ProductPlan>({
         return null;
       }
       const { collectionIds, ...values } = parsed.data;
-      await validateProduct(ctx.ex, { ...parsed.data, collectionIds });
+      await validateProduct(ctx.ex, { ...parsed.data, collectionIds, parentId: parentFields.parentId ?? null });
       state.slugs.add(values.slug);
-      return { row: row.number, action: "create", summary: `${sku} — new product “${values.name}”`, productId: null, insert: values, collectionIds };
+      return { row: row.number, action: "create", summary: `${sku} — new product “${values.name}”`, productId: null, insert: { ...values, ...parentFields }, collectionIds };
     }
 
     const parsed = updateSchema.safeParse(fields);
@@ -296,7 +407,8 @@ export const productImport = defineImport<ProductState, ProductPlan>({
 
     const changed = changedKeys(existing as unknown as Record<string, unknown>, patch);
     if (collectionIds && JSON.stringify([...current].sort()) !== JSON.stringify([...nextCollections].sort())) changed.push("collectionIds");
-    if (!changed.length) return { row: row.number, action: "skip", summary: `${sku} — already up to date`, productId: existing.id, collectionIds: null };
+    const parentChanged = Object.keys(parentFields).filter((key) => key !== "variantOrder");
+    if (!changed.length && !parentChanged.length) return { row: row.number, action: "skip", summary: `${sku} — already up to date`, productId: existing.id, collectionIds: null };
 
     // Only the fields this row actually changes need the product form's permission for them.
     const denied = changed.filter((field) => !ctx.can(fieldPermission[field as ProductField]));
@@ -304,15 +416,16 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       for (const field of denied) row.error(columnOf(field), "You don't have permission to change this field.");
       return null;
     }
-    await validateProduct(ctx.ex, { ...existing, ...patch, collectionIds: nextCollections });
+    await validateProduct(ctx.ex, { ...existing, ...patch, ...parentFields, collectionIds: nextCollections });
 
-    const listed = changed.slice(0, 3).map((field) => row.label(columnOf(field)));
+    const labelled = [...changed.map((field) => row.label(columnOf(field))), ...parentChanged.map((key) => row.label(key === "parentId" ? "parentProduct" : "variantLabel"))];
+    const listed = labelled.slice(0, 3);
     return {
       row: row.number,
       action: "update",
-      summary: `${sku} — updates ${listed.join(", ")}${changed.length > listed.length ? ` and ${changed.length - listed.length} more` : ""}`,
+      summary: `${sku} — updates ${listed.join(", ")}${labelled.length > listed.length ? ` and ${labelled.length - listed.length} more` : ""}`,
       productId: existing.id,
-      patch: patch as Partial<typeof products.$inferInsert>,
+      patch: { ...(patch as Partial<typeof products.$inferInsert>), ...parentFields },
       collectionIds: collectionIds ? nextCollections : null,
     };
   },

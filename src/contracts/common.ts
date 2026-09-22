@@ -13,6 +13,7 @@ export type CustomizationKey = "engraving" | "initial" | "note";
 export type MakingChargeType = "per_gram" | "percentage" | "fixed";
 export type StockStatus = "in_stock" | "low_stock" | "out_of_stock" | "unavailable";
 export type ProductStatus = "active" | "draft" | "disabled";
+export type ParentProductStatus = "active" | "draft";
 
 export interface CategoryListingRule {
   metal?: MetalType;

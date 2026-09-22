@@ -1,35 +1,63 @@
 import { and, asc, eq, isNull } from "drizzle-orm";
-import type { ProductDiscount } from "@/contracts/common";
-import type { Category, Collection, InventoryAvailability, Product, ProductBadge, ProductSummary, TaxonomyRef } from "@/contracts/storefront";
+import type { ImageAsset, ProductDiscount, SeoMeta } from "@/contracts/common";
+import type {
+  Category,
+  Collection,
+  InventoryAvailability,
+  Product,
+  ProductBadge,
+  ProductParentSummary,
+  ProductSummary,
+  ProductVariant,
+  TaxonomyRef,
+} from "@/contracts/storefront";
 import { db } from "@/db/client";
-import { categories, collections, inventoryLevels, productCollections, products, subcategories } from "@/db/schema";
+import { categories, collections, inventoryLevels, parentProductCollections, parentProducts, productCollections, products, subcategories } from "@/db/schema";
 import { logger } from "@/lib/logger";
 import { round2 } from "@/lib/money";
 import { loadPricingContext, priceProduct, type PriceableProduct, type PricingContext } from "@/modules/pricing/context";
 import { MissingRateError } from "@/modules/pricing/engine";
 import { getSetting } from "@/services/settings";
-import { customizationCatalog, metalLabels, purityLabels, sizeLabel } from "./labels";
+import { customizationCatalog, metalLabels, purityLabels, sizeLabel, variantLabelOf } from "./labels";
 
 export type ProductRow = typeof products.$inferSelect;
 export type CategoryRow = typeof categories.$inferSelect;
 export type SubcategoryRow = typeof subcategories.$inferSelect;
 export type CollectionRow = typeof collections.$inferSelect;
+export type ParentRow = typeof parentProducts.$inferSelect;
 
 export interface CatalogEntry {
   row: ProductRow;
+  /** Displayed category — the parent's when the product is a variant of an active parent. Filters act on it. */
   category: CategoryRow;
   subcategory: SubcategoryRow | null;
+  /** The product's OWN collections. Pricing (collection offers) uses these, so a parent never changes a price. */
   collections: CollectionRow[];
+  /** Displayed collections — the parent's for a variant of an active parent. Filters act on these. */
+  displayCollections: CollectionRow[];
+  /** The ACTIVE parent this product is a variant of (a draft parent changes nothing). */
+  parent: ParentRow | null;
   /** Units at the online fulfilment location. Internal only — never serialised. */
   stock: number;
   product: Product;
   summary: ProductSummary;
 }
 
+/** An active parent product and its active variants. */
+export interface ParentGroup {
+  row: ParentRow;
+  /** Active variants in the parent's display order. Never empty. */
+  variants: CatalogEntry[];
+  /** The default variant when it is active, otherwise the first active variant. */
+  primary: CatalogEntry;
+}
+
 export interface CatalogSnapshot {
   entries: CatalogEntry[];
   byId: Map<string, CatalogEntry>;
   bySlug: Map<string, CatalogEntry>;
+  parents: Map<string, ParentGroup>;
+  parentsBySlug: Map<string, ParentGroup>;
   categories: Category[];
   categoryRows: CategoryRow[];
   collections: Collection[];
@@ -93,15 +121,45 @@ export function priceEntry(entry: Pick<CatalogEntry, "row" | "collections">, con
   return { variant, pricing, discount };
 }
 
-function buildProduct(
-  row: ProductRow,
-  category: CategoryRow,
-  subcategory: SubcategoryRow | null,
-  productCollectionRows: CollectionRow[],
-  stock: number,
-  context: PricingContext,
-): Product {
-  const { variant, pricing, discount } = priceEntry({ row, collections: productCollectionRows }, context);
+/** What the website shows for a product: its own details, or its active parent's shared ones. */
+interface Presentation {
+  name: string;
+  shortDescription: string;
+  description: string;
+  images: ImageAsset[];
+  seo: SeoMeta;
+  category: CategoryRow;
+  subcategory: SubcategoryRow | null;
+  collections: CollectionRow[];
+}
+
+interface ParentPresentation {
+  row: ParentRow;
+  category: CategoryRow;
+  subcategory: SubcategoryRow | null;
+  collections: CollectionRow[];
+}
+
+function presentationOf(row: ProductRow, own: Pick<Presentation, "category" | "subcategory" | "collections">, parent: ParentPresentation | null): Presentation {
+  if (!parent) {
+    return { name: row.name, shortDescription: row.shortDescription, description: row.description, images: row.images, seo: row.seo, ...own };
+  }
+  return {
+    name: parent.row.name,
+    shortDescription: parent.row.shortDescription,
+    description: parent.row.description,
+    // A variant's own photos win; the parent's photos cover variants without any.
+    images: row.images.length ? row.images : parent.row.images,
+    seo: parent.row.seo,
+    category: parent.category,
+    subcategory: parent.subcategory,
+    collections: parent.collections,
+  };
+}
+
+function buildProduct(row: ProductRow, shown: Presentation, pricingCollections: CollectionRow[], stock: number, context: PricingContext): Product {
+  const { category, subcategory } = shown;
+  const { variant, pricing, discount } = priceEntry({ row, collections: pricingCollections }, context);
   const availability = resolveAvailability(row, stock);
 
   const badges: ProductBadge[] = [];
@@ -114,16 +172,16 @@ function buildProduct(
 
   return {
     id: row.id,
-    name: row.name,
+    name: shown.name,
     slug: row.slug,
     sku: row.sku,
-    shortDescription: row.shortDescription,
-    description: row.description,
-    images: row.images,
+    shortDescription: shown.shortDescription,
+    description: shown.description,
+    images: shown.images,
     video: row.video ?? null,
     category: ref(category),
     subcategory: subcategory ? ref(subcategory) : null,
-    collections: productCollectionRows.map(ref),
+    collections: shown.collections.map(ref),
     metal: row.metal,
     purity: row.purity,
     gender: row.gender,
@@ -147,17 +205,9 @@ function buildProduct(
       available: stock > 0 && !row.unavailableSizes.includes(value),
     })),
     defaultSize: variant.size ?? null,
-    variants: row.sizeOptions.map((value) => {
-      const sized = resolveVariant(row, value);
-      return {
-        id: `${row.id}-${value}`,
-        sku: `${row.sku}-${value.replace(".", "")}`,
-        size: value,
-        grossWeight: sized.grossWeight,
-        netWeight: sized.netWeight,
-        availability: resolveAvailability(row, stock, value),
-      };
-    }),
+    // Filled in by `groupVariants` for variants of an active parent.
+    parent: null,
+    variants: [],
     customization: row.customization.map((key) => customizationCatalog[key]).filter(Boolean),
     badges,
     featured: row.flags.featured,
@@ -165,9 +215,9 @@ function buildProduct(
     trending: row.flags.trending,
     newArrival: row.flags.newArrival,
     seo: {
-      ...row.seo,
-      title: row.seo.title || `${row.name} — ${metalLabels[row.metal]} ${category.name}`,
-      description: row.seo.description || `${row.shortDescription} ${purityLabels[row.purity]} ${metalLabels[row.metal].toLowerCase()}, ${variant.grossWeight} g.`,
+      ...shown.seo,
+      title: shown.seo.title || `${shown.name} — ${metalLabels[row.metal]} ${category.name}`,
+      description: shown.seo.description || `${shown.shortDescription} ${purityLabels[row.purity]} ${metalLabels[row.metal].toLowerCase()}, ${variant.grossWeight} g.`,
     },
     published: true,
     createdAt: row.createdAt.toISOString(),
@@ -175,7 +225,7 @@ function buildProduct(
   };
 }
 
-export function toSummary(product: Product): ProductSummary {
+export function toSummary(product: Product, parent: ProductParentSummary | null = null): ProductSummary {
   return {
     id: product.id,
     name: product.name,
@@ -200,7 +250,56 @@ export function toSummary(product: Product): ProductSummary {
     customization: product.customization,
     badges: product.badges,
     createdAt: product.createdAt,
+    parent,
   };
+}
+
+/**
+ * Groups the variants of each active parent, then gives every variant its
+ * parent reference, the ordered variant list and the card's price range.
+ */
+function groupVariants(entries: CatalogEntry[]): Map<string, ParentGroup> {
+  const members = new Map<string, CatalogEntry[]>();
+  for (const entry of entries) {
+    if (!entry.parent) continue;
+    const list = members.get(entry.parent.id) ?? [];
+    list.push(entry);
+    members.set(entry.parent.id, list);
+  }
+
+  const groups = new Map<string, ParentGroup>();
+  for (const list of members.values()) {
+    const row = list[0]!.parent!;
+    const variants = list.sort((a, b) => a.row.variantOrder - b.row.variantOrder || a.row.sku.localeCompare(b.row.sku));
+    const primary = variants.find((v) => v.row.id === row.defaultVariantId) ?? variants[0]!;
+    const prices = variants.map((v) => v.product.finalPrice);
+    const summary: ProductParentSummary = {
+      id: row.id,
+      slug: row.slug,
+      name: row.name,
+      variantCount: variants.length,
+      priceFrom: Math.min(...prices),
+      priceTo: Math.max(...prices),
+    };
+    const options: ProductVariant[] = variants.map((v) => ({
+      id: v.row.id,
+      slug: v.row.slug,
+      sku: v.row.sku,
+      label: variantLabelOf(v.row),
+      metal: v.row.metal,
+      purity: v.row.purity,
+      price: v.product.finalPrice,
+      availability: v.product.availability,
+      image: v.product.images[0] ?? null,
+    }));
+    for (const variant of variants) {
+      variant.product.parent = { id: row.id, slug: row.slug, name: row.name };
+      variant.product.variants = options;
+      variant.summary = toSummary(variant.product, summary);
+    }
+    groups.set(row.id, { row, variants, primary });
+  }
+  return groups;
 }
 
 /* ------------------------------------------------------------------ */
@@ -218,6 +317,8 @@ async function loadSnapshot(): Promise<CatalogSnapshot> {
   const subRows = await executor.select().from(subcategories).where(eq(subcategories.active, true)).orderBy(asc(subcategories.displayOrder));
   const collectionRows = await executor.select().from(collections).where(eq(collections.active, true)).orderBy(asc(collections.displayOrder));
   const links = await executor.select().from(productCollections);
+  const parentRows = await executor.select().from(parentProducts).where(eq(parentProducts.status, "active"));
+  const parentLinks = parentRows.length ? await executor.select().from(parentProductCollections) : [];
   const levels = await executor
     .select({ productId: inventoryLevels.productId, quantity: inventoryLevels.quantity })
     .from(inventoryLevels)
@@ -237,16 +338,51 @@ async function loadSnapshot(): Promise<CatalogSnapshot> {
     collectionsByProduct.set(link.productId, list);
   }
 
+  const byDisplayOrder = (a: CollectionRow, b: CollectionRow) => a.displayOrder - b.displayOrder;
+  /** Active parents; `category` is undefined while the parent's category is inactive. */
+  const parentById = new Map(
+    parentRows.map((row) => [
+      row.id,
+      {
+        row,
+        category: categoryById.get(row.categoryId),
+        subcategory: row.subcategoryId ? (subById.get(row.subcategoryId) ?? null) : null,
+        collections: parentLinks
+          .filter((link) => link.parentId === row.id)
+          .map((link) => collectionById.get(link.collectionId))
+          .filter((c): c is CollectionRow => Boolean(c))
+          .sort(byDisplayOrder),
+      },
+    ]),
+  );
+
   const entries: CatalogEntry[] = [];
   for (const row of productRows) {
-    const category = categoryById.get(row.categoryId);
-    if (!category) continue;
-    const productCollectionRows = (collectionsByProduct.get(row.id) ?? []).sort((a, b) => a.displayOrder - b.displayOrder);
-    const subcategory = row.subcategoryId ? (subById.get(row.subcategoryId) ?? null) : null;
+    const parentInfo = row.parentId ? parentById.get(row.parentId) : undefined;
+    const ownCategory = categoryById.get(row.categoryId);
+    let parent: ParentPresentation | null = null;
+    if (parentInfo) {
+      // A variant shows under its parent's category; like any product, it is hidden while that category is inactive.
+      if (!parentInfo.category) continue;
+      parent = { ...parentInfo, category: parentInfo.category };
+    } else if (!ownCategory) continue;
+    const productCollectionRows = (collectionsByProduct.get(row.id) ?? []).sort(byDisplayOrder);
+    const ownSubcategory = row.subcategoryId ? (subById.get(row.subcategoryId) ?? null) : null;
+    const shown = presentationOf(row, { category: ownCategory!, subcategory: ownSubcategory, collections: productCollectionRows }, parent);
     const stock = stockById.get(row.id) ?? 0;
     try {
-      const product = buildProduct(row, category, subcategory, productCollectionRows, stock, pricing);
-      entries.push({ row, category, subcategory, collections: productCollectionRows, stock, product, summary: toSummary(product) });
+      const product = buildProduct(row, shown, productCollectionRows, stock, pricing);
+      entries.push({
+        row,
+        category: shown.category,
+        subcategory: shown.subcategory,
+        collections: productCollectionRows,
+        displayCollections: shown.collections,
+        parent: parent?.row ?? null,
+        stock,
+        product,
+        summary: toSummary(product),
+      });
     } catch (error) {
       if (error instanceof MissingRateError) {
         logger.warn({ sku: row.sku }, `Product hidden from storefront: ${error.message}`);
@@ -255,6 +391,8 @@ async function loadSnapshot(): Promise<CatalogSnapshot> {
       throw error;
     }
   }
+
+  const parents = groupVariants(entries);
 
   const categoriesDto: Category[] = categoryRows.map((category) => ({
     id: category.id,
@@ -289,6 +427,8 @@ async function loadSnapshot(): Promise<CatalogSnapshot> {
     entries,
     byId: new Map(entries.map((e) => [e.row.id, e])),
     bySlug: new Map(entries.map((e) => [e.row.slug, e])),
+    parents,
+    parentsBySlug: new Map([...parents.values()].map((group) => [group.row.slug, group])),
     categories: categoriesDto,
     categoryRows,
     collections: collectionsDto,
@@ -317,7 +457,27 @@ export function catalog({ fresh = false } = {}): Promise<CatalogSnapshot> {
   return cached.promise;
 }
 
+/** By product id or slug; a parent product's slug resolves to its default (or first) active variant. */
 export function findEntry(snapshot: CatalogSnapshot, idOrSlug: string | undefined) {
   if (!idOrSlug) return undefined;
-  return snapshot.byId.get(idOrSlug) ?? snapshot.bySlug.get(idOrSlug);
+  return snapshot.byId.get(idOrSlug) ?? snapshot.bySlug.get(idOrSlug) ?? snapshot.parentsBySlug.get(idOrSlug)?.primary;
+}
+
+/** Listing key: the variants of one active parent share a key, so the parent counts once. */
+export const groupKey = (entry: CatalogEntry) => entry.parent?.id ?? entry.row.id;
+
+/**
+ * Collapses an ordered list so each active parent appears once, represented by
+ * its default variant when that is in the list, otherwise by the first of its
+ * variants in the list. The representative keeps its own position.
+ */
+export function collapseVariants(snapshot: CatalogSnapshot, ordered: CatalogEntry[]): CatalogEntry[] {
+  const present = new Set(ordered.map((e) => e.row.id));
+  const chosen = new Map<string, string>();
+  for (const entry of ordered) {
+    if (!entry.parent || chosen.has(entry.parent.id)) continue;
+    const defaultId = snapshot.parents.get(entry.parent.id)?.row.defaultVariantId;
+    chosen.set(entry.parent.id, defaultId && present.has(defaultId) ? defaultId : entry.row.id);
+  }
+  return ordered.filter((entry) => !entry.parent || chosen.get(entry.parent.id) === entry.row.id);
 }
