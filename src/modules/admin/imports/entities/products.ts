@@ -1,11 +1,11 @@
-import { and, eq, isNull, max, sql } from "drizzle-orm";
+import { and, eq, isNull, max } from "drizzle-orm";
 import { z } from "zod";
-import { categories, collections, parentProducts, productCollections, products, subcategories, vendors } from "@/db/schema";
+import { categories, collections, metalRates, parentProducts, productCollections, products, subcategories, vendors } from "@/db/schema";
 import type { Executor } from "@/db/client";
 import { partialUpdate } from "@/lib/validation";
 import { GENDERS, labelKey, METALS, PURITIES, variantLabelOf } from "@/modules/catalog/labels";
 import { getSetting } from "@/services/settings";
-import { createSchema, fieldPermission, productShape, validateProduct, type ProductField } from "../../catalogue";
+import { createSchema, fieldPermission, productShape, validateProduct, type ProductField, type ProductLookups } from "../../catalogue";
 import type { RowReader } from "../reader";
 import { defineImport, type ImportColumn, type RowPlan } from "../types";
 
@@ -138,6 +138,11 @@ interface ProductState {
   nextOrder: Map<string, number>;
   skuRows: Map<string, number>;
   defaultThreshold: number;
+  /** Everything a row needs is loaded once per file, so a check makes a handful of queries, not several per row. */
+  bySku: Map<string, ProductRow>;
+  /** Product id → its collection ids. */
+  links: Map<string, string[]>;
+  lookups: ProductLookups;
 }
 
 type ParentFields = Pick<typeof products.$inferInsert, "parentId" | "variantCustomLabel" | "variantOrder">;
@@ -223,15 +228,6 @@ interface ProductPlan extends RowPlan {
   patch?: Partial<typeof products.$inferInsert>;
   /** null leaves the product's collections untouched. */
   collectionIds: string[] | null;
-}
-
-async function findBySku(ex: Executor, sku: string) {
-  const [row] = await ex
-    .select()
-    .from(products)
-    .where(and(eq(sql`upper(${products.sku})`, sku), isNull(products.deletedAt)))
-    .limit(1);
-  return row ?? null;
 }
 
 /** Reads every column the file supplied; blank cells are simply absent from the result. */
@@ -344,7 +340,23 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       ? await ctx.ex.select({ id: vendors.id, slug: vendors.code, name: vendors.name, code: vendors.code }).from(vendors)
       : [];
     const slugRows = await ctx.ex.select({ slug: products.slug }).from(products);
-    const parentRows = await ctx.ex.select({ id: parentProducts.id, slug: parentProducts.slug, name: parentProducts.name }).from(parentProducts);
+    const parentRows = await ctx.ex.select({ id: parentProducts.id, slug: parentProducts.slug, name: parentProducts.name, images: parentProducts.images }).from(parentProducts);
+    const productRows = await ctx.ex.select().from(products).where(isNull(products.deletedAt));
+    const linkRows = await ctx.ex.select({ productId: productCollections.productId, collectionId: productCollections.collectionId }).from(productCollections);
+    const vendorIds = await ctx.ex.select({ id: vendors.id }).from(vendors);
+    const rateRows = await ctx.ex.select({ metal: metalRates.metal, purity: metalRates.purity }).from(metalRates);
+
+    const links = new Map<string, string[]>();
+    for (const link of linkRows) links.set(link.productId, [...(links.get(link.productId) ?? []), link.collectionId]);
+    // Every parent's current labels and next free position, as labelsOf / nextOrderOf would read them.
+    const labels = new Map<string, Map<string, { label: string; sku: string }>>(parentRows.map((row) => [row.id, new Map()]));
+    const nextOrder = new Map<string, number>(parentRows.map((row) => [row.id, 0]));
+    for (const product of productRows) {
+      if (!product.parentId) continue;
+      labels.get(product.parentId)?.set(product.id, { label: variantLabelOf(product), sku: product.sku });
+      nextOrder.set(product.parentId, Math.max(nextOrder.get(product.parentId) ?? 0, product.variantOrder + 1));
+    }
+
     return {
       categories: categoryRows,
       subcategories: subcategoryRows,
@@ -354,10 +366,20 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       slugs: new Set([...slugRows.map((row) => row.slug), ...parentRows.map((row) => row.slug)]),
       parents: new Map(parentRows.map((row) => [row.slug, { id: row.id, name: row.name }])),
       parentNames: new Map(parentRows.map((row) => [row.id, row.name])),
-      labels: new Map(),
-      nextOrder: new Map(),
+      labels,
+      nextOrder,
       skuRows: new Map<string, number>(),
       defaultThreshold: (await getSetting("inventory", ctx.ex)).defaultLowStockThreshold,
+      bySku: new Map(productRows.map((row) => [row.sku.toUpperCase(), row])),
+      links,
+      lookups: {
+        categories: new Map(categoryRows.map((row) => [row.id, { group: row.group }])),
+        subcategories: new Map(subcategoryRows.map((row) => [row.id, row.categoryId])),
+        collections: new Set(collectionRows.map((row) => row.id)),
+        vendors: new Set(vendorIds.map((row) => row.id)),
+        parentImages: new Map(parentRows.map((row) => [row.id, row.images])),
+        rates: new Set(rateRows.map((row) => `${row.metal}:${row.purity}`)),
+      },
     };
   },
 
@@ -368,7 +390,7 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       if (seen) row.error("sku", `SKU ${sku} is already on row ${seen} of this file. Keep one row per product.`);
       else state.skuRows.set(sku, row.number);
     }
-    const existing = sku ? await findBySku(ctx.ex, sku) : null;
+    const existing = sku ? (state.bySku.get(sku) ?? null) : null;
     const fields = readFields(row, state, existing);
     const parentFields = row.ok ? await readParentFields(row, state, ctx.ex, sku, existing, fields) : {};
     const explicitSlug = fields.slug as string | undefined;
@@ -390,7 +412,7 @@ export const productImport = defineImport<ProductState, ProductPlan>({
         return null;
       }
       const { collectionIds, ...values } = parsed.data;
-      await validateProduct(ctx.ex, { ...parsed.data, collectionIds, parentId: parentFields.parentId ?? null });
+      await validateProduct(ctx.ex, { ...parsed.data, collectionIds, parentId: parentFields.parentId ?? null }, state.lookups);
       state.slugs.add(values.slug);
       return { row: row.number, action: "create", summary: `${sku} — new product “${values.name}”`, productId: null, insert: { ...values, ...parentFields }, collectionIds };
     }
@@ -402,7 +424,7 @@ export const productImport = defineImport<ProductState, ProductPlan>({
     }
 
     const { collectionIds, ...patch } = parsed.data as Record<string, unknown> & { collectionIds?: string[] };
-    const current = (await ctx.ex.select({ id: productCollections.collectionId }).from(productCollections).where(eq(productCollections.productId, existing.id))).map((link) => link.id);
+    const current = state.links.get(existing.id) ?? [];
     const nextCollections = collectionIds ? [...new Set(collectionIds)] : current;
 
     const changed = changedKeys(existing as unknown as Record<string, unknown>, patch);
@@ -416,7 +438,7 @@ export const productImport = defineImport<ProductState, ProductPlan>({
       for (const field of denied) row.error(columnOf(field), "You don't have permission to change this field.");
       return null;
     }
-    await validateProduct(ctx.ex, { ...existing, ...patch, ...parentFields, collectionIds: nextCollections });
+    await validateProduct(ctx.ex, { ...existing, ...patch, ...parentFields, collectionIds: nextCollections }, state.lookups);
 
     const labelled = [...changed.map((field) => row.label(columnOf(field))), ...parentChanged.map((key) => row.label(key === "parentId" ? "parentProduct" : "variantLabel"))];
     const listed = labelled.slice(0, 3);
@@ -443,7 +465,8 @@ export const productImport = defineImport<ProductState, ProductPlan>({
         .where(eq(products.id, productId));
     }
     if (plan.collectionIds && productId) {
-      await ctx.tx.delete(productCollections).where(eq(productCollections.productId, productId));
+      // A product created just now has no links to clear.
+      if (!plan.insert) await ctx.tx.delete(productCollections).where(eq(productCollections.productId, productId));
       if (plan.collectionIds.length) {
         await ctx.tx.insert(productCollections).values([...new Set(plan.collectionIds)].map((collectionId) => ({ productId, collectionId })));
       }

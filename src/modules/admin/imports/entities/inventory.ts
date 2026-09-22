@@ -1,4 +1,4 @@
-import { and, eq, isNull, sql } from "drizzle-orm";
+import { isNull } from "drizzle-orm";
 import { inventoryLevels, products, stockLocations, type StockMovementType } from "@/db/schema";
 import { applyStockChange } from "@/services/inventory";
 import { defineImport, type ImportColumn, type RowPlan } from "../types";
@@ -33,6 +33,9 @@ interface InventoryState {
   locations: LocationRow[];
   /** Running quantity per product and location, so several rows for one product add up. */
   projected: Map<string, number>;
+  /** Loaded once per file rather than queried for every row. */
+  bySku: Map<string, { id: string; sku: string; name: string }>;
+  levels: Map<string, number>;
 }
 
 interface InventoryPlan extends RowPlan {
@@ -53,9 +56,15 @@ export const inventoryImport = defineImport<InventoryState, InventoryPlan>({
   columns,
 
   async prepare(ctx) {
+    const productRows = await ctx.ex.select({ id: products.id, sku: products.sku, name: products.name }).from(products).where(isNull(products.deletedAt));
+    const levelRows = await ctx.ex
+      .select({ productId: inventoryLevels.productId, locationId: inventoryLevels.locationId, quantity: inventoryLevels.quantity })
+      .from(inventoryLevels);
     return {
       locations: await ctx.ex.select({ id: stockLocations.id, name: stockLocations.name, active: stockLocations.active }).from(stockLocations),
       projected: new Map<string, number>(),
+      bySku: new Map(productRows.map((row) => [row.sku.toUpperCase(), row])),
+      levels: new Map(levelRows.map((row) => [`${row.productId}:${row.locationId}`, row.quantity])),
     };
   },
 
@@ -66,13 +75,7 @@ export const inventoryImport = defineImport<InventoryState, InventoryPlan>({
     const quantity = row.numeric("quantity", { required: true, min: 0, max: 100_000, integer: true });
     const reason = row.text("reason", { required: true, max: 500 });
 
-    const [product] = sku
-      ? await ctx.ex
-          .select({ id: products.id, sku: products.sku, name: products.name })
-          .from(products)
-          .where(and(eq(sql`upper(${products.sku})`, sku), isNull(products.deletedAt)))
-          .limit(1)
-      : [];
+    const product = sku ? state.bySku.get(sku) : undefined;
     if (sku && !product) row.error("sku", `No product with SKU ${sku}. Import the product first, or check the code.`);
 
     const location = locationText
@@ -87,15 +90,7 @@ export const inventoryImport = defineImport<InventoryState, InventoryPlan>({
     if (!product || !location || !movement || quantity === undefined || !reason || !row.ok) return null;
 
     const key = `${product.id}:${location.id}`;
-    let before = state.projected.get(key);
-    if (before === undefined) {
-      const [level] = await ctx.ex
-        .select({ quantity: inventoryLevels.quantity })
-        .from(inventoryLevels)
-        .where(and(eq(inventoryLevels.productId, product.id), eq(inventoryLevels.locationId, location.id)))
-        .limit(1);
-      before = level?.quantity ?? 0;
-    }
+    const before = state.projected.get(key) ?? state.levels.get(key) ?? 0;
     const after = movement === "reduce" ? before - quantity : movement === "adjust" ? quantity : before + quantity;
     if (after < 0) {
       row.error("quantity", `Only ${before} in stock at ${location.name}, so ${quantity} can't be removed.`);

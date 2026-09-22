@@ -213,8 +213,25 @@ export const UNIQUE_FIELDS: Record<string, [string, string]> = {
   products_barcode: ["barcode", "This barcode is already used by another product."],
 };
 
+/**
+ * Reference data loaded once, so bulk imports don't query the database for
+ * every row. The checks are identical with or without it.
+ */
+export interface ProductLookups {
+  /** Category id → its group. */
+  categories: Map<string, { group: string }>;
+  /** Subcategory id → its category id. */
+  subcategories: Map<string, string>;
+  collections: Set<string>;
+  vendors: Set<string>;
+  /** Parent product id → its images. */
+  parentImages: Map<string, unknown[]>;
+  /** "metal:purity" pairs that have a rate. */
+  rates: Set<string>;
+}
+
 /** Cross-field and referential checks shared by create, update and bulk activation. */
-export async function validateProduct(tx: Executor, p: ProductDraft) {
+export async function validateProduct(tx: Executor, p: ProductDraft, lookups?: ProductLookups) {
   const errors: Record<string, string> = {};
   if (!PURITIES_BY_METAL[p.metal].includes(p.purity)) errors.purity = "Choose a purity that matches the metal.";
   if (p.grossWeight !== null && p.grossWeight < p.netWeight) errors.grossWeight = "Gross weight can't be less than net weight.";
@@ -228,37 +245,55 @@ export async function validateProduct(tx: Executor, p: ProductDraft) {
   if (Object.keys(p.sizeWeights).some((size) => !sizes.includes(size))) errors.sizeWeights = "Weights can only be set for listed sizes.";
   if (p.unavailableSizes.some((size) => !sizes.includes(size))) errors.unavailableSizes = "Unavailable sizes must be listed sizes.";
 
-  const [category] = await tx.select().from(categories).where(eq(categories.id, p.categoryId)).limit(1);
+  const category = lookups ? lookups.categories.get(p.categoryId) : (await tx.select().from(categories).where(eq(categories.id, p.categoryId)).limit(1))[0];
   if (!category) errors.categoryId = "Choose a category.";
   else if (category.group !== "type") errors.categoryId = "Choose a jewellery type (for example Rings).";
   if (p.subcategoryId) {
-    const [sub] = await tx
-      .select({ id: subcategories.id })
-      .from(subcategories)
-      .where(and(eq(subcategories.id, p.subcategoryId), eq(subcategories.categoryId, p.categoryId)))
-      .limit(1);
-    if (!sub) errors.subcategoryId = "Choose a subcategory of the selected category.";
+    const belongs = lookups
+      ? lookups.subcategories.get(p.subcategoryId) === p.categoryId
+      : Boolean(
+          (
+            await tx
+              .select({ id: subcategories.id })
+              .from(subcategories)
+              .where(and(eq(subcategories.id, p.subcategoryId), eq(subcategories.categoryId, p.categoryId)))
+              .limit(1)
+          )[0],
+        );
+    if (!belongs) errors.subcategoryId = "Choose a subcategory of the selected category.";
   }
   const uniqueCollections = [...new Set(p.collectionIds)];
   if (uniqueCollections.length) {
-    const found = await tx.select({ id: collections.id }).from(collections).where(inArray(collections.id, uniqueCollections));
-    if (found.length !== uniqueCollections.length) errors.collectionIds = "One or more collections no longer exist.";
+    const found = lookups
+      ? uniqueCollections.filter((id) => lookups.collections.has(id)).length
+      : (await tx.select({ id: collections.id }).from(collections).where(inArray(collections.id, uniqueCollections))).length;
+    if (found !== uniqueCollections.length) errors.collectionIds = "One or more collections no longer exist.";
   }
   if (p.vendorId) {
-    const [vendor] = await tx.select({ id: vendors.id }).from(vendors).where(eq(vendors.id, p.vendorId)).limit(1);
-    if (!vendor) errors.vendorId = "Choose an existing vendor.";
+    const exists = lookups ? lookups.vendors.has(p.vendorId) : Boolean((await tx.select({ id: vendors.id }).from(vendors).where(eq(vendors.id, p.vendorId)).limit(1))[0]);
+    if (!exists) errors.vendorId = "Choose an existing vendor.";
   }
   if (p.status === "active") {
     if (!p.images.length) {
-      const [parent] = p.parentId ? await tx.select({ images: parentProducts.images }).from(parentProducts).where(eq(parentProducts.id, p.parentId)).limit(1) : [];
-      if (!parent?.images.length) errors.images = "Add at least one image before activating.";
+      const parentImages = !p.parentId
+        ? []
+        : lookups
+          ? (lookups.parentImages.get(p.parentId) ?? [])
+          : ((await tx.select({ images: parentProducts.images }).from(parentProducts).where(eq(parentProducts.id, p.parentId)).limit(1))[0]?.images ?? []);
+      if (!parentImages.length) errors.images = "Add at least one image before activating.";
     }
-    const [rate] = await tx
-      .select({ metal: metalRates.metal })
-      .from(metalRates)
-      .where(and(eq(metalRates.metal, p.metal), eq(metalRates.purity, p.purity)))
-      .limit(1);
-    if (!rate) errors.status = `Set a ${purityLabels[p.purity]} ${p.metal} rate in Pricing before activating.`;
+    const hasRate = lookups
+      ? lookups.rates.has(`${p.metal}:${p.purity}`)
+      : Boolean(
+          (
+            await tx
+              .select({ metal: metalRates.metal })
+              .from(metalRates)
+              .where(and(eq(metalRates.metal, p.metal), eq(metalRates.purity, p.purity)))
+              .limit(1)
+          )[0],
+        );
+    if (!hasRate) errors.status = `Set a ${purityLabels[p.purity]} ${p.metal} rate in Pricing before activating.`;
   }
   if (Object.keys(errors).length) throw invalid(errors);
 }
