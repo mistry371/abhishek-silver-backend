@@ -15,6 +15,13 @@
       "when": 1789995839446,
       "tag": "0001_parent_products",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790069896701,
+      "tag": "0002_gifting_category",
+      "breakpoints": true
     }
   ]
 }
